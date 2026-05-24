@@ -20,9 +20,24 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "common" });
+  const title = `${t("brand_name")} · ${t("brand_tagline")}`;
+  const description = t("brand_tagline");
   return {
-    title: `${t("brand_name")} · ${t("brand_tagline")}`,
-    description: t("brand_tagline"),
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      locale: locale === "zh" ? "zh_CN" : "en_US",
+      type: "website",
+      images: [{ url: "/og-image.jpg", width: 1536, height: 864, alt: title }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: ["/og-image.jpg"],
+    },
   };
 }
 
