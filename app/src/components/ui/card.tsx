@@ -1,5 +1,6 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
+import { CoverImage } from "./cover-image";
 
 export function Card({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
   return (
@@ -13,15 +14,28 @@ export function Card({ className, ...props }: React.HTMLAttributes<HTMLDivElemen
   );
 }
 
-export function CardCover({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
+export function CardCover({
+  className,
+  src,
+  alt,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement> & { src?: string | null; alt?: string }) {
   return (
     <div
       className={cn(
-        "aspect-video w-full border-b border-border-default bg-gradient-to-br from-paper-300 to-paper-400",
+        "relative aspect-video w-full overflow-hidden border-b border-border-default bg-gradient-to-br from-paper-300 to-paper-400",
         className,
       )}
       {...props}
-    />
+    >
+      {src ? (
+        <CoverImage
+          src={src}
+          alt={alt ?? ""}
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+      ) : null}
+    </div>
   );
 }
 

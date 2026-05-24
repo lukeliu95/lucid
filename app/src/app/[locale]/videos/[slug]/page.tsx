@@ -155,7 +155,13 @@ export default async function VideoDetailPage({
               href={`/people/${video.person.slug}`}
               className="flex items-center gap-2.5 py-1.5"
             >
-              <div className="h-8 w-8 rounded-full border border-border-default bg-gradient-to-br from-paper-300 to-paper-400" />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={`/avatars/${video.person.slug}.jpg`}
+                alt={localized(video.person, "name", locale)}
+                loading="lazy"
+                className="h-8 w-8 rounded-full border border-border-default object-cover"
+              />
               <span className="font-serif text-base text-ink-900">
                 {localized(video.person, "name", locale)}
               </span>

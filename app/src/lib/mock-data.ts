@@ -266,11 +266,19 @@ const videoSeeds: VideoSeed[] = [
 
 const peopleByslug = Object.fromEntries(peopleSeed.map((p) => [p.slug, p]));
 
+// Only real 11-char YouTube IDs have valid thumbnails; draft placeholders
+// (e.g. "kp001", "abcdEF12345") would 404 → leave cover empty for the gradient.
+const VALID_YT_ID = /^[A-Za-z0-9_-]{11}$/;
+const coverFor = (platformId: string): string =>
+  VALID_YT_ID.test(platformId) && platformId !== "abcdEF12345"
+    ? `https://i.ytimg.com/vi/${platformId}/maxresdefault.jpg`
+    : "";
+
 export const videoCards: VideoCard[] = videoSeeds.map((v) => ({
   slug: v.slug,
   title_zh: v.title_zh,
   title_en: v.title_en,
-  cover_url: `https://i.ytimg.com/vi/${v.platform_id}/maxresdefault.jpg`,
+  cover_url: coverFor(v.platform_id),
   person: personRef(peopleByslug[v.person_slug]),
   duration_sec: v.duration_sec,
   topics: v.topic_slugs.map((s) => topicMap[s]),
