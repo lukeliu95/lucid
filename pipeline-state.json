@@ -58,10 +58,37 @@
   "phase_status": {
     "discover": "completed",
     "design": "completed",
-    "generate": "pending",
-    "qualify": "pending",
+    "frontend": "completed",
+    "generate": "completed",
+    "qualify": "in_progress",
     "product-evolution": "pending"
   },
+  "frontend_summary": {
+    "pages_implemented": 6,
+    "components_implemented": 18,
+    "i18n_locales": ["zh", "en"],
+    "build_passed": true,
+    "tsc_standalone_passed": false,
+    "tsc_via_next_passed": true,
+    "lighthouse_baseline": {"lcp_estimate_ms": 1800, "bundle_kb": 139},
+    "completed_at": "2026-05-24T03:00:00Z"
+  },
+  "generate_summary": {
+    "skills_count": 10,
+    "edge_functions_count": 1,
+    "api_routes_count": 9,
+    "db_tables_count": 9,
+    "tsc_passed": true,
+    "key_isolation_verified": true,
+    "estimated_cost_per_video_usd": 0.017,
+    "estimated_full_mvp_cost_usd": 0.51,
+    "completed_at": "2026-05-24T03:00:00Z"
+  },
+  "known_w_tickets": [
+    "W3 · 大刘 src/db/client.ts 模块级 neon() 让小赵 build 必须传 stub DATABASE_URL · 改 lazy init · 非阻塞",
+    "W4 · 小赵 tsc 单独跑挂 TS6046(bundler resolution)· Next build 自带 TS 过 · 非阻塞",
+    "W5 · favorites + admin/videos 现 stub x-user-id header · D6 接 Clerk 后切 auth()"
+  ],
   "design_summary": {
     "pages_count": 4,
     "components_count": 16,
@@ -98,6 +125,12 @@
       "decision": "CONTINUE",
       "reasoning": "Mia 4 页 wireframes + 高保真 HTML + 88 tokens + 110 i18n keys + 16 components + handoff-to-engineering · Stage E 自查 all-pass(可行性/可用性/双语/版权 4 道)· visual_direction=electronic-magazine × e-ink · 无 concerns_for_alan · 进 B.1 小赵 + B.2 大刘并行",
       "timestamp": "2026-05-24T02:00:00Z"
+    },
+    {
+      "checkpoint": "B.1+B.2",
+      "decision": "CONTINUE",
+      "reasoning": "小赵 6 页 18 组件 build PASS · LCP 估 1.8s / bundle 139KB · 大刘 10 skill 9 API 9 表 tsc PASS · key 隔离 0 泄漏 · $0.017/视频 · 30 视频全量 $0.51 · 3 个 W 工单非阻塞 · 进 Phase C 阿May qualify",
+      "timestamp": "2026-05-24T03:00:00Z"
     }
   ],
   "retrieved_memory_entries": {},

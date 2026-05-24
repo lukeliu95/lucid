@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-serif: "Source Serif Pro", "Source Han Serif SC", "Noto Serif SC", Georgia, serif;
+  --font-sans: "Inter", "Source Han Sans SC", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", Menlo, monospace;
+}
+
+html, body {
+  background: #F8F5EE;
+  color: #1A1612;
+  font-family: var(--font-serif);
+  font-size: 17px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+* { box-sizing: border-box; }
+
+::selection { background: #FEF3E2; color: #B45309; }
+
+*:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.3);
+  border-radius: 4px;
+}
+
+mark {
+  background: #FEF3E2;
+  color: #B45309;
+  padding: 0 2px;
+  border-radius: 2px;
+}
+
+/* Smooth scroll for timeline jumps */
+html { scroll-behavior: smooth; }
+
+/* Mobile guard banner (< 768) */
+.mobile-hint-banner {
+  display: none;
+  padding: 12px 16px;
+  background: #FEF3E2;
+  color: #B45309;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  text-align: center;
+  border-bottom: 1px solid #E5DFD0;
+}
+@media (max-width: 767px) {
+  .mobile-hint-banner { display: block; }
+}

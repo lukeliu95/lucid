@@ -1,0 +1,169 @@
+{
+  "common": {
+    "brand_name": "kdsj",
+    "brand_tagline": "Long talks, two-minute reads",
+    "locale_zh": "Chinese",
+    "locale_en": "English",
+    "search_placeholder": "Search videos, people, topics",
+    "search_shortcut_hint": "⌘ K",
+    "read_more": "Read more",
+    "back_to_home": "← Back to home",
+    "share": "Share",
+    "loading": "Loading…",
+    "error": "Something went wrong · Retry",
+    "empty": "Nothing here yet",
+    "coming_soon": "Processing",
+    "try_again": "Try again",
+    "see_all": "See all",
+    "minutes": "min",
+    "hours": "hour"
+  },
+  "nav": {
+    "home": "Home",
+    "topics": "Topics",
+    "people": "People",
+    "search": "Search",
+    "login": "Sign in",
+    "logout": "Sign out",
+    "my_favorites": "My favorites",
+    "admin": "Admin",
+    "locale_toggle_aria": "Switch language"
+  },
+  "home": {
+    "hero": {
+      "label": "Today's read",
+      "cta": "Read full →"
+    },
+    "section": {
+      "topics": "Topics",
+      "people": "People",
+      "latest": "Latest curated"
+    },
+    "load_more": "Load more",
+    "empty_grid": "Content is being curated"
+  },
+  "video": {
+    "summary": { "label": "One-sentence summary" },
+    "keypoints": {
+      "label": "Key points",
+      "hint_hover": "Hover for source · click to seek"
+    },
+    "tier": {
+      "quick": "Quick read",
+      "deep": "Deep dive"
+    },
+    "timeline": { "label": "Timeline" },
+    "source": {
+      "label": "Source",
+      "original_link": "Watch on {platform} ↗"
+    },
+    "related": {
+      "people": "Related people",
+      "topics": "Related topics"
+    },
+    "favorite": {
+      "add": "Favorite",
+      "added": "Favorited",
+      "login_hint": "Sign in to favorite"
+    },
+    "ai_status": {
+      "pending": "AI processing · player only",
+      "failed": "AI processing failed · ops notified"
+    },
+    "skip_to_summary": "Skip to summary"
+  },
+  "person": {
+    "bio": "Bio",
+    "signature_views": "Signature views",
+    "related_videos": "Related videos",
+    "signature_views_generating": "Generating signature views",
+    "no_videos": "No demo videos yet",
+    "cite_prefix": "from"
+  },
+  "topic": {
+    "intro": "About this topic",
+    "videos_count": "{count} videos",
+    "related_people": "Key guests",
+    "slug": {
+      "ai": "AI",
+      "ai-agent": "AI Agent",
+      "startup": "Startup",
+      "chip": "Chip",
+      "future-of-work": "Future of Work"
+    }
+  },
+  "search": {
+    "title": "Search \"{query}\"",
+    "count": "{count} results",
+    "mode": {
+      "keyword": "Keyword",
+      "semantic": "Semantic"
+    },
+    "section": {
+      "videos": "Videos",
+      "people": "People",
+      "topics": "Topics"
+    },
+    "empty": "No results for \"{query}\"",
+    "empty_suggest": "Try a popular topic:"
+  },
+  "auth": {
+    "signin": {
+      "title": "Sign in",
+      "continue_google": "Continue with Google",
+      "continue_email": "Continue with email",
+      "email_placeholder": "Email address",
+      "submit": "Send magic link",
+      "terms": "By signing in you agree to Terms and Privacy",
+      "redirect_hint": "We'll bring you back to where you were"
+    }
+  },
+  "me": {
+    "title": "My space",
+    "favorites": {
+      "title": "My favorites",
+      "empty": "Nothing favorited yet · explore Home",
+      "count": "{count} favorites"
+    }
+  },
+  "admin": {
+    "title": "Admin",
+    "video": {
+      "new": "New video",
+      "url_label": "Video URL",
+      "url_placeholder": "https://www.youtube.com/watch?v=...",
+      "platform": "Platform",
+      "person": "Guest",
+      "topics": "Topics",
+      "submit": "Submit & process",
+      "submitting": "Processing…"
+    },
+    "status": {
+      "pending": "Pending",
+      "asr_done": "ASR done",
+      "ai_done": "AI done",
+      "failed": "Failed"
+    },
+    "review": {
+      "edit": "Review & edit",
+      "save": "Save",
+      "saved": "Saved"
+    }
+  },
+  "footer": {
+    "copyright": "© 2026 kdsj-world · curated by Simprr",
+    "author_link": "x.com/simprr",
+    "about": "About",
+    "privacy": "Privacy",
+    "terms": "Terms",
+    "tagline": "Explainer and gateway to long-form"
+  },
+  "a11y": {
+    "skip_to_main": "Skip to main content",
+    "player_label": "Video player",
+    "tabs_label": "Explanation depth",
+    "timeline_label": "Video timeline navigation",
+    "search_results_live": "{count} results found"
+  },
+  "mobile_hint": "For the best experience, view on desktop"
+}

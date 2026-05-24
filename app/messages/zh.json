@@ -1,0 +1,169 @@
+{
+  "common": {
+    "brand_name": "看懂世界",
+    "brand_tagline": "把长访谈变成两分钟读懂",
+    "locale_zh": "中文",
+    "locale_en": "English",
+    "search_placeholder": "搜索视频、人物、主题",
+    "search_shortcut_hint": "⌘ K",
+    "read_more": "阅读全文",
+    "back_to_home": "← 返回 首页",
+    "share": "分享",
+    "loading": "加载中…",
+    "error": "出错了 · 重试",
+    "empty": "暂无内容",
+    "coming_soon": "处理中",
+    "try_again": "重试",
+    "see_all": "查看全部",
+    "minutes": "分钟",
+    "hours": "小时"
+  },
+  "nav": {
+    "home": "首页",
+    "topics": "主题",
+    "people": "人物",
+    "search": "搜索",
+    "login": "登录",
+    "logout": "退出登录",
+    "my_favorites": "我的收藏",
+    "admin": "后台",
+    "locale_toggle_aria": "切换语言"
+  },
+  "home": {
+    "hero": {
+      "label": "今日精读 · Today's read",
+      "cta": "阅读全文 →"
+    },
+    "section": {
+      "topics": "主题",
+      "people": "人物",
+      "latest": "最新精选"
+    },
+    "load_more": "加载更多",
+    "empty_grid": "内容正在导入中"
+  },
+  "video": {
+    "summary": { "label": "一句话总结 · One-sentence summary" },
+    "keypoints": {
+      "label": "核心观点 · Key points",
+      "hint_hover": "悬停查看原文锚点 · 点击跳秒"
+    },
+    "tier": {
+      "quick": "成人速懂",
+      "deep": "深度版"
+    },
+    "timeline": { "label": "时间轴 · Timeline" },
+    "source": {
+      "label": "来源 · Source",
+      "original_link": "在 {platform} 看原片 ↗"
+    },
+    "related": {
+      "people": "相关人物 · Related people",
+      "topics": "相关主题 · Related topics"
+    },
+    "favorite": {
+      "add": "收藏",
+      "added": "已收藏",
+      "login_hint": "登录后可收藏"
+    },
+    "ai_status": {
+      "pending": "AI 处理中 · 仅播放器可见",
+      "failed": "AI 处理失败 · 已通知运营"
+    },
+    "skip_to_summary": "跳过播放器到摘要"
+  },
+  "person": {
+    "bio": "简介",
+    "signature_views": "代表观点 · Signature views",
+    "related_videos": "相关视频 · Related videos",
+    "signature_views_generating": "代表观点生成中",
+    "no_videos": "尚无 demo 视频",
+    "cite_prefix": "引自"
+  },
+  "topic": {
+    "intro": "主题简介 · About this topic",
+    "videos_count": "{count} 期视频",
+    "related_people": "关键嘉宾 · Key guests",
+    "slug": {
+      "ai": "AI",
+      "ai-agent": "AI Agent",
+      "startup": "创业",
+      "chip": "芯片",
+      "future-of-work": "未来工作"
+    }
+  },
+  "search": {
+    "title": "搜索 \"{query}\"",
+    "count": "共 {count} 条",
+    "mode": {
+      "keyword": "关键词",
+      "semantic": "语义"
+    },
+    "section": {
+      "videos": "视频",
+      "people": "人物",
+      "topics": "主题"
+    },
+    "empty": "没找到 \"{query}\" 相关内容",
+    "empty_suggest": "试试热门主题:"
+  },
+  "auth": {
+    "signin": {
+      "title": "登录",
+      "continue_google": "用 Google 继续",
+      "continue_email": "用邮箱继续",
+      "email_placeholder": "邮箱地址",
+      "submit": "发送登录链接",
+      "terms": "登录即同意 服务条款 与 隐私政策",
+      "redirect_hint": "登录后将回到原页面"
+    }
+  },
+  "me": {
+    "title": "我的",
+    "favorites": {
+      "title": "我的收藏",
+      "empty": "还没有收藏 · 去 首页 逛逛",
+      "count": "{count} 个收藏"
+    }
+  },
+  "admin": {
+    "title": "后台",
+    "video": {
+      "new": "添加视频",
+      "url_label": "视频 URL",
+      "url_placeholder": "https://www.youtube.com/watch?v=...",
+      "platform": "平台",
+      "person": "嘉宾",
+      "topics": "主题",
+      "submit": "提交并处理",
+      "submitting": "处理中…"
+    },
+    "status": {
+      "pending": "待处理",
+      "asr_done": "ASR 完成",
+      "ai_done": "AI 完成",
+      "failed": "失败"
+    },
+    "review": {
+      "edit": "校对编辑",
+      "save": "保存",
+      "saved": "已保存"
+    }
+  },
+  "footer": {
+    "copyright": "© 2026 看懂世界 · 由 Simprr 策划",
+    "author_link": "x.com/simprr",
+    "about": "关于",
+    "privacy": "隐私",
+    "terms": "条款",
+    "tagline": "长内容的解释器与入口"
+  },
+  "a11y": {
+    "skip_to_main": "跳到主内容",
+    "player_label": "视频播放器",
+    "tabs_label": "解释深度",
+    "timeline_label": "视频时间轴导航",
+    "search_results_live": "已找到 {count} 条结果"
+  },
+  "mobile_hint": "建议在桌面浏览器访问以获得最佳体验"
+}

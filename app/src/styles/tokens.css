@@ -1,0 +1,35 @@
+/* Design tokens · derived from docs/design/tokens/design-tokens.json (DTCG)
+ * Do not edit by hand · regenerate from the canonical token file.
+ */
+:root {
+  --ink-950: #0E0C0A;
+  --ink-900: #1A1612;
+  --ink-700: #3D3530;
+  --ink-500: #6B5F54;
+  --ink-300: #A89E92;
+
+  --paper-50:  #FFFDF8;
+  --paper-100: #F8F5EE;
+  --paper-200: #F0EBE0;
+  --paper-300: #E5DFD0;
+  --paper-400: #D1C9B5;
+
+  --amber-50:  #FEF3E2;
+  --amber-600: #D97706;
+  --amber-700: #B45309;
+
+  --bg: var(--paper-100);
+  --bg-elev: var(--paper-50);
+  --bg-subtle: var(--paper-200);
+  --border: var(--paper-300);
+  --border-strong: var(--paper-400);
+  --text: var(--ink-900);
+  --text-muted: var(--ink-500);
+  --link: var(--amber-600);
+  --link-hover: var(--amber-700);
+
+  --container: 1280px;
+  --pad: 64px;
+  --header-h: 64px;
+  --content-max: 680px;
+}
