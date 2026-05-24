@@ -4,7 +4,16 @@ import { localized } from "@/lib/utils";
 export function PersonHero({ person, locale }: { person: PersonDetail; locale: Locale }) {
   return (
     <section className="grid grid-cols-1 gap-12 py-16 md:grid-cols-[240px_1fr]">
-      <div className="h-[200px] w-[200px] rounded-lg border border-border-default bg-gradient-to-br from-paper-300 to-paper-400" />
+      {person.avatar_url ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={person.avatar_url}
+          alt={localized(person, "name", locale)}
+          className="h-[200px] w-[200px] rounded-lg border border-border-default object-cover"
+        />
+      ) : (
+        <div className="h-[200px] w-[200px] rounded-lg border border-border-default bg-gradient-to-br from-paper-300 to-paper-400" />
+      )}
       <div>
         <h1 className="text-7xl font-bold tracking-tight text-ink-950">
           {localized(person, "name", locale)}
