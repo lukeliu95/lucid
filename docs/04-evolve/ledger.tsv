@@ -1,0 +1,2 @@
+round	mode	agents	score_before	score_after	delta	fixes	deferred	point_fixes	general_fixes	status	ceo_decision	commit	timestamp
+1	maintain	老吴 (solo · single-shot)	0.78	0.92	+0.14	4	1	0	5	KEPT	KEPT (5 candidates: C1 KEPT / C2 KEPT-as-doc / C3 KEPT / C4 PARTIAL+DEFERRED / C5 KEPT)	pending-alan-commit	2026-05-25T00:00:00Z
