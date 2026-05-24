@@ -1,0 +1,98 @@
+{
+  "schema_version": "4.7",
+  "project_name": "kdsj-world",
+  "project_display_name": "看懂世界",
+  "output_dir": "/Users/lukeliu/gei-workspace/output/kdsj-world",
+  "customer_anon_id": "self-simprr",
+  "path": "A",
+  "current_phase": "discover",
+  "status": "in_progress",
+  "created_at": "2026-05-24T00:00:00Z",
+  "updated_at": "2026-05-24T00:00:00Z",
+  "intake": {
+    "completed_at": "2026-05-24T00:00:00Z",
+    "intent_brief_path": "docs/01-discover/intent-brief.md",
+    "rounds": 5,
+    "killed_requirements": [
+      "5 档分层解释 → 2 档",
+      "用户提交链接 + 异步队列(v1.1+)",
+      "复杂推荐系统(编辑精选替代)",
+      "7 命名候选 + 移动响应式(v1.1+)",
+      "全领域内容(只做 AI/科技/商业)",
+      "1000 视频 → 30 视频 MVP",
+      "完整后台 8 模块 → 极简 CRUD",
+      "知识图谱 / 学习路径(v2.0)"
+    ],
+    "p0_answers": {
+      "seed_users": "Alan 自己 + 朋友圈 + Twitter @simprr",
+      "subtitle_source": "YouTube/平台公开字幕优先 + 本地 Whisper ASR 兜底",
+      "llm_choice": "DeepSeek-v4-pro 唯一 · Edge Function 代理",
+      "self_as_user": true,
+      "bilingual_scope": "MVP 必须 UI + 内容摘要双语"
+    }
+  },
+  "confirmed_params": {
+    "project_type": "hybrid",
+    "stack_hint": {
+      "framework": "Next.js 15 App Router",
+      "ui": "shadcn/ui + Tailwind",
+      "deploy": "Vercel",
+      "db": "Neon Postgres + pgvector",
+      "llm": "DeepSeek-v4-pro (Edge Function proxy)",
+      "asr": "Whisper local",
+      "i18n": "next-intl",
+      "auth": "未定 · 可能 Clerk / NextAuth · 老周裁"
+    },
+    "scale": {
+      "videos_mvp": 30,
+      "people_mvp": 10,
+      "topics_mvp": 5
+    },
+    "deadline": "2026-05-31",
+    "bilingual": ["zh-CN", "en"],
+    "max_parallel_skills": 5,
+    "threshold": 85,
+    "trials_per_case": 3,
+    "cases_count_per_skill": 5
+  },
+  "phase_status": {
+    "discover": "completed",
+    "generate": "pending",
+    "qualify": "pending",
+    "product-evolution": "pending"
+  },
+  "discover_summary": {
+    "requirements_count": 21,
+    "skills_count": 10,
+    "ui_modules_count": 12,
+    "killed_count": 8,
+    "completed_at": "2026-05-24T01:00:00Z"
+  },
+  "alan_late_call_phase_a": {
+    "auth": "Clerk (Vercel Marketplace · 沿用 bazi-studio 未踩成熟方案)",
+    "orm": "Drizzle (Edge Function 友好 · 比 Prisma 在 Edge 少坑)",
+    "embedding_model": "OpenAI text-embedding-3-small ($0.02/1M · 30 视频成本可忽略 · DeepSeek 暂无原生 embedding)",
+    "i18n_lib": "next-intl (Next.js 15 App Router 标配)",
+    "decided_by": "Alan (CEO · 现场拍板 · 老周裁决项吸收)"
+  },
+  "skill_status": {},
+  "reflections": [
+    {
+      "checkpoint": "A",
+      "decision": "CONTINUE",
+      "reasoning": "21 REQ / 10 skill / 12 UI / 30 视频清单完整 · 所有 P0 已答 · scope_complete=true · 双语约束已贯穿 DB 拆 _zh/_en 双字段 · 老周裁决项(Auth/ORM/embedding/i18n)Alan 现场拍板替代 · 进 Phase B.0 Mia design",
+      "timestamp": "2026-05-24T01:00:00Z"
+    }
+  ],
+  "retrieved_memory_entries": {},
+  "branding": {
+    "author": "Simprr",
+    "author_url": "https://x.com/simprr",
+    "footer_required": true
+  },
+  "notes": [
+    "5-24 Intake 锁单 · 5 round 收口 · push-back 1000→30 视频成功",
+    "沿用 bazi-studio Edge Function 架构(key 仅服务端 + 月度 rate limit)",
+    "Phase D 巡检默认可选 · enabled=true 上线后跑"
+  ]
+}
