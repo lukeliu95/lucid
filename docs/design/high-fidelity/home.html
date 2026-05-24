@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>看懂世界 · 首页 mockup</title>
+<link rel="stylesheet" href="_shared.css">
+<style>
+  /* Home specific */
+  .hero { padding: 64px 0 80px; border-bottom: 1px solid var(--border); }
+  .hero .label { margin-bottom: 16px; }
+  .hero-title { font-size: 44px; line-height: 1.2; letter-spacing: -0.02em; color: var(--ink-950); font-weight: 700; max-width: 920px; }
+  .hero-summary {
+    font-size: 28px; line-height: 1.4; color: var(--amber-700);
+    margin-top: 24px; max-width: 800px; font-weight: 400;
+    border-left: 4px solid var(--amber-600); padding-left: 24px;
+  }
+  .hero-summary::before { content: "「"; }
+  .hero-summary::after  { content: "」"; }
+  .hero-cta { margin-top: 32px; font-family: var(--font-sans); font-size: 15px; color: var(--link); font-weight: 600; }
+
+  .topic-strip {
+    display: flex; align-items: center; gap: 24px;
+    padding: 20px 0; border-bottom: 1px solid var(--border);
+    font-size: 18px;
+  }
+  .topic-strip a { color: var(--ink-700); }
+  .topic-strip a:hover, .topic-strip a.active { color: var(--amber-600); }
+  .topic-strip .sep { color: var(--ink-300); }
+
+  .person-rail { padding: 32px 0; border-bottom: 1px solid var(--border); }
+  .person-rail .label { margin-bottom: 16px; }
+  .person-rail-list { display: flex; gap: 32px; overflow-x: auto; padding-bottom: 8px; }
+  .person-item { display: flex; flex-direction: column; align-items: center; gap: 8px; min-width: 80px; }
+  .person-avatar {
+    width: 64px; height: 64px; border-radius: var(--radius-full);
+    background: linear-gradient(135deg, var(--paper-300), var(--paper-400));
+    border: 1px solid var(--border);
+  }
+  .person-name { font-family: var(--font-sans); font-size: 13px; color: var(--ink-700); }
+
+  .grid-section { padding: 48px 0 32px; }
+  .grid-section h2 { margin-bottom: 24px; }
+  .grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+  .load-more { display: flex; justify-content: center; margin: 48px 0 0; }
+</style>
+</head>
+<body>
+
+<!-- ============ Header (C01) ============ -->
+<header class="header">
+  <div class="container header-inner">
+    <a href="#" class="logo">看懂世界 <small>kdsj</small></a>
+    <div class="search-bar">
+      <span>🔍</span>
+      <span>搜索视频、人物、主题</span>
+      <kbd>⌘K</kbd>
+    </div>
+    <a href="#" class="nav-link">主题 ▾</a>
+    <div class="locale-toggle">
+      <button class="active">中</button>
+      <button>EN</button>
+    </div>
+    <a href="#" class="avatar" aria-label="登录">👤</a>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ============ Hero (C05 variant=hero) ============ -->
+<section class="hero">
+  <div class="container">
+    <div class="label">今日精读 · Today's read</div>
+    <h1 class="hero-title">Dario Amodei:未来 5 年 powerful AI 全面到来</h1>
+    <p class="hero-summary">Anthropic CEO 描绘清晰路线图——2027 前我们将见到能完成博士级科研工作的 AI 系统。</p>
+    <a href="#" class="hero-cta">阅读全文 →</a>
+  </div>
+</section>
+
+<!-- ============ TopicStrip (C10) ============ -->
+<section class="container topic-strip">
+  <span class="label" style="margin-right: 8px;">主题</span>
+  <a href="#" class="active">AI</a><span class="sep">·</span>
+  <a href="#">AI Agent</a><span class="sep">·</span>
+  <a href="#">创业</a><span class="sep">·</span>
+  <a href="#">芯片</a><span class="sep">·</span>
+  <a href="#">未来工作</a>
+</section>
+
+<!-- ============ PersonRail (C11) ============ -->
+<section class="container person-rail">
+  <div class="label">人物</div>
+  <div class="person-rail-list">
+    <a href="#" class="person-item"><div class="person-avatar"></div><div class="person-name">Sam Altman</div></a>
+    <a href="#" class="person-item"><div class="person-avatar"></div><div class="person-name">Dario Amodei</div></a>
+    <a href="#" class="person-item"><div class="person-avatar"></div><div class="person-name">Demis Hassabis</div></a>
+    <a href="#" class="person-item"><div class="person-avatar"></div><div class="person-name">Andrej Karpathy</div></a>
+    <a href="#" class="person-item"><div class="person-avatar"></div><div class="person-name">Lex Fridman</div></a>
+    <a href="#" class="person-item"><div class="person-avatar"></div><div class="person-name">Naval Ravikant</div></a>
+    <a href="#" class="person-item"><div class="person-avatar"></div><div class="person-name">Jensen Huang</div></a>
+    <a href="#" class="person-item"><div class="person-avatar"></div><div class="person-name">Marc Andreessen</div></a>
+    <a href="#" class="person-item"><div class="person-avatar"></div><div class="person-name">Paul Graham</div></a>
+    <a href="#" class="person-item"><div class="person-avatar"></div><div class="person-name">Patrick Collison</div></a>
+  </div>
+</section>
+
+<!-- ============ Latest Grid (C03 × N) ============ -->
+<section class="container grid-section">
+  <h2 class="h2">最新精选</h2>
+  <div class="grid">
+    <article class="card">
+      <div class="card-cover"></div>
+      <div class="card-body">
+        <h3 class="card-title">Dario Amodei:未来 5 年 powerful AI 全面到来</h3>
+        <div class="card-meta meta">Dario Amodei · 47m · <span class="tag">AI</span></div>
+      </div>
+    </article>
+    <article class="card">
+      <div class="card-cover"></div>
+      <div class="card-body">
+        <h3 class="card-title">Andrej Karpathy 讲清楚 Agent 架构</h3>
+        <div class="card-meta meta">Andrej Karpathy · 1h12m · <span class="tag">AI Agent</span></div>
+      </div>
+    </article>
+    <article class="card">
+      <div class="card-cover"></div>
+      <div class="card-body">
+        <h3 class="card-title">Jensen Huang 谈芯片下一个十年</h3>
+        <div class="card-meta meta">Jensen Huang · 38m · <span class="tag">芯片</span></div>
+      </div>
+    </article>
+    <article class="card">
+      <div class="card-cover"></div>
+      <div class="card-body">
+        <h3 class="card-title">Paul Graham:0→1 创业心法</h3>
+        <div class="card-meta meta">Paul Graham · 52m · <span class="tag">创业</span></div>
+      </div>
+    </article>
+    <article class="card">
+      <div class="card-cover"></div>
+      <div class="card-body">
+        <h3 class="card-title">Sam Altman on the next 18 months</h3>
+        <div class="card-meta meta">Sam Altman · 1h05m · <span class="tag">AI</span></div>
+      </div>
+    </article>
+    <article class="card">
+      <div class="card-cover"></div>
+      <div class="card-body">
+        <h3 class="card-title">Naval:杠杆与判断力的复利</h3>
+        <div class="card-meta meta">Naval Ravikant · 28m · <span class="tag">创业</span></div>
+      </div>
+    </article>
+    <article class="card">
+      <div class="card-cover"></div>
+      <div class="card-body">
+        <h3 class="card-title">Demis Hassabis on AlphaFold & beyond</h3>
+        <div class="card-meta meta">Demis Hassabis · 1h22m · <span class="tag">AI</span></div>
+      </div>
+    </article>
+    <article class="card">
+      <div class="card-cover"></div>
+      <div class="card-body">
+        <h3 class="card-title">未来工作:AI 不替代,而是放大</h3>
+        <div class="card-meta meta">Tyler Cowen · 41m · <span class="tag">未来工作</span></div>
+      </div>
+    </article>
+  </div>
+  <div class="load-more"><button class="btn btn-ghost">加载更多</button></div>
+</section>
+
+</main>
+
+<!-- ============ Footer (C02) ============ -->
+<footer class="footer">
+  <div class="container footer-inner">
+    <p class="tagline">长内容的解释器与入口 · Explainer and gateway to long-form</p>
+    <div class="links">
+      <a href="#">AI</a>
+      <a href="#">AI Agent</a>
+      <a href="#">创业</a>
+      <a href="#">芯片</a>
+      <a href="#">未来工作</a>
+      <a href="#">关于</a>
+      <a href="#">隐私</a>
+    </div>
+    <p>© 2026 看懂世界 · 由 Simprr 策划 · <a href="https://x.com/simprr" target="_blank" rel="noopener">x.com/simprr</a></p>
+    <p class="muted">© 2026 kdsj-world · curated by Simprr · x.com/simprr</p>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>看懂世界 · 搜索结果 mockup</title>
+<link rel="stylesheet" href="_shared.css">
+<style>
+  .search-header { padding: 48px 0 24px; }
+  .search-q { font-size: 32px; line-height: 1.2; letter-spacing: -0.02em; color: var(--ink-950); font-weight: 700; }
+  .search-meta { margin-top: 8px; }
+
+  .mode-toggle {
+    display: inline-flex; align-items: center; gap: 0;
+    margin-top: 24px;
+    background: var(--bg-subtle); padding: 2px; border-radius: var(--radius);
+  }
+  .mode-toggle button {
+    padding: 6px 16px; font-family: var(--font-sans); font-size: 14px;
+    color: var(--text-muted); border-radius: 3px;
+  }
+  .mode-toggle button.active { background: var(--bg-elev); color: var(--link); font-weight: 600; box-shadow: 0 1px 2px rgba(0,0,0,0.04); }
+
+  .section { margin-top: 48px; }
+  .section-title {
+    font-size: 16px; font-family: var(--font-sans); font-weight: 600;
+    color: var(--ink-950); margin-bottom: 16px;
+    padding-bottom: 8px; border-bottom: 1px solid var(--border);
+  }
+  .section-title .count { color: var(--text-muted); font-weight: 400; margin-left: 6px; }
+
+  /* Horizontal video card */
+  .v-row {
+    display: grid; grid-template-columns: 200px 1fr; gap: 20px;
+    padding: 20px 0; border-bottom: 1px solid var(--border);
+    transition: background var(--t-fast);
+  }
+  .v-row:hover { background: var(--bg-elev); }
+  .v-thumb {
+    aspect-ratio: 16 / 9;
+    background: linear-gradient(135deg, var(--paper-300), var(--paper-400));
+    border-radius: var(--radius); border: 1px solid var(--border);
+  }
+  .v-body .v-title { font-family: var(--font-serif); font-size: 19px; line-height: 1.4; color: var(--ink-900); font-weight: 600; }
+  .v-body .v-meta { margin-top: 6px; }
+  .v-body .v-snippet { margin-top: 8px; font-size: 15px; color: var(--ink-700); line-height: 1.6; }
+
+  /* Person row */
+  .p-row {
+    display: grid; grid-template-columns: 64px 1fr; gap: 16px; align-items: center;
+    padding: 16px 0; border-bottom: 1px solid var(--border);
+  }
+  .p-row .pa {
+    width: 60px; height: 60px; border-radius: var(--radius-full);
+    background: linear-gradient(135deg, var(--paper-300), var(--paper-400));
+    border: 1px solid var(--border);
+  }
+  .p-name { font-family: var(--font-serif); font-size: 18px; color: var(--ink-900); font-weight: 600; }
+  .p-snippet { font-size: 14px; color: var(--text-muted); margin-top: 4px; }
+
+  /* Topic row */
+  .t-row {
+    display: flex; align-items: baseline; gap: 16px;
+    padding: 16px 0; border-bottom: 1px solid var(--border);
+  }
+  .t-slug { font-family: var(--font-serif); font-size: 22px; color: var(--amber-600); font-weight: 600; }
+  .t-snippet { font-size: 14px; color: var(--ink-700); }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="container header-inner">
+    <a href="home.html" class="logo">看懂世界 <small>kdsj</small></a>
+    <div class="search-bar" style="border-color: var(--border-strong);">
+      <span>🔍</span><span style="color: var(--ink-900);">agent</span>
+    </div>
+    <a href="#" class="nav-link">主题 ▾</a>
+    <div class="locale-toggle"><button class="active">中</button><button>EN</button></div>
+    <a href="#" class="avatar">👤</a>
+  </div>
+</header>
+
+<main id="main">
+<div class="container">
+
+  <section class="search-header">
+    <h1 class="search-q">搜索 "<mark>agent</mark>"</h1>
+    <p class="search-meta meta">共 15 条结果</p>
+    <div class="mode-toggle" role="tablist">
+      <button class="active">关键词</button>
+      <button>语义</button>
+    </div>
+  </section>
+
+  <!-- ============ Videos ============ -->
+  <section class="section" aria-live="polite">
+    <h2 class="section-title">视频 <span class="count">12</span></h2>
+
+    <a href="video-detail.html" class="v-row">
+      <div class="v-thumb"></div>
+      <div class="v-body">
+        <div class="v-title">Andrej Karpathy 讲清楚 <mark>Agent</mark> 架构</div>
+        <div class="v-meta meta">Andrej Karpathy · 1h12m · <span class="tag">AI Agent</span></div>
+        <p class="v-snippet">他在这期中详细解释 <mark>agent</mark> 架构如何区别于传统 LLM 调用,以及为什么"工具调用 + 状态记忆"是关键…</p>
+      </div>
+    </a>
+
+    <a href="#" class="v-row">
+      <div class="v-thumb"></div>
+      <div class="v-body">
+        <div class="v-title">Sam Altman 谈 <mark>agent</mark> 商业化</div>
+        <div class="v-meta meta">Sam Altman · 1h05m · <span class="tag">AI</span></div>
+        <p class="v-snippet">"未来 18 个月,真正改变工作方式的不是 chat,是 <mark>agent</mark> ——能持续运行的智能体…"</p>
+      </div>
+    </a>
+
+    <a href="#" class="v-row">
+      <div class="v-thumb"></div>
+      <div class="v-body">
+        <div class="v-title">Multi-<mark>agent</mark> 系统的真实工程挑战</div>
+        <div class="v-meta meta">Lilian Weng · 48m · <span class="tag">AI Agent</span></div>
+        <p class="v-snippet">从 ReAct 到 multi-<mark>agent</mark> orchestration,工程边界在哪里…</p>
+      </div>
+    </a>
+  </section>
+
+  <!-- ============ People ============ -->
+  <section class="section">
+    <h2 class="section-title">人物 <span class="count">2</span></h2>
+
+    <a href="person.html" class="p-row">
+      <div class="pa"></div>
+      <div>
+        <div class="p-name">Sam Altman</div>
+        <p class="p-snippet">CEO of OpenAI · 曾在 5 期视频中讨论 <mark>agent</mark> 商业化路径</p>
+      </div>
+    </a>
+
+    <a href="#" class="p-row">
+      <div class="pa"></div>
+      <div>
+        <div class="p-name">Andrej Karpathy</div>
+        <p class="p-snippet">独立 AI 研究者 · 系统讲解 <mark>agent</mark> 设计哲学</p>
+      </div>
+    </a>
+  </section>
+
+  <!-- ============ Topics ============ -->
+  <section class="section">
+    <h2 class="section-title">主题 <span class="count">1</span></h2>
+
+    <a href="#" class="t-row">
+      <span class="t-slug">#<mark>AI Agent</mark></span>
+      <span class="t-snippet">智能体路线 · 6 期视频 · 3 位关键嘉宾</span>
+    </a>
+  </section>
+
+</div>
+</main>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <p class="tagline">长内容的解释器与入口</p>
+    <p>© 2026 看懂世界 · 由 Simprr 策划 · <a href="https://x.com/simprr" target="_blank" rel="noopener">x.com/simprr</a></p>
+    <p class="muted">© 2026 kdsj-world · curated by Simprr · x.com/simprr</p>
+  </div>
+</footer>
+
+</body>
+</html>

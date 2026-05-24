@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>看懂世界 · 视频详情 mockup</title>
+<link rel="stylesheet" href="_shared.css">
+<style>
+  .back-link { display: inline-block; padding: 24px 0 16px; font-family: var(--font-sans); font-size: 14px; color: var(--text-muted); }
+
+  .video-grid {
+    display: grid; grid-template-columns: 8fr 4fr;
+    gap: 48px; padding-bottom: 96px;
+  }
+
+  /* Main col */
+  .player {
+    aspect-ratio: 16 / 9; background: #0a0a0a;
+    border-radius: var(--radius-lg); border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center; color: #555;
+    font-family: var(--font-sans); font-size: 14px;
+  }
+  .video-header { margin-top: 24px; }
+  .video-title { font-size: 36px; line-height: 1.25; letter-spacing: -0.02em; color: var(--ink-950); font-weight: 700; }
+  .video-byline { margin-top: 12px; }
+  .video-actions { display: flex; gap: 12px; margin-top: 20px; align-items: center; }
+  .fav-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 12px; border: 1px solid var(--border); border-radius: var(--radius);
+    font-family: var(--font-sans); font-size: 13px; color: var(--ink-700);
+    transition: all var(--t-fast);
+  }
+  .fav-btn:hover { color: var(--amber-600); border-color: var(--amber-600); background: var(--amber-50); }
+
+  .divider { height: 1px; background: var(--border); margin: 40px 0; }
+
+  /* Summary big quote */
+  .summary {
+    font-family: var(--font-serif); font-size: 28px; line-height: 1.4;
+    color: var(--amber-700); font-weight: 400;
+    border-left: 4px solid var(--amber-600); padding-left: 24px;
+    max-width: var(--content-max);
+  }
+  .summary::before { content: "「"; }
+  .summary::after { content: "」"; }
+
+  /* Keypoints */
+  .keypoints { list-style: none; max-width: var(--content-max); }
+  .keypoints li {
+    display: flex; align-items: baseline; gap: 12px;
+    padding: 14px 0; border-bottom: 1px solid var(--border);
+    font-size: 17px; line-height: 1.6;
+  }
+  .keypoints li:last-child { border-bottom: 0; }
+  .kp-dot { color: var(--amber-600); font-weight: bold; flex-shrink: 0; }
+  .kp-text { flex: 1; color: var(--ink-900); }
+  .kp-time { font-family: var(--font-sans); font-size: 13px; color: var(--link); flex-shrink: 0; }
+  .kp-time:hover { color: var(--link-hover); }
+
+  /* Tabs */
+  .tabs { max-width: var(--content-max); }
+  .tab-list { display: flex; gap: 8px; border-bottom: 1px solid var(--border); margin-bottom: 24px; }
+  .tab-btn {
+    padding: 12px 24px; font-family: var(--font-serif); font-size: 18px;
+    color: var(--text-muted); border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+  }
+  .tab-btn.active { color: var(--amber-600); border-bottom-color: var(--amber-600); font-weight: 600; }
+  .tab-btn:hover:not(.active) { color: var(--ink-900); }
+  .tab-content { min-height: 480px; font-size: 17px; line-height: 1.7; color: var(--ink-900); }
+  .tab-content p { margin-bottom: 18px; }
+
+  /* Sidebar */
+  .sidebar { position: sticky; top: calc(var(--header-h) + 24px); align-self: start; }
+  .side-block { padding: 20px 0; border-bottom: 1px solid var(--border); }
+  .side-block:last-child { border-bottom: 0; }
+  .side-title { font-family: var(--font-sans); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 16px; font-weight: 500; }
+
+  /* Timeline */
+  .timeline { list-style: none; }
+  .tl-item {
+    display: grid; grid-template-columns: 56px 1fr; gap: 8px;
+    padding: 8px 0 8px 12px;
+    border-left: 3px solid transparent;
+    cursor: pointer;
+    transition: all var(--t-fast);
+  }
+  .tl-item:hover { background: var(--bg-elev); }
+  .tl-item.active { border-left-color: var(--amber-600); background: var(--bg-elev); }
+  .tl-item.active .tl-title { color: var(--ink-950); font-weight: 600; }
+  .tl-time { font-family: var(--font-mono); font-size: 13px; color: var(--text-muted); }
+  .tl-title { font-family: var(--font-serif); font-size: 15px; color: var(--ink-700); }
+  .tl-item.active .tl-line { display: block; }
+  .tl-line { display: none; grid-column: 2; font-size: 13px; color: var(--text-muted); margin-top: 4px; line-height: 1.5; }
+
+  /* Source */
+  .src-row { display: flex; justify-content: space-between; padding: 4px 0; font-family: var(--font-sans); font-size: 13px; }
+  .src-row .l { color: var(--text-muted); }
+  .src-row .v { color: var(--ink-900); }
+  .src-link { display: block; margin-top: 12px; font-family: var(--font-sans); font-size: 13px; }
+
+  /* Related */
+  .related-person { display: flex; align-items: center; gap: 10px; padding: 6px 0; }
+  .related-person .pa { width: 32px; height: 32px; border-radius: var(--radius-full); background: linear-gradient(135deg, var(--paper-300), var(--paper-400)); border: 1px solid var(--border); }
+  .related-person .pn { font-family: var(--font-serif); font-size: 15px; color: var(--ink-900); }
+  .related-topics .tag { font-size: 13px; padding: 4px 10px; margin-bottom: 6px; display: inline-block; }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="container header-inner">
+    <a href="home.html" class="logo">看懂世界 <small>kdsj</small></a>
+    <div class="search-bar">
+      <span>🔍</span><span>搜索视频、人物、主题</span><kbd>⌘K</kbd>
+    </div>
+    <a href="#" class="nav-link">主题 ▾</a>
+    <div class="locale-toggle"><button class="active">中</button><button>EN</button></div>
+    <a href="#" class="avatar">👤</a>
+  </div>
+</header>
+
+<main id="main">
+<div class="container">
+  <a href="home.html" class="back-link">← 返回 首页</a>
+
+  <div class="video-grid">
+
+    <!-- ============ Main column ============ -->
+    <div>
+      <!-- C04 VideoEmbedPlayer -->
+      <div class="player">[ YouTube IFrame · enablejsapi=1 ]</div>
+
+      <!-- Title block -->
+      <div class="video-header">
+        <h1 class="video-title">未来 5 年:Powerful AI 将全面到来</h1>
+        <div class="video-byline meta">
+          Dario Amodei · 47:23 · YouTube · Lex Fridman Podcast
+          <a href="#" style="margin-left: 8px;">原片 ↗</a>
+        </div>
+        <div class="video-actions">
+          <!-- C12 FavoriteButton -->
+          <button class="fav-btn">♡ 收藏</button>
+          <!-- Per-page LocaleToggle (mirrors header) -->
+          <div class="locale-toggle"><button class="active">中</button><button>EN</button></div>
+          <button class="fav-btn">分享 ↗</button>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- C05 SummaryBlock variant=detail -->
+      <div class="label">一句话总结 · One-sentence summary</div>
+      <p class="summary" style="margin-top:16px;">Anthropic CEO 描绘清晰路线图——2027 前我们将见到能完成博士级科研工作的 powerful AI 系统。</p>
+
+      <div class="divider"></div>
+
+      <!-- C06 KeypointsList -->
+      <div class="label">核心观点 · Key points</div>
+      <ol class="keypoints" style="margin-top:16px;">
+        <li>
+          <span class="kp-dot">•</span>
+          <span class="kp-text">Powerful AI 不等同 AGI,但能完成大多数博士级科研任务,5 年内到来。</span>
+          <a href="#" class="kp-time">2:14 ↗</a>
+        </li>
+        <li>
+          <span class="kp-dot">•</span>
+          <span class="kp-text">安全研究(alignment)不是 AGI 之后的事,而是过程本身。</span>
+          <a href="#" class="kp-time">8:50 ↗</a>
+        </li>
+        <li>
+          <span class="kp-dot">•</span>
+          <span class="kp-text">Anthropic 的商业模型以 Claude API 为锚,而非 to-consumer 应用层。</span>
+          <a href="#" class="kp-time">15:12 ↗</a>
+        </li>
+        <li>
+          <span class="kp-dot">•</span>
+          <span class="kp-text">芯片与算力是物理瓶颈,但不会成为 2027 前的硬限制。</span>
+          <a href="#" class="kp-time">22:00 ↗</a>
+        </li>
+        <li>
+          <span class="kp-dot">•</span>
+          <span class="kp-text">Anthropic 不追求 AGI 比赛第一,追求安全曲线第一。</span>
+          <a href="#" class="kp-time">28:30 ↗</a>
+        </li>
+      </ol>
+
+      <div class="divider"></div>
+
+      <!-- C08 TwoTierTabs -->
+      <div class="tabs">
+        <div class="label">解释深度 · Explanation depth</div>
+        <div class="tab-list" role="tablist" style="margin-top:16px;">
+          <button class="tab-btn active" role="tab" aria-selected="true">成人速懂</button>
+          <button class="tab-btn" role="tab" aria-selected="false">深度版</button>
+        </div>
+        <div class="tab-content" role="tabpanel">
+          <p>Dario 在这期访谈中给出了他对"powerful AI"何时到来的清晰时间表 —— 大约在 2027 年前后,我们就将见到能完成博士级科研工作的 AI 系统。他强调,这不是 AGI 的定义之争,而是一个实用主义的判断:当 AI 能持续地、可靠地完成需要多年博士训练才能完成的任务时,世界已经被改变。</p>
+          <p>关于安全,他给出了一个反直觉的结论 —— 安全研究并不是"等 AI 强了再做"的事,而是必须在过程中持续做。Anthropic 的整个组织设计,从 Claude 的 RLHF 到 Constitutional AI,都是这个思路的产物。</p>
+          <p>商业模式上,Anthropic 走的是 API-first 而非应用层的路线。这是一个相对克制的选择:把消费者应用层留给生态,自己专注做最底层的智能体能力供给。</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ============ Sidebar ============ -->
+    <aside class="sidebar">
+
+      <!-- C07 TimelineNav -->
+      <div class="side-block">
+        <div class="side-title">时间轴 · Timeline</div>
+        <ul class="timeline">
+          <li class="tl-item"><span class="tl-time">0:00</span><span class="tl-title">引子</span></li>
+          <li class="tl-item active">
+            <span class="tl-time">3:24</span>
+            <span class="tl-title">Agent 概念源起</span>
+            <div class="tl-line">从 RL 到 LLM-based agent 的演化</div>
+          </li>
+          <li class="tl-item"><span class="tl-time">8:50</span><span class="tl-title">模型选择</span></li>
+          <li class="tl-item"><span class="tl-time">15:12</span><span class="tl-title">商业化路径</span></li>
+          <li class="tl-item"><span class="tl-time">22:00</span><span class="tl-title">未来 5 年</span></li>
+          <li class="tl-item"><span class="tl-time">28:30</span><span class="tl-title">Q&A</span></li>
+        </ul>
+      </div>
+
+      <!-- C09 SourceCitation -->
+      <div class="side-block">
+        <div class="side-title">来源 · Source</div>
+        <div class="src-row"><span class="l">平台</span><span class="v">YouTube</span></div>
+        <div class="src-row"><span class="l">频道</span><span class="v">Lex Fridman Podcast</span></div>
+        <div class="src-row"><span class="l">发布</span><span class="v">2026-04-12</span></div>
+        <a href="#" class="src-link">在 YouTube 看原片 ↗</a>
+      </div>
+
+      <!-- C11 PersonAvatarRail mini -->
+      <div class="side-block">
+        <div class="side-title">相关人物 · Related people</div>
+        <a href="#" class="related-person">
+          <div class="pa"></div>
+          <div class="pn">Dario Amodei</div>
+        </a>
+      </div>
+
+      <!-- C10 TopicStrip mini -->
+      <div class="side-block related-topics">
+        <div class="side-title">相关主题 · Related topics</div>
+        <span class="tag">#AI</span>
+        <span class="tag">#未来工作</span>
+      </div>
+
+    </aside>
+
+  </div>
+</div>
+</main>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <p class="tagline">长内容的解释器与入口</p>
+    <p>© 2026 看懂世界 · 由 Simprr 策划 · <a href="https://x.com/simprr" target="_blank" rel="noopener">x.com/simprr</a></p>
+    <p class="muted">© 2026 kdsj-world · curated by Simprr · x.com/simprr</p>
+  </div>
+</footer>
+
+</body>
+</html>

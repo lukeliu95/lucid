@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>看懂世界 · 人物页 mockup</title>
+<link rel="stylesheet" href="_shared.css">
+<style>
+  .person-hero { display: grid; grid-template-columns: 240px 1fr; gap: 48px; padding: 64px 0; }
+  .person-avatar-lg {
+    width: 200px; height: 200px; border-radius: var(--radius-lg);
+    background: linear-gradient(135deg, var(--paper-300), var(--paper-400));
+    border: 1px solid var(--border);
+  }
+  .person-name { font-size: 44px; line-height: 1.15; letter-spacing: -0.02em; color: var(--ink-950); font-weight: 700; }
+  .person-title { margin-top: 8px; }
+  .person-bio { margin-top: 24px; font-size: 17px; line-height: 1.65; color: var(--ink-900); max-width: var(--content-max); }
+
+  .divider { height: 1px; background: var(--border); margin: 48px 0; }
+
+  .section-title { font-size: 24px; line-height: 1.25; color: var(--ink-950); font-weight: 600; margin-bottom: 24px; }
+
+  .views { display: flex; flex-direction: column; gap: 24px; max-width: 880px; }
+  .view {
+    border-left: 3px solid var(--amber-600); padding-left: 24px;
+  }
+  .view-quote { font-family: var(--font-serif); font-size: 22px; line-height: 1.5; color: var(--ink-900); font-style: italic; }
+  .view-quote::before { content: "❝ "; color: var(--amber-600); }
+  .view-quote::after { content: " ❞"; color: var(--amber-600); }
+  .view-cite { margin-top: 10px; font-family: var(--font-sans); font-size: 13px; color: var(--text-muted); }
+  .view-cite a { color: var(--link); }
+
+  .grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;
+  }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="container header-inner">
+    <a href="home.html" class="logo">看懂世界 <small>kdsj</small></a>
+    <div class="search-bar"><span>🔍</span><span>搜索视频、人物、主题</span><kbd>⌘K</kbd></div>
+    <a href="#" class="nav-link">主题 ▾</a>
+    <div class="locale-toggle"><button class="active">中</button><button>EN</button></div>
+    <a href="#" class="avatar">👤</a>
+  </div>
+</header>
+
+<main id="main">
+<div class="container">
+
+  <a href="home.html" style="display:inline-block;padding:24px 0 0;font-family:var(--font-sans);font-size:14px;color:var(--text-muted);">← 返回 人物</a>
+
+  <!-- Hero -->
+  <section class="person-hero">
+    <div class="person-avatar-lg"></div>
+    <div>
+      <h1 class="person-name">Dario Amodei</h1>
+      <p class="person-title meta">CEO of Anthropic · AI Safety Researcher</p>
+      <p class="person-bio">
+        Dario 是 Anthropic 联合创始人,前 OpenAI 研究副总裁。他在 GPT-2 / GPT-3 的早期工作中扮演了关键角色,2021 年与 Daniela 一起出走创办 Anthropic,目标是把 AI 安全研究做成一个营利性公司的核心商业逻辑而非外挂。
+        他的判断在 AI 圈内具有特殊权重——既是技术第一线,也是政策与公共讨论的常客。
+      </p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- Signature views (S5 aggregated) -->
+  <section>
+    <h2 class="section-title">代表观点 · Signature views</h2>
+    <div class="views">
+      <div class="view">
+        <p class="view-quote">安全 alignment 不是 AGI 之后的事,而是过程本身。</p>
+        <p class="view-cite">引自 <a href="#">Lex Fridman Podcast #428</a></p>
+      </div>
+      <div class="view">
+        <p class="view-quote">Anthropic 不追求 AGI 比赛第一,追求安全曲线第一。</p>
+        <p class="view-cite">引自 <a href="#">Dwarkesh Podcast 2026-03</a></p>
+      </div>
+      <div class="view">
+        <p class="view-quote">Powerful AI 5 年内会到来,我们必须准备。</p>
+        <p class="view-cite">引自 <a href="#">a16z talk 2026-04</a></p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- Related videos -->
+  <section>
+    <h2 class="section-title">相关视频 · Related videos</h2>
+    <div class="grid">
+      <article class="card">
+        <div class="card-cover"></div>
+        <div class="card-body">
+          <h3 class="card-title">未来 5 年:Powerful AI 将全面到来</h3>
+          <div class="card-meta meta">47m · <span class="tag">AI</span></div>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card-cover"></div>
+        <div class="card-body">
+          <h3 class="card-title">Constitutional AI 是什么</h3>
+          <div class="card-meta meta">32m · <span class="tag">AI</span></div>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card-cover"></div>
+        <div class="card-body">
+          <h3 class="card-title">Anthropic 的商业逻辑</h3>
+          <div class="card-meta meta">58m · <span class="tag">创业</span></div>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card-cover"></div>
+        <div class="card-body">
+          <h3 class="card-title">为什么 RLHF 不够</h3>
+          <div class="card-meta meta">41m · <span class="tag">AI</span></div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+</div>
+</main>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <p class="tagline">长内容的解释器与入口</p>
+    <p>© 2026 看懂世界 · 由 Simprr 策划 · <a href="https://x.com/simprr" target="_blank" rel="noopener">x.com/simprr</a></p>
+    <p class="muted">© 2026 kdsj-world · curated by Simprr · x.com/simprr</p>
+  </div>
+</footer>
+
+</body>
+</html>

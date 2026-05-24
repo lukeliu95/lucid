@@ -1,0 +1,143 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/",
+  "meta": {
+    "project": "kdsj-world",
+    "version": "1.0.0",
+    "visual_direction": "electronic-magazine-x-eink",
+    "author": "Mia"
+  },
+  "color": {
+    "ink": {
+      "950": { "value": "#0E0C0A", "comment": "纯墨 · 标题最深" },
+      "900": { "value": "#1A1612", "comment": "主文本" },
+      "700": { "value": "#3D3530", "comment": "次文本" },
+      "500": { "value": "#6B5F54", "comment": "muted · 元信息" },
+      "300": { "value": "#A89E92", "comment": "placeholder" }
+    },
+    "paper": {
+      "50":  { "value": "#FFFDF8", "comment": "页底 · 最亮" },
+      "100": { "value": "#F8F5EE", "comment": "主 bg · 暖白" },
+      "200": { "value": "#F0EBE0", "comment": "卡片 bg-subtle / hover" },
+      "300": { "value": "#E5DFD0", "comment": "细描边" },
+      "400": { "value": "#D1C9B5", "comment": "重描边 / divider" }
+    },
+    "accent": {
+      "amber-600": { "value": "#D97706", "comment": "主 accent · 链接 · 高亮 · CTA · active 节点" },
+      "amber-700": { "value": "#B45309", "comment": "hover" },
+      "amber-50":  { "value": "#FEF3E2", "comment": "高亮 bg · <mark>" }
+    },
+    "status": {
+      "success": { "value": "#15803D" },
+      "warning": { "value": "#CA8A04" },
+      "error":   { "value": "#B91C1C" },
+      "info":    { "value": "#1E40AF" }
+    },
+    "semantic": {
+      "bg":         { "value": "{color.paper.100}" },
+      "bg-elev":    { "value": "{color.paper.50}" },
+      "bg-subtle":  { "value": "{color.paper.200}" },
+      "border":     { "value": "{color.paper.300}" },
+      "border-strong": { "value": "{color.paper.400}" },
+      "text":       { "value": "{color.ink.900}" },
+      "text-muted": { "value": "{color.ink.500}" },
+      "link":       { "value": "{color.accent.amber-600}" },
+      "link-hover": { "value": "{color.accent.amber-700}" }
+    }
+  },
+  "typography": {
+    "font-family": {
+      "serif":     { "value": "'Source Serif Pro', 'Source Han Serif SC', 'Noto Serif SC', Georgia, serif", "comment": "主字体 · 标题 + 正文" },
+      "sans":      { "value": "'Inter', 'Source Han Sans SC', system-ui, sans-serif", "comment": "UI label · button · meta" },
+      "mono":      { "value": "'JetBrains Mono', 'Menlo', monospace" }
+    },
+    "font-size": {
+      "xs":   { "value": "12px" },
+      "sm":   { "value": "14px" },
+      "base": { "value": "16px" },
+      "md":   { "value": "17px", "comment": "正文衬线" },
+      "lg":   { "value": "18px" },
+      "xl":   { "value": "20px" },
+      "2xl":  { "value": "24px" },
+      "3xl":  { "value": "28px", "comment": "一句话总结 detail" },
+      "4xl":  { "value": "32px", "comment": "详情标题" },
+      "5xl":  { "value": "36px", "comment": "Hero 一句话" },
+      "6xl":  { "value": "40px", "comment": "人物名" }
+    },
+    "font-weight": {
+      "regular":  { "value": "400" },
+      "medium":   { "value": "500" },
+      "semibold": { "value": "600" },
+      "bold":     { "value": "700" }
+    },
+    "line-height": {
+      "tight":   { "value": "1.25", "comment": "标题" },
+      "snug":    { "value": "1.4" },
+      "normal":  { "value": "1.5" },
+      "relaxed": { "value": "1.65", "comment": "正文 · 衬线长文" },
+      "loose":   { "value": "1.8" }
+    },
+    "letter-spacing": {
+      "tight":  { "value": "-0.02em", "comment": "大字标题" },
+      "normal": { "value": "0" },
+      "wide":   { "value": "0.05em", "comment": "全大写 label" }
+    }
+  },
+  "spacing": {
+    "0":   { "value": "0" },
+    "1":   { "value": "4px" },
+    "2":   { "value": "8px" },
+    "3":   { "value": "12px" },
+    "4":   { "value": "16px" },
+    "5":   { "value": "20px" },
+    "6":   { "value": "24px" },
+    "8":   { "value": "32px" },
+    "10":  { "value": "40px" },
+    "12":  { "value": "48px" },
+    "16":  { "value": "64px" },
+    "20":  { "value": "80px" },
+    "24":  { "value": "96px" }
+  },
+  "radius": {
+    "none":  { "value": "0" },
+    "sm":    { "value": "2px" },
+    "base":  { "value": "4px", "comment": "默认 · 锐杂志感" },
+    "md":    { "value": "6px" },
+    "lg":    { "value": "8px", "comment": "卡片图片 / Avatar 方块" },
+    "full":  { "value": "9999px", "comment": "Avatar 圆 + 胶囊" }
+  },
+  "shadow": {
+    "none": { "value": "none" },
+    "sm":   { "value": "0 1px 2px rgba(26, 22, 18, 0.04)" },
+    "md":   { "value": "0 2px 8px rgba(26, 22, 18, 0.06)", "comment": "仅 modal / dropdown" },
+    "focus":{ "value": "0 0 0 3px rgba(217, 119, 6, 0.3)", "comment": "暖橘焦点环" }
+  },
+  "layout": {
+    "container-max":  { "value": "1280px" },
+    "container-pad":  { "value": "64px" },
+    "grid-cols":      { "value": "12" },
+    "grid-gutter":    { "value": "24px" },
+    "content-max":    { "value": "680px", "comment": "深度版长文 max-width" },
+    "header-h":       { "value": "64px" },
+    "footer-h":       { "value": "120px" }
+  },
+  "transition": {
+    "fast":   { "value": "150ms ease-out" },
+    "base":   { "value": "200ms ease-out" },
+    "slow":   { "value": "300ms ease-out" }
+  },
+  "breakpoint": {
+    "sm": { "value": "640px" },
+    "md": { "value": "768px", "comment": "MVP 下限 · 低于显示提示" },
+    "lg": { "value": "1024px" },
+    "xl": { "value": "1280px" },
+    "2xl":{ "value": "1440px", "comment": "主目标分辨率" }
+  },
+  "z-index": {
+    "base":    { "value": "0" },
+    "sticky":  { "value": "10" },
+    "header":  { "value": "30" },
+    "overlay": { "value": "40" },
+    "modal":   { "value": "50" },
+    "toast":   { "value": "60" }
+  }
+}
