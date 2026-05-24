@@ -22,7 +22,13 @@ export async function generateMetadata({
   const t = await getTranslations({ locale, namespace: "common" });
   const title = `${t("brand_name")} · ${t("brand_tagline")}`;
   const description = t("brand_tagline");
+  // Absolute base for OG / Twitter image resolution. Prefer the deployed URL
+  // (NEXT_PUBLIC_SITE_URL / Vercel) and fall back to localhost for dev.
+  const siteUrl =
+    process.env.NEXT_PUBLIC_SITE_URL ??
+    (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000");
   return {
+    metadataBase: new URL(siteUrl),
     title,
     description,
     openGraph: {
