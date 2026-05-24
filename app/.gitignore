@@ -8,3 +8,6 @@ dist
 .DS_Store
 .vercel
 next-env.d.ts
+
+# Playwright MCP screenshots / snapshots
+.playwright-mcp/

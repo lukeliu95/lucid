@@ -24,6 +24,7 @@ export async function Footer() {
             href="https://x.com/simprr"
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="Simprr on X (opens in new tab)"
             className="text-link hover:text-link-hover"
           >
             {t("footer.author_link")}

@@ -284,6 +284,7 @@ export const videoCards: VideoCard[] = videoSeeds.map((v) => ({
   topics: v.topic_slugs.map((s) => topicMap[s]),
   one_liner_zh: v.one_liner_zh,
   one_liner_en: v.one_liner_en,
+  is_draft: !VALID_YT_ID.test(v.platform_id) || v.platform_id === "abcdEF12345",
 }));
 
 export const videoDetails: VideoDetail[] = videoSeeds.map((v, i) => ({

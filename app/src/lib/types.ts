@@ -24,6 +24,8 @@ export type VideoCard = {
   topics: Topic[];
   one_liner_zh?: string;
   one_liner_en?: string;
+  /** true when the underlying video is still a placeholder (no real platform_id yet). */
+  is_draft?: boolean;
 };
 
 export type AIStatus = "pending" | "asr_done" | "ai_done" | "failed";
