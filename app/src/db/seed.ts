@@ -1,133 +1,130 @@
 /**
- * Seed: 5 topics + 10 people + 30 video stubs (ai_status=pending).
- * Reads content from docs/01-discover/content-plan.md — values inlined to
- * avoid runtime fs in Vercel build.
+ * Seed the DB from the curated source of truth (src/lib/mock-data.ts).
  *
- * Run: `npx tsx src/db/seed.ts`
+ * Replaces the old stub seed so the database mirrors exactly what the app
+ * shows today: 5 topics, 10 people (+ avatars + signature views), 30 videos
+ * (17 real YouTube IDs + drafts) with AI summaries / keypoints / timeline /
+ * explainer.
+ *
+ * Idempotent: deletes content rows then re-inserts (FK cascades handle
+ * videos_ai / videos_topics / embeddings / favorites on video delete).
+ *
+ * Run: DATABASE_URL=postgres://... npx tsx src/db/seed.ts
  */
 import "dotenv/config";
 import { db, schema } from "./client";
+import { topicDetails, people as mockPeople, videoDetails } from "../lib/mock-data";
 
-const TOPICS = [
-  { slug: "ai", name_zh: "AI 与未来", name_en: "AI & The Future", sort_order: 1 },
-  { slug: "ai-agent", name_zh: "AI Agent", name_en: "AI Agents", sort_order: 2 },
-  { slug: "startup", name_zh: "创业与商业", name_en: "Startup & Business", sort_order: 3 },
-  { slug: "chip", name_zh: "芯片与算力", name_en: "Chips & Compute", sort_order: 4 },
-  { slug: "future-of-work", name_zh: "未来工作", name_en: "Future of Work", sort_order: 5 },
-];
-
-const PEOPLE = [
-  { slug: "sam-altman",        name_zh: "山姆·奥特曼", name_en: "Sam Altman",        title_zh: "OpenAI CEO",            title_en: "CEO, OpenAI" },
-  { slug: "andrej-karpathy",   name_zh: "安德烈·卡帕西", name_en: "Andrej Karpathy",  title_zh: "AI 研究者 / 教育者",     title_en: "AI Researcher / Educator" },
-  { slug: "demis-hassabis",    name_zh: "戴密斯·哈萨比斯", name_en: "Demis Hassabis", title_zh: "DeepMind CEO",          title_en: "CEO, Google DeepMind" },
-  { slug: "jensen-huang",      name_zh: "黄仁勋",        name_en: "Jensen Huang",      title_zh: "Nvidia CEO",            title_en: "CEO, Nvidia" },
-  { slug: "dario-amodei",      name_zh: "达里奥·阿莫迪",  name_en: "Dario Amodei",      title_zh: "Anthropic CEO",        title_en: "CEO, Anthropic" },
-  { slug: "naval-ravikant",    name_zh: "纳瓦尔·拉维坎特", name_en: "Naval Ravikant",  title_zh: "AngelList 创始人",      title_en: "Founder, AngelList" },
-  { slug: "marc-andreessen",   name_zh: "马克·安德森",    name_en: "Marc Andreessen",  title_zh: "a16z 合伙人",           title_en: "Partner, a16z" },
-  { slug: "patrick-collison",  name_zh: "帕特里克·柯里森", name_en: "Patrick Collison", title_zh: "Stripe CEO",          title_en: "CEO, Stripe" },
-  { slug: "elon-musk",         name_zh: "埃隆·马斯克",    name_en: "Elon Musk",         title_zh: "Tesla / SpaceX / xAI 创始人", title_en: "Founder, Tesla / SpaceX / xAI" },
-  { slug: "lex-fridman",       name_zh: "莱克斯·弗里德曼", name_en: "Lex Fridman",     title_zh: "AI 研究者 / 播客主持人", title_en: "AI Researcher / Podcast Host" },
-];
-
-// 30 video stubs.
-// Phase D round-001 (Alan/老吴): replaced PLACEHOLDERn with either a verified
-// real YouTube 11-char ID, OR a `<slug>_DRAFT` token that MUST be replaced
-// before running `npx tsx src/scripts/ingest-video.ts`.
-// Confident IDs come from publicly known Lex Fridman podcast / a16z / standard
-// Karpathy talks. Anything I could not verify with high confidence is left
-// as `_DRAFT` so the ingest script will skip / fail visibly rather than
-// silently ingest the wrong video.
-type VideoStub = {
-  slug: string; platform: "youtube"; platform_id: string;
-  person_slug: string; topic_slugs: string[];
-  title_zh: string; title_en: string;
-  duration_sec: number;
-};
-
-const VIDEOS: VideoStub[] = [
-  // ai
-  { slug: "sam-altman-lex-419",     platform: "youtube", platform_id: "jvqFAi7vkBc", person_slug: "sam-altman",      topic_slugs: ["ai"],         title_zh: "Sam Altman 谈 GPT-5 与 AGI · Lex 访谈",       title_en: "Sam Altman on GPT-5 & AGI · Lex Podcast #419",     duration_sec: 7200 },
-  { slug: "sam-altman-ted-2024",    platform: "youtube", platform_id: "sam-altman-ted-2024_DRAFT", person_slug: "sam-altman",     topic_slugs: ["ai"],         title_zh: "Sam Altman · TED · AI 的未来",          title_en: "Sam Altman · TED · The Future of AI",         duration_sec: 1800 },
-  { slug: "karpathy-intro-llm",     platform: "youtube", platform_id: "zjkBMFhNj_g", person_slug: "andrej-karpathy", topic_slugs: ["ai"],         title_zh: "Karpathy · LLM 入门一小时",                  title_en: "Karpathy · Intro to LLMs (1h)",                    duration_sec: 3600 },
-  { slug: "karpathy-lex-333",       platform: "youtube", platform_id: "cdiD-9MMpb0", person_slug: "andrej-karpathy", topic_slugs: ["ai", "future-of-work"], title_zh: "Karpathy · Lex 长访谈 #333", title_en: "Karpathy · Lex Podcast #333",                  duration_sec: 10800 },
-  { slug: "hassabis-lex",           platform: "youtube", platform_id: "hassabis-lex_DRAFT", person_slug: "demis-hassabis", topic_slugs: ["ai"],         title_zh: "Hassabis · Lex 访谈",                title_en: "Demis Hassabis · Lex Interview",                  duration_sec: 5400 },
-  { slug: "amodei-ezra-klein", platform: "youtube", platform_id: "amodei-ezra-klein_DRAFT", person_slug: "dario-amodei",   topic_slugs: ["ai"],         title_zh: "Dario Amodei · Ezra Klein 节目",             title_en: "Dario Amodei · Ezra Klein Show",                  duration_sec: 4200 },
-  { slug: "musk-xai-2024", platform: "youtube", platform_id: "musk-xai-2024_DRAFT", person_slug: "elon-musk",      topic_slugs: ["ai"],         title_zh: "Elon Musk · xAI 与 Grok",                    title_en: "Elon Musk · xAI & Grok",                          duration_sec: 3600 },
-  { slug: "lex-ai-roundup", platform: "youtube", platform_id: "lex-ai-roundup_DRAFT", person_slug: "lex-fridman",    topic_slugs: ["ai"],         title_zh: "Lex Fridman · AI 年度回顾",                  title_en: "Lex Fridman · AI Year in Review",                 duration_sec: 4800 },
-  // ai-agent
-  { slug: "karpathy-agent-future", platform: "youtube", platform_id: "karpathy-agent-future_DRAFT", person_slug: "andrej-karpathy", topic_slugs: ["ai-agent"],   title_zh: "Karpathy · Agent 是软件 3.0",                title_en: "Karpathy · Agents are Software 3.0",              duration_sec: 3600 },
-  { slug: "sam-agent-vision", platform: "youtube", platform_id: "sam-agent-vision_DRAFT", person_slug: "sam-altman",      topic_slugs: ["ai-agent"],   title_zh: "Sam · Agent 时代的工作流",                   title_en: "Sam Altman · Workflows in the Agent Era",          duration_sec: 2700 },
-  { slug: "naval-agent-econ", platform: "youtube", platform_id: "naval-agent-econ_DRAFT", person_slug: "naval-ravikant",  topic_slugs: ["ai-agent", "future-of-work"], title_zh: "Naval · Agent 经济学", title_en: "Naval · The Economics of Agents",                  duration_sec: 1800 },
-  { slug: "a16z-agent-stack", platform: "youtube", platform_id: "a16z-agent-stack_DRAFT", person_slug: "marc-andreessen", topic_slugs: ["ai-agent", "startup"], title_zh: "Andreessen · Agent 技术栈", title_en: "Andreessen · The Agent Stack",                     duration_sec: 3000 },
-  { slug: "stripe-agent-commerce", platform: "youtube", platform_id: "stripe-agent-commerce_DRAFT", person_slug: "patrick-collison", topic_slugs: ["ai-agent", "startup"], title_zh: "Collison · Agent 与商业基础设施", title_en: "Collison · Agents & Commerce Infra",              duration_sec: 2400 },
-  { slug: "amodei-agent-safety", platform: "youtube", platform_id: "amodei-agent-safety_DRAFT", person_slug: "dario-amodei",   topic_slugs: ["ai-agent"],   title_zh: "Dario · Agent 安全",                          title_en: "Dario · Agent Safety",                            duration_sec: 3300 },
-  // startup
-  { slug: "naval-how-to-get-rich", platform: "youtube", platform_id: "naval-how-to-get-rich_DRAFT", person_slug: "naval-ravikant",  topic_slugs: ["startup"],    title_zh: "Naval · 如何不靠运气致富",                   title_en: "Naval · How to Get Rich (without luck)",          duration_sec: 5400 },
-  { slug: "naval-lex", platform: "youtube", platform_id: "naval-lex_DRAFT", person_slug: "naval-ravikant",  topic_slugs: ["startup", "future-of-work"], title_zh: "Naval · Lex 访谈", title_en: "Naval · Lex Podcast",                              duration_sec: 7200 },
-  { slug: "andreessen-tech-stack", platform: "youtube", platform_id: "andreessen-tech-stack_DRAFT", person_slug: "marc-andreessen", topic_slugs: ["startup"],    title_zh: "Andreessen · 软件吃世界",                    title_en: "Andreessen · Software Eats the World",             duration_sec: 3600 },
-  { slug: "collison-stripe-story", platform: "youtube", platform_id: "collison-stripe-story_DRAFT", person_slug: "patrick-collison", topic_slugs: ["startup"],   title_zh: "Collison · Stripe 早期故事",                 title_en: "Collison · The Early Stripe Story",                duration_sec: 4200 },
-  { slug: "musk-first-principles", platform: "youtube", platform_id: "musk-first-principles_DRAFT", person_slug: "elon-musk",       topic_slugs: ["startup"],    title_zh: "Musk · 第一性原理",                          title_en: "Elon Musk · First Principles Thinking",            duration_sec: 1800 },
-  { slug: "sam-yc-talk", platform: "youtube", platform_id: "sam-yc-talk_DRAFT", person_slug: "sam-altman",      topic_slugs: ["startup"],    title_zh: "Sam · YC 创业讲座",                          title_en: "Sam Altman · YC Startup Talk",                     duration_sec: 2700 },
-  // chip
-  { slug: "jensen-gtc-2024", platform: "youtube", platform_id: "jensen-gtc-2024_DRAFT", person_slug: "jensen-huang",    topic_slugs: ["chip"],       title_zh: "黄仁勋 · GTC 2024 主题演讲",                 title_en: "Jensen Huang · GTC 2024 Keynote",                  duration_sec: 7200 },
-  { slug: "jensen-acquired", platform: "youtube", platform_id: "jensen-acquired_DRAFT", person_slug: "jensen-huang",    topic_slugs: ["chip", "startup"], title_zh: "黄仁勋 · Acquired 访谈", title_en: "Jensen Huang · Acquired Interview",                duration_sec: 10800 },
-  { slug: "jensen-future-compute", platform: "youtube", platform_id: "jensen-future-compute_DRAFT", person_slug: "jensen-huang",    topic_slugs: ["chip", "ai"], title_zh: "黄仁勋 · 算力的未来",                          title_en: "Jensen Huang · The Future of Compute",             duration_sec: 3600 },
-  { slug: "karpathy-gpu-talk", platform: "youtube", platform_id: "karpathy-gpu-talk_DRAFT", person_slug: "andrej-karpathy", topic_slugs: ["chip"],       title_zh: "Karpathy · GPU 与训练",                       title_en: "Karpathy · GPUs & Training",                       duration_sec: 4200 },
-  { slug: "musk-dojo-chip", platform: "youtube", platform_id: "musk-dojo-chip_DRAFT", person_slug: "elon-musk",       topic_slugs: ["chip"],       title_zh: "Musk · Tesla Dojo 芯片",                      title_en: "Musk · Tesla Dojo Chip",                          duration_sec: 1800 },
-  // future-of-work
-  { slug: "sam-future-work", platform: "youtube", platform_id: "sam-future-work_DRAFT", person_slug: "sam-altman",      topic_slugs: ["future-of-work"], title_zh: "Sam · AI 时代的工作", title_en: "Sam Altman · Work in the AI Era",                  duration_sec: 2400 },
-  { slug: "naval-leverage", platform: "youtube", platform_id: "naval-leverage_DRAFT", person_slug: "naval-ravikant",  topic_slugs: ["future-of-work"], title_zh: "Naval · 杠杆与自动化", title_en: "Naval · Leverage & Automation",                    duration_sec: 1500 },
-  { slug: "andreessen-future-work", platform: "youtube", platform_id: "andreessen-future-work_DRAFT", person_slug: "marc-andreessen", topic_slugs: ["future-of-work"], title_zh: "Andreessen · 未来工作", title_en: "Andreessen · The Future of Work",                  duration_sec: 3000 },
-  { slug: "lex-future-essay", platform: "youtube", platform_id: "lex-future-essay_DRAFT", person_slug: "lex-fridman",     topic_slugs: ["future-of-work"], title_zh: "Lex · 未来工作随笔", title_en: "Lex · Essay on Future Work",                       duration_sec: 1800 },
-  { slug: "musk-jobs-2040", platform: "youtube", platform_id: "musk-jobs-2040_DRAFT", person_slug: "elon-musk",       topic_slugs: ["future-of-work"], title_zh: "Musk · 2040 年还有工作吗", title_en: "Musk · Will Jobs Exist in 2040",                  duration_sec: 2700 },
-];
-
-async function main() {
-  console.log("seeding topics ...");
-  for (const t of TOPICS) {
-    await db.insert(schema.topics).values(t).onConflictDoNothing();
-  }
-  console.log("seeding people ...");
-  for (const p of PEOPLE) {
-    await db.insert(schema.people).values(p).onConflictDoNothing();
-  }
-  console.log("seeding videos ...");
-  for (const v of VIDEOS) {
-    const persons = await db.select().from(schema.people);
-    const personMap = new Map(persons.map((p) => [p.slug, p.id] as const));
-    const personId = personMap.get(v.person_slug);
-    if (!personId) { console.warn("skip · unknown person", v.person_slug); continue; }
-
-    const inserted = await db.insert(schema.videos).values({
-      slug: v.slug,
-      platform: v.platform,
-      platform_id: v.platform_id,
-      url: `https://www.youtube.com/watch?v=${v.platform_id}`,
-      title_zh: v.title_zh,
-      title_en: v.title_en,
-      person_id: personId,
-      duration_sec: v.duration_sec,
-      ai_status: "pending",
-    }).onConflictDoNothing().returning({ id: schema.videos.id });
-
-    const videoId = inserted[0]?.id;
-    if (!videoId) continue;
-
-    const topicsAll = await db.select().from(schema.topics);
-    const topicMap = new Map(topicsAll.map((t) => [t.slug, t.id] as const));
-    for (const ts of v.topic_slugs) {
-      const tid = topicMap.get(ts);
-      if (tid) {
-        await db.insert(schema.videos_topics)
-          .values({ video_id: videoId, topic_id: tid })
-          .onConflictDoNothing();
-      }
-    }
-  }
-  console.log("seed done");
+function mediaUrl(platform: string, id: string): string {
+  return platform === "bilibili"
+    ? `https://www.bilibili.com/video/${id}`
+    : `https://www.youtube.com/watch?v=${id}`;
 }
 
-main().catch((e) => {
-  console.error(e);
-  process.exit(1);
-});
+async function main() {
+  console.log("[seed] start · source = mock-data.ts");
+
+  // 1. wipe content (cascades to videos_ai / videos_topics / embeddings / favorites)
+  await db.delete(schema.videos);
+  await db.delete(schema.people);
+  await db.delete(schema.topics);
+  console.log("[seed] cleared topics / people / videos (+ cascades)");
+
+  // 2. topics
+  const topicRows = await db
+    .insert(schema.topics)
+    .values(
+      topicDetails.map((t, i) => ({
+        slug: t.slug,
+        name_zh: t.name_zh,
+        name_en: t.name_en,
+        intro_zh: t.intro_zh,
+        intro_en: t.intro_en,
+        sort_order: i + 1,
+      })),
+    )
+    .returning({ id: schema.topics.id, slug: schema.topics.slug });
+  const topicId = new Map(topicRows.map((r) => [r.slug, r.id]));
+  console.log(`[seed] topics: ${topicRows.length}`);
+
+  // 3. people
+  const peopleRows = await db
+    .insert(schema.people)
+    .values(
+      mockPeople.map((p) => ({
+        slug: p.slug,
+        name_zh: p.name_zh,
+        name_en: p.name_en,
+        title_zh: p.title_zh,
+        title_en: p.title_en,
+        avatar_url: p.avatar_url,
+        bio_zh: p.bio_zh,
+        bio_en: p.bio_en,
+        signature_views_zh: p.signature_views_zh,
+        signature_views_en: p.signature_views_en,
+      })),
+    )
+    .returning({ id: schema.people.id, slug: schema.people.slug });
+  const personId = new Map(peopleRows.map((r) => [r.slug, r.id]));
+  console.log(`[seed] people: ${peopleRows.length}`);
+
+  // 4. videos
+  const videoRows = await db
+    .insert(schema.videos)
+    .values(
+      videoDetails.map((v) => ({
+        slug: v.slug,
+        platform: v.platform,
+        platform_id: v.platform_id,
+        url: mediaUrl(v.platform, v.platform_id),
+        cover_url: v.cover_url || null,
+        title_zh: v.title_zh,
+        title_en: v.title_en,
+        person_id: personId.get(v.person.slug)!,
+        duration_sec: v.duration_sec,
+        published_at: v.published_at ? new Date(v.published_at) : null,
+        ai_status: v.ai_status,
+      })),
+    )
+    .returning({ id: schema.videos.id, slug: schema.videos.slug });
+  const videoId = new Map(videoRows.map((r) => [r.slug, r.id]));
+  console.log(`[seed] videos: ${videoRows.length}`);
+
+  // 5. videos_topics
+  const vtValues = videoDetails.flatMap((v) =>
+    v.topics
+      .map((t) => ({ video_id: videoId.get(v.slug)!, topic_id: topicId.get(t.slug)! }))
+      .filter((row) => row.video_id && row.topic_id),
+  );
+  if (vtValues.length) await db.insert(schema.videos_topics).values(vtValues);
+  console.log(`[seed] videos_topics: ${vtValues.length}`);
+
+  // 6. videos_ai (only videos that have AI content)
+  const aiValues = videoDetails
+    .filter((v) => v.ai)
+    .map((v) => ({
+      video_id: videoId.get(v.slug)!,
+      summary_zh: v.ai!.summary_zh,
+      summary_en: v.ai!.summary_en,
+      keypoints_zh: v.ai!.keypoints_zh,
+      keypoints_en: v.ai!.keypoints_en,
+      timeline_zh: v.ai!.timeline_zh,
+      timeline_en: v.ai!.timeline_en,
+      explainer_quick_zh: v.ai!.explainer_quick_zh,
+      explainer_quick_en: v.ai!.explainer_quick_en,
+      explainer_deep_zh: v.ai!.explainer_deep_zh,
+      explainer_deep_en: v.ai!.explainer_deep_en,
+      model: "seeded:mock-data",
+    }));
+  if (aiValues.length) await db.insert(schema.videos_ai).values(aiValues);
+  console.log(`[seed] videos_ai: ${aiValues.length}`);
+
+  console.log("[seed] done ✓");
+}
+
+main()
+  .then(() => process.exit(0))
+  .catch((e) => {
+    console.error("[seed] failed:", e);
+    process.exit(1);
+  });
