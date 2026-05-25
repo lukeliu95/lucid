@@ -32,7 +32,7 @@ function sh(cmd: string, args: string[]): boolean {
 /** yt-dlp 抓字幕 → 返回转好的 srt 路径(或 null)。 */
 function fetchSubtitle(pid: string): string | null {
   fs.mkdirSync(SUB_DIR, { recursive: true });
-  sh("yt-dlp", [
+  const baseArgs = [
     "--sleep-requests", "3",
     "--retries", "10",
     "--extractor-retries", "5",
@@ -41,7 +41,11 @@ function fetchSubtitle(pid: string): string | null {
     "--sub-lang", "en.*",
     "-o", `${SUB_DIR}/%(id)s.%(ext)s`,
     `https://www.youtube.com/watch?v=${pid}`,
-  ]);
+  ];
+  // 数据中心 IP(GHA)会被 YouTube bot 检测封锁 → 用 impersonation(curl_cffi)伪装真实浏览器破解。
+  // 优先 chrome,失败回退无 impersonation(本地 brew yt-dlp 可能没装 curl_cffi)。
+  const imp = sh("yt-dlp", ["--impersonate", "chrome", ...baseArgs]);
+  if (!imp) sh("yt-dlp", baseArgs);
   // 优先原始完整字幕 en-orig,其次 en
   const candidates = [`${pid}.en-orig.vtt`, `${pid}.en.vtt`, `${pid}.en-orig.srt`, `${pid}.en.srt`];
   const found = candidates.map((c) => path.join(SUB_DIR, c)).find((p) => fs.existsSync(p) && fs.statSync(p).size > 0);

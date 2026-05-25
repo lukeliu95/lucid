@@ -94,6 +94,8 @@ export type SearchOpts = {
   maxResults?: number;
   type?: "video" | "channel";
   order?: "relevance" | "date" | "viewCount";
+  channelId?: string;
+  publishedAfter?: string; // RFC3339, e.g. 2026-01-01T00:00:00Z
 };
 
 // ---------- Internal: raw API shapes (only what we use) ----------
@@ -299,11 +301,14 @@ export async function searchVideos(query: string, opts: SearchOpts = {}): Promis
   const maxResults = String(opts.maxResults ?? 5);
   const type = opts.type ?? "video";
   const order = opts.order ?? "relevance";
+  const params: Record<string, string> = { part: "snippet", q: query, maxResults, type, order };
+  if (opts.channelId) params.channelId = opts.channelId;
+  if (opts.publishedAfter) params.publishedAfter = opts.publishedAfter;
   const data = await ytFetch<RawSearchListResponse>(
     "/search",
-    { part: "snippet", q: query, maxResults, type, order },
+    params,
     100,
-    `search.list(${query.slice(0, 40)})`,
+    `search.list(${(query || opts.channelId || "").slice(0, 40)})`,
   );
   if (!data?.items) return [];
   const out: SearchResultItem[] = [];

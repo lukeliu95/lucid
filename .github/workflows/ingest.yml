@@ -40,6 +40,12 @@ jobs:
       - name: Install deps
         run: npm ci
 
+      - name: Discover new channel uploads (v2)
+        run: npx tsx --conditions=react-server src/scripts/discover-channels.ts
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+
       - name: Process pending queue
         run: npx tsx --conditions=react-server src/scripts/process-pending.ts
         env:
