@@ -1,0 +1,17 @@
+# OS / editor
+.DS_Store
+
+# agent / local tooling (不入仓库)
+.claude/
+.playwright-mcp/
+
+# 大体积生成字幕(worker 运行时临时产物)
+app/data/
+
+# 一次性回填批处理脚本(已被 src/scripts/process-pending.ts 取代)
+/app/*.sh
+
+# env(双保险,app/.gitignore 已含)
+.env
+.env.local
+.env*.local

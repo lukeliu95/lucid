@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { ClerkProvider } from "@clerk/nextjs";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale, getTranslations } from "next-intl/server";
 import { routing } from "@/i18n/routing";
@@ -65,17 +66,19 @@ export default async function LocaleLayout({
   return (
     <html lang={locale === "zh" ? "zh-CN" : "en"}>
       <body>
-        <NextIntlClientProvider messages={messages} locale={locale}>
-          <SkipLink />
-          <div className="mobile-hint-banner">
-            {locale === "zh"
-              ? "建议在桌面浏览器访问以获得最佳体验"
-              : "For the best experience, view on desktop"}
-          </div>
-          <Header />
-          <main id="main">{children}</main>
-          <Footer />
-        </NextIntlClientProvider>
+        <ClerkProvider>
+          <NextIntlClientProvider messages={messages} locale={locale}>
+            <SkipLink />
+            <div className="mobile-hint-banner">
+              {locale === "zh"
+                ? "建议在桌面浏览器访问以获得最佳体验"
+                : "For the best experience, view on desktop"}
+            </div>
+            <Header />
+            <main id="main">{children}</main>
+            <Footer />
+          </NextIntlClientProvider>
+        </ClerkProvider>
         {gaId ? <GoogleAnalytics gaId={gaId} /> : null}
       </body>
     </html>

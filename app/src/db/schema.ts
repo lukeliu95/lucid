@@ -154,6 +154,18 @@ export const favorites = pgTable("favorites", {
   userIdx: index("favorites_user_idx").on(t.user_id, t.created_at),
 }));
 
+// -- watch_history -----------------------------------------------------
+// 每个 (user, video) 一行,重复观看更新 watched_at(用于"最近查看")。
+export const watch_history = pgTable("watch_history", {
+  id: serial("id").primaryKey(),
+  user_id: text("user_id").notNull(),       // Clerk userId
+  video_id: integer("video_id").notNull().references(() => videos.id, { onDelete: "cascade" }),
+  watched_at: timestamp("watched_at", { withTimezone: true }).notNull().defaultNow(),
+}, (t) => ({
+  userVideoUq: uniqueIndex("watch_history_user_video_uq").on(t.user_id, t.video_id),
+  userIdx: index("watch_history_user_idx").on(t.user_id, t.watched_at),
+}));
+
 // -- pipeline_runs (S9 state machine) ----------------------------------
 export const pipeline_runs = pgTable("pipeline_runs", {
   id: serial("id").primaryKey(),

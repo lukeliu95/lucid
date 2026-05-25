@@ -1,4 +1,5 @@
 import { getTranslations } from "next-intl/server";
+import { Show, SignInButton, UserButton } from "@clerk/nextjs";
 import { Link } from "@/i18n/routing";
 import { LangSwitcher } from "./lang-switcher";
 import { Logo } from "./logo";
@@ -17,13 +18,24 @@ export async function Header() {
           {t("nav.topics")} ▾
         </Link>
         <LangSwitcher />
-        <Link
-          href="/favorites"
-          aria-label={t("nav.my_favorites")}
-          className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-border-default bg-bg-subtle text-sm"
-        >
-          👤
-        </Link>
+
+        <Show when="signed-out">
+          <SignInButton mode="modal">
+            <button className="inline-flex h-8 items-center rounded-full border border-border-default bg-bg-subtle px-4 font-sans text-sm text-ink-700 transition-colors hover:text-link">
+              {t("nav.login")}
+            </button>
+          </SignInButton>
+        </Show>
+
+        <Show when="signed-in">
+          <Link
+            href="/me"
+            className="font-sans text-sm text-ink-700 hover:text-link"
+          >
+            {t("nav.my_favorites")}
+          </Link>
+          <UserButton appearance={{ elements: { avatarBox: "h-8 w-8" } }} />
+        </Show>
       </div>
     </header>
   );

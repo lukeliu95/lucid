@@ -112,7 +112,9 @@ function toDetail(v: VideoRow): VideoDetail {
 export async function dbGetLatestVideos(): Promise<VideoCard[]> {
   const rows = (await db.query.videos.findMany({
     with: videoWith,
-    orderBy: (v, { desc: d }) => [d(v.published_at), d(v.created_at)],
+    // 最近加入明读的优先(created_at)—— 让新入库内容在首页露出,
+    // 不被 seed 老数据的发布日期压住。
+    orderBy: (v, { desc: d }) => [d(v.created_at), d(v.published_at)],
   })) as unknown as VideoRow[];
   return rows.map(toCard);
 }

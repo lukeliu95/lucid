@@ -8,10 +8,13 @@
  *       → 旧行为保留向后兼容。
  * GET: list latest with status.
  *
- * Auth: env ADMIN_USER_IDS = comma-separated Clerk userIds (or "*" for dev).
- * Stub: read x-user-id header; replace with Clerk auth() later.
+ * Auth: Clerk session (round-013). userId 必须在 ADMIN_USER_IDS
+ * (comma-separated Clerk userIds,或 "*" 表示开发放开)白名单内。
+ * 注:服务端入库脚本(scripts/fill-drafts.ts)无 Clerk session,
+ * 需另加 server-to-server 令牌通道后才能跑,详见 round-013 备注。
  */
 import { NextResponse } from "next/server";
+import { auth } from "@clerk/nextjs/server";
 import { db, schema } from "@/db/client";
 import { eq, desc } from "drizzle-orm";
 import { extractVideoId, fetchVideoMetadata, thumbnailUrl } from "@/lib/youtube/data-api";
@@ -25,8 +28,9 @@ function isAdmin(userId: string | null): boolean {
   return list.includes("*") || list.includes(userId);
 }
 
-export async function GET(req: Request) {
-  if (!isAdmin(req.headers.get("x-user-id"))) {
+export async function GET() {
+  const { userId } = await auth();
+  if (!isAdmin(userId)) {
     return NextResponse.json({ error: "forbidden" }, { status: 403 });
   }
   const rows = await db.select({
@@ -208,7 +212,8 @@ async function handleFull(body: FullBody) {
 }
 
 export async function POST(req: Request) {
-  if (!isAdmin(req.headers.get("x-user-id"))) {
+  const { userId } = await auth();
+  if (!isAdmin(userId)) {
     return NextResponse.json({ error: "forbidden" }, { status: 403 });
   }
   const body = (await req.json().catch(() => null)) as Body | null;

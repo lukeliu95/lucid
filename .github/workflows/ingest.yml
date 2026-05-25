@@ -1,0 +1,52 @@
+name: ingest-content
+
+# 持续入库 worker:每天定时把 pending 队列里的视频抓字幕 + DeepSeek 生成中文速读。
+# 也可在 Actions 页手动触发(workflow_dispatch)。
+on:
+  schedule:
+    - cron: "0 2 * * *" # 每天 02:00 UTC(北京 10:00)
+  workflow_dispatch:
+    inputs:
+      max:
+        description: "本次最多处理几条"
+        default: "8"
+
+concurrency:
+  group: ingest-content
+  cancel-in-progress: false
+
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    defaults:
+      run:
+        working-directory: app
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+          cache-dependency-path: app/package-lock.json
+
+      - name: Install yt-dlp (impersonation) + ffmpeg
+        run: |
+          sudo apt-get update && sudo apt-get install -y ffmpeg
+          python3 -m pip install --upgrade "yt-dlp[default]"
+          yt-dlp --version
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Process pending queue
+        run: npx tsx --conditions=react-server src/scripts/process-pending.ts
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          DEEPSEEK_BASE_URL: ${{ secrets.DEEPSEEK_BASE_URL }}
+          DEEPSEEK_MODEL: ${{ secrets.DEEPSEEK_MODEL }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          INGEST_MAX_PER_RUN: ${{ github.event.inputs.max || '8' }}
