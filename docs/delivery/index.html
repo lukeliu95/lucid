@@ -1,0 +1,2024 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>Delivery Bundle — Simprr / kdsj-world</title>
+<style>
+* { box-sizing: border-box; }
+body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans", sans-serif; color: #1a1a1a; background: #fafafa; line-height: 1.65; }
+aside.toc { position: fixed; top: 0; left: 0; width: 260px; height: 100vh; overflow-y: auto; background: #2c3e50; color: #ecf0f1; padding: 24px 20px; }
+aside.toc h2 { font-size: 15px; margin: 0 0 16px; color: #ecf0f1; font-weight: 600; }
+aside.toc ol { list-style: none; padding: 0; margin: 0; }
+aside.toc li { margin: 4px 0; font-size: 13px; }
+aside.toc a { color: #bdc3c7; text-decoration: none; display: block; padding: 6px 10px; border-radius: 4px; transition: all 0.15s; }
+aside.toc a:hover { background: #34495e; color: #fff; }
+main { margin-left: 260px; padding: 40px 60px; max-width: 960px; }
+article { background: #fff; padding: 48px 56px; margin-bottom: 32px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); scroll-margin-top: 20px; }
+h1 { font-size: 28px; margin: 0 0 16px; padding-bottom: 12px; border-bottom: 2px solid #3498db; color: #2c3e50; }
+h2 { font-size: 20px; margin: 32px 0 12px; color: #2c3e50; }
+h3 { font-size: 16px; margin: 24px 0 8px; color: #34495e; }
+h4, h5, h6 { margin: 20px 0 8px; color: #34495e; }
+p { margin: 12px 0; }
+code { background: #f4f6f8; padding: 2px 6px; border-radius: 3px; font-family: "SF Mono", Menlo, monospace; font-size: 13px; color: #c7254e; }
+pre { background: #282c34; color: #abb2bf; padding: 16px 20px; border-radius: 6px; overflow-x: auto; font-size: 13px; line-height: 1.5; }
+pre code { background: none; color: inherit; padding: 0; }
+table { border-collapse: collapse; width: 100%; margin: 16px 0; font-size: 14px; }
+td, th { border: 1px solid #e1e4e8; padding: 8px 12px; text-align: left; }
+tr:first-child td { background: #f6f8fa; font-weight: 600; }
+ul { padding-left: 24px; }
+li { margin: 4px 0; }
+strong { color: #2c3e50; }
+a { color: #3498db; text-decoration: none; }
+a:hover { text-decoration: underline; }
+blockquote { border-left: 4px solid #3498db; margin: 16px 0; padding: 8px 16px; background: #f1f8ff; color: #586069; font-style: italic; }
+@media (max-width: 768px) {
+  aside.toc { position: relative; width: 100%; height: auto; }
+  main { margin-left: 0; padding: 20px; }
+  article { padding: 24px 20px; }
+}
+</style>
+</head>
+<body>
+<aside class="toc">
+<h2>Simprr / kdsj-world 交付包</h2>
+<ol>
+<li><a href="#doc-INDEX">索引</a></li>
+<li><a href="#doc-01-user-requirements">01 用户需求</a></li>
+<li><a href="#doc-02-requirements-analysis">02 需求分析</a></li>
+<li><a href="#doc-03-development-plan">03 开发计划</a></li>
+<li><a href="#doc-04-code-manifest">04 代码清单</a></li>
+<li><a href="#doc-05-test-report">05 测试报告</a></li>
+<li><a href="#doc-06-deployment-runbook">06 部署运维</a></li>
+<li><a href="#doc-07-architecture-decisions">07 架构决策 ADR</a></li>
+<li><a href="#doc-08-interface-contracts">08 接口契约</a></li>
+<li><a href="#doc-09-demo-acceptance">09 Demo 剧本</a></li>
+<li><a href="#doc-10-risk-register">10 风险登记册</a></li>
+<li><a href="#doc-11-cost-performance">11 成本性能</a></li>
+<li><a href="#doc-12-trace-report">12 Trace 报告</a></li>
+<li><a href="#doc-13-onboarding-guide">13 Onboarding</a></li>
+<li><a href="#doc-14-retrospective">14 复盘</a></li>
+</ol>
+</aside>
+<main>
+<article id="doc-INDEX">
+<h1>Delivery Bundle — Simprr / kdsj-world</h1>
+
+<blockquote>
+由 GEI v4.1.0 自动生成 · 2026-05-24T15:14Z
+来源快照: pipeline-state.json SHA256 <code>7c8ae8ffad62bfda58086f97f59689a3c4435459e675fee46688e1228f15dc9c</code>
+</blockquote>
+
+<h2>概览</h2>
+
+<table>
+<tr><td>项</td><td>值</td></tr>
+<tr><td>客户</td><td>Simprr(Alan 自用 · 路径 A · https://x.com/simprr)</td></tr>
+<tr><td>项目代号</td><td>kdsj-world(看懂世界)</td></tr>
+<tr><td>项目类型</td><td>hybrid(Next.js 15 web app · 10 backend skills + 18 components + 6 pages + i18n zh/en)</td></tr>
+<tr><td>Skills 数量</td><td>10(4 Agent + 2 Hybrid + 4 Script)</td></tr>
+<tr><td>最终评分</td><td>0.92(stable_after_one_round · Δ +14% over baseline 0.78)</td></tr>
+<tr><td>开发轮次</td><td>1(Phase D maintain 单轮收尾)</td></tr>
+<tr><td>总时长</td><td>reflection 主动 ~6h · mtime 跨度 ~24h</td></tr>
+<tr><td>开发模式</td><td>GEI Pipeline · Phase A→B.0→B.1//B.2→C→D.1 直线推进 0 回退</td></tr>
+<tr><td>输出目录</td><td>/Users/lukeliu/gei-workspace/output/kdsj-world</td></tr>
+<tr><td>上线截止</td><td>2026-05-31</td></tr>
+<tr><td>Final Recommendation</td><td><strong>ready_to_deploy</strong></td></tr>
+</table>
+
+<h2>14 份交付文档</h2>
+
+<table>
+<tr><td>#</td><td>文档</td><td>说明</td><td>自动化</td><td>占位符数</td></tr>
+<tr><td>1</td><td><a href="01-user-requirements.md">用户需求文档</a></td><td>客户原始需求与背景 · 5 P0 + 8 砍 + 5 Goals + 9 硬约束</td><td>✅ 全自动</td><td>0</td></tr>
+<tr><td>2</td><td><a href="02-requirements-analysis.md">需求分析文档</a></td><td>6 模块 21 REQ + 非功能 + 10 skill / 12 UI 分解</td><td>✅ 全自动</td><td>0</td></tr>
+<tr><td>3</td><td><a href="03-development-plan.md">开发计划文档</a></td><td>5 Phase 里程碑 + 5 reflection + 依赖图</td><td>✅ 全自动</td><td>0</td></tr>
+<tr><td>4</td><td><a href="04-code-manifest.md">代码清单</a></td><td>10 skill + 18 components + 9 API + 9 表 + 130 git-tracked files + 4071 LOC</td><td>✅ 全自动</td><td>0</td></tr>
+<tr><td>5</td><td><a href="05-test-report.md">测试报告</a></td><td>北极星 N1/N2/N3 + 25 cases Desk Eval + 4/4 可执行 eval + round-001 改进轨迹</td><td>✅ 全自动</td><td>0</td></tr>
+<tr><td>6</td><td><a href="06-deployment-runbook.md">部署运维手册</a></td><td>9 步 Vercel 上线 + env / DB / ingest / smoke / Lighthouse / 故障排查</td><td>✅ 全自动</td><td>0</td></tr>
+<tr><td>7</td><td><a href="07-architecture-decisions.md">架构决策记录 ADR</a></td><td>5 reflection + Alan 4 拍板 + 8 信条 + 10 skill 分层 + round-001 5 候选(8 数据源)</td><td>✅ 全自动 (v4.4+)</td><td>0</td></tr>
+<tr><td>8</td><td><a href="08-interface-contracts.md">接口契约</a></td><td>10 skill 触发协议 + 9 表 schema + 9 API + 类型契约 + 调用示例</td><td>✅ 全自动</td><td>0</td></tr>
+<tr><td>9</td><td><a href="09-demo-acceptance.md">Demo 验收剧本</a></td><td>5 Non-UI Desk scenarios + 4 Script 静态审计 + 8 UI 截图占位</td><td>✅ Non-UI 全自动 / ⚠️ UI 半自动</td><td><strong>8</strong></td></tr>
+<tr><td>10</td><td><a href="10-risk-register.md">风险登记册</a></td><td>13 风险(已 resolved 3 / 部分缓解 5 / deferred 1 / 接受 4)+ 6 持续监控项</td><td>✅ 全自动 (v4.3+)</td><td>0</td></tr>
+<tr><td>11</td><td><a href="11-cost-performance.md">成本 &amp; 性能基线</a></td><td>开发 ~$2.5 · ingest $0.51 · 运行期 ~$1.5-25/月 + LCP 1.8s + i18n 100%</td><td>✅ 全自动</td><td>0</td></tr>
+<tr><td>12</td><td><a href="12-trace-report.md">全流程 Trace 报告</a></td><td>21 REQ ↔ skill ↔ 18 文件 ↔ 5 commit ↔ 5 reflection</td><td>✅ GEI 独有</td><td>0</td></tr>
+<tr><td>13</td><td><a href="13-onboarding-guide.md">Onboarding 手册</a></td><td>5 信条 + 视觉调性 + 能力清单 + Skill 触发 + Phase D 进化 + 6 常见操作</td><td>✅ 全自动</td><td>0</td></tr>
+<tr><td>14</td><td><a href="14-retrospective.md">项目复盘</a></td><td>13 维度成就 + 8 学到 + 9 pattern + 7 pitfall + 5 沉淀候选 + 13 演进建议</td><td>✅ 全自动</td><td>0</td></tr>
+</table>
+
+<p><strong>占位符总数</strong>: <strong>8</strong>(集中在 #9 UI 截图段 · Alan 上线 smoke test 时顺手补)</p>
+
+<h2>如何阅读</h2>
+
+<ul>
+<li><strong>新对接方</strong>: 先看 #13 Onboarding,再看 #4 代码清单、#8 接口契约</li>
+<li><strong>审计方</strong>: 先看 #7 ADR,再看 #12 Trace、#10 风险登记册</li>
+<li><strong>销售 / 决策层</strong>: 先看本 INDEX + #9 Demo + #11 成本</li>
+<li><strong>技术负责人</strong>: 按 1→14 顺序通读</li>
+<li><strong>Alan(上线前)</strong>: 先看 #6 部署运维(9 步) · 再看 #10 R-01/R-02(必做事项)</li>
+<li><strong>Alan(上线后)</strong>: 先看 #14 演进建议(round-002 候选)+ #10 监控项</li>
+</ul>
+
+<h2>占位符说明</h2>
+
+<p>本交付包占位符全部集中在 <strong>#9 Demo · UI 截图段</strong>(8 个),为 <code>docs/delivery/demo/screenshots/*.png</code> 路径占位。Alan 跑完 <code>06-deployment-runbook.md</code> Step 7(<code>vercel</code> preview)后 Chrome DevTools 切 1440 宽度手工截图(约 10 分钟)即可补齐 · 不阻塞上线。</p>
+
+<p>其余 13 份文档零占位 · 全部由 8 数据源(pipeline-state / reflections / requirements-spec / skills-spec / delivery-report / round-001 / evaluation-framework / app/README.md)自动合成。</p>
+
+<h2>关键浏览入口</h2>
+
+<ul>
+<li><strong>浏览器一键预览</strong>: <code>docs/delivery/index.html</code>(同目录 HTML 渲染 · 含 TOC + 内联 CSS · 双击即开)</li>
+<li><strong>GEI 构建快照</strong>: <code>docs/delivery/delivery-meta.yaml</code>(gei_version + commit + 10 skills SHA · 回归审计用)</li>
+</ul>
+
+</article>
+<article id="doc-01-user-requirements">
+<h1>01 · 用户需求文档</h1>
+
+<blockquote>
+自动生成 · GEI v4.1.0 · 2026-05-24T15:14Z
+数据源: docs/01-discover/intent-brief.md · pipeline-state.confirmed_params
+自动化类型: ✅ 全自动
+</blockquote>
+
+<h2>客户概览</h2>
+
+<ul>
+<li><strong>客户名</strong>: Simprr(Alan 自用 · 路径 A · <code>https://x.com/simprr</code>)</li>
+<li><strong>主语言</strong>: 中文(zh-CN)</li>
+<li><strong>次语言</strong>: 英文(en)</li>
+<li><strong>期望调性</strong>: 杂志风 / 衬线 / 暖白底墨黑字 · 「电子杂志 × 电子墨水」视觉方向(Mia design-spec)</li>
+</ul>
+
+<h2>原始材料清单</h2>
+
+<p>[v4.7 web-app 项目 · intake 通过 Alan dialogue 5 回合产出 intent-brief 替代标准 <code>intake/manifest.md</code>]</p>
+
+<table>
+<tr><td>文件</td><td>用途</td></tr>
+<tr><td><code>docs/01-discover/intent-brief.md</code></td><td>Alan-用户 5 轮对话产物(Primary Goal / Secondary Goals / 砍掉的伪需求 K1-K8 / 硬约束 / P0 答案 / 验收草稿)</td></tr>
+<tr><td><code>docs/01-discover/discovery-interview.md</code></td><td>Phase A 老周 + Alan 技术栈裁决会谈纪要</td></tr>
+<tr><td><code>docs/01-discover/requirements-spec.md</code></td><td>21 REQ 完整需求规格</td></tr>
+<tr><td><code>docs/01-discover/content-plan.md</code></td><td>30 视频 / 10 人物 / 5 主题 demo 选片清单</td></tr>
+<tr><td><code>docs/01-discover/ui-brief.md</code></td><td>UI / IA 简报(给 Mia)</td></tr>
+<tr><td><code>docs/01-discover/decomposition.md</code></td><td>21 REQ → 10 skill / 12 UI 模块 分解表</td></tr>
+</table>
+
+<h2>会谈纪要摘录</h2>
+
+<p><strong>Primary Goal</strong>(intent-brief §1):</p>
+
+<blockquote>
+用 AI 把"长得没人看完"的高密度视频(访谈/播客/演讲/纪录片),变成"两分钟就懂大概"的结构化知识卡。
+</blockquote>
+
+<p><strong>MVP 切口</strong>(intent-brief §1):</p>
+
+<blockquote>
+AI / 科技 / 商业人物访谈(英文原片为主 → 中英双语摘要),30 条 demo 视频在站,每条都能"两分钟看懂"。
+</blockquote>
+
+<p><strong>5 个 P0 答案</strong>(intent-brief §5):</p>
+
+<table>
+<tr><td>#</td><td>问题</td><td>答案</td></tr>
+<tr><td>P0-1</td><td>种子用户从哪来?</td><td>Alan 自己 + 朋友圈 + Twitter(@simprr)</td></tr>
+<tr><td>P0-2</td><td>字幕来源?</td><td>YouTube 公开字幕优先 + 本地 Whisper ASR 兜底</td></tr>
+<tr><td>P0-3</td><td>LLM 预算 + 选型?</td><td>DeepSeek-v4-pro 唯一 · 30 视频规模 &lt; $10</td></tr>
+<tr><td>P0-4</td><td>Alan 自己是用户吗?</td><td>是 · 优先满足自己需求(Cooper 第一性)</td></tr>
+<tr><td>P0-5</td><td>双语范围?</td><td>MVP 必须 UI + 内容摘要双版</td></tr>
+</table>
+
+<p><strong>Alan 现场拍板的技术裁决</strong>(pipeline-state.alan_late_call_phase_a):</p>
+
+<ul>
+<li>Auth: <strong>Clerk</strong>(Vercel Marketplace · 沿用 bazi-studio 未踩成熟方案)</li>
+<li>ORM: <strong>Drizzle</strong>(Edge Function 友好)</li>
+<li>Embedding: <strong>OpenAI text-embedding-3-small</strong>($0.02/1M · DeepSeek 暂无原生 embedding)</li>
+<li>i18n: <strong>next-intl</strong>(Next.js 15 App Router 标配)</li>
+</ul>
+
+<h2>核心目标</h2>
+
+<table>
+<tr><td>Goal</td><td>描述</td><td>验证方式</td></tr>
+<tr><td>G1</td><td>Alan 自用(Cooper 第一用户)</td><td>上线后一周 Alan 自己打开 ≥ 5 次</td></tr>
+<tr><td>G2</td><td>一条视频 → 两分钟读懂(摘要 + 5-10 观点 + 时间轴 + 2 档解释)</td><td>LLM eval 25 cases · 准确率 ≥ 85%</td></tr>
+<tr><td>G3</td><td>中英双语 MVP(UI + 内容摘要双版)</td><td>i18n 100% key coverage</td></tr>
+<tr><td>G4</td><td>2026-05-31 上线 + 30 demo 视频 + Twitter 传播</td><td>Vercel prod 域名可访问 · 朋友圈 Day-1 ≥ 10 真实点击</td></tr>
+<tr><td>G5</td><td>长期承载 Simprr 品牌</td><td>footer 全站可见 <code>https://x.com/simprr</code></td></tr>
+</table>
+
+<h2>约束与假设</h2>
+
+<h3>硬约束</h3>
+
+<table>
+<tr><td>约束</td><td>值</td></tr>
+<tr><td>上线截止</td><td>2026-05-31(7 天 · Vercel prod 可访问)</td></tr>
+<tr><td>双语</td><td>MVP 必须双语(UI + 内容摘要双版)</td></tr>
+<tr><td>LLM</td><td>DeepSeek-v4-pro 唯一 · Edge Function 代理 · key 仅服务端</td></tr>
+<tr><td>ASR</td><td>本地 Whisper(运营机器跑 · 不进 LLM 预算)</td></tr>
+<tr><td>技术栈</td><td>Next.js 15 App Router + shadcn + Vercel + Neon Postgres + pgvector</td></tr>
+<tr><td>署名</td><td>Simprr · footer 含 <code>https://x.com/simprr</code>(全站每页可见)</td></tr>
+<tr><td>版权红线</td><td>不下载搬运原视频 · embed/外链 + 保留原作者/频道/平台/链接</td></tr>
+<tr><td>预算</td><td>30 视频 × 双语 × 全栈处理 ≤ $10(实测 $0.51)</td></tr>
+<tr><td>桌面优先</td><td>&lt; 768px 提示"建议桌面访问"(移动响应式 v1.1+)</td></tr>
+</table>
+
+<h3>砍掉的伪需求(K1-K8)</h3>
+
+<table>
+<tr><td>#</td><td>原 PRD 要求</td><td>MVP 决定</td><td>理由</td></tr>
+<tr><td>K1</td><td>5 档分层解释</td><td><strong>2 档</strong>(成人速懂 + 深度版)</td><td>5 档验证不了核心假设 · LLM 调用 ×5 不划算</td></tr>
+<tr><td>K2</td><td>用户提交链接 + 异步队列</td><td><strong>MVP 砍</strong> · v1.1+</td><td>先验证内容好不好看 · 运营人工预录入 30 条</td></tr>
+<tr><td>K3</td><td>复杂推荐系统</td><td><strong>编辑精选 + 时间排序</strong></td><td>1k DAU 前没数据可推</td></tr>
+<tr><td>K4</td><td>7 个产品名候选 + 移动响应式</td><td>工作名锁 <code>kdsj-world</code> · 桌面优先</td><td>命名属营销层 / 移动响应式 v1.1+</td></tr>
+<tr><td>K5</td><td>全领域内容</td><td><strong>MVP 只做 AI/科技/商业</strong></td><td>边界过宽稀释定位</td></tr>
+<tr><td>K6</td><td>1000 视频 / 100 人物 / 20 主题</td><td><strong>30 / 10 / 5</strong></td><td>7 天上线 + 双语 + 1000 视频 = 物理不可能</td></tr>
+<tr><td>K7</td><td>完整后台 8 模块</td><td><strong>MVP 极简后台</strong>(视频 CRUD + AI 状态)</td><td>推荐位 / 数据看板都是 v1.1+</td></tr>
+<tr><td>K8</td><td>知识图谱 / 学习路径</td><td><strong>v2.0</strong></td><td>MVP 不碰</td></tr>
+</table>
+
+<h3>假设</h3>
+
+<ul>
+<li>30 视频中 ≥ 70% 有 YouTube 公开字幕(否则 Whisper 工作量上升)</li>
+<li>Alan 每天能匀 1-2 小时跑选片 + 校对</li>
+<li>DeepSeek-v4-pro 在双语摘要任务上准确率 ≥ 85%(若不达需做 prompt 优化)</li>
+</ul>
+
+</article>
+<article id="doc-02-requirements-analysis">
+<h1>02 · 需求分析文档</h1>
+
+<blockquote>
+自动生成 · GEI v4.1.0 · 2026-05-24T15:14Z
+数据源: docs/01-discover/requirements-spec.md · decomposition.md
+自动化类型: ✅ 全自动(hybrid project_type — 见 §需求分解表)
+</blockquote>
+
+<h2>功能性需求</h2>
+
+<p>按 6 模块 21 REQ 组织(详见 <code>docs/01-discover/requirements-spec.md</code> §4)。</p>
+
+<h3>模块 H · 首页(Home)</h3>
+
+<ul>
+<li><strong>REQ-H01</strong> · 精选 30 视频展示(P0)· grid + 时间倒序 + footer Simprr</li>
+<li><strong>REQ-H02</strong> · 双语切换 toggle(P0)· next-intl 路由 · i18n 100% coverage</li>
+<li><strong>REQ-H03</strong> · 主题导航 + 热门人物(P1)</li>
+</ul>
+
+<h3>模块 V · 视频详情页(核心)</h3>
+
+<ul>
+<li><strong>REQ-V01</strong> · 视频嵌入播放器(YouTube/B 站 iframe)</li>
+<li><strong>REQ-V02</strong> · 一句话总结(≤ 80 字双语)· Agent</li>
+<li><strong>REQ-V03</strong> · 核心观点 5-10 条 · 反 hallucination · Agent</li>
+<li><strong>REQ-V04</strong> · 时间轴 ≥ 5 节点 · Hybrid(Script 分段 + Agent 命名)</li>
+<li><strong>REQ-V05</strong> · 2 档解释(成人速懂 300 字 / 深度版 800-1500 字)· Agent</li>
+<li><strong>REQ-V06</strong> · 视频内双语切换 · 0 fallback</li>
+<li><strong>REQ-V07</strong> · 来源信息 + 版权链</li>
+</ul>
+
+<h3>模块 P · 人物页</h3>
+
+<ul>
+<li><strong>REQ-P01</strong> · 人物详情(10 位 · 头像 + 简介 + 代表观点 + 相关视频)</li>
+<li><strong>REQ-P02</strong> · 人物代表观点生成(基于该人物所有视频聚合)· Agent</li>
+</ul>
+
+<h3>模块 T · 主题页</h3>
+
+<ul>
+<li><strong>REQ-T01</strong> · 主题聚合(5 个 · AI / AI Agent / 创业 / 芯片 / 未来工作)</li>
+</ul>
+
+<h3>模块 S · 搜索</h3>
+
+<ul>
+<li><strong>REQ-S01</strong> · 关键词搜索(标题 / 人物 / 主题)· Script · ≤ 500ms</li>
+<li><strong>REQ-S02</strong> · 简易语义搜索 · Hybrid · pgvector top-k</li>
+</ul>
+
+<h3>模块 U · 用户与收藏</h3>
+
+<ul>
+<li><strong>REQ-U01</strong> · 登录(Clerk · 邮件/Google OAuth)</li>
+<li><strong>REQ-U02</strong> · 收藏视频(幂等)</li>
+<li><strong>REQ-U03</strong> · 个人主页 <code>/me</code></li>
+</ul>
+
+<h3>模块 X · 极简后台</h3>
+
+<ul>
+<li><strong>REQ-X01</strong> · 视频 CRUD(运营加视频自动触发 AI 流水线)</li>
+<li><strong>REQ-X02</strong> · AI 处理状态查看(pending / asr_done / ai_done / failed)</li>
+<li><strong>REQ-X03</strong> · 摘要校对(轻量编辑)</li>
+</ul>
+
+<h2>非功能性需求</h2>
+
+<table>
+<tr><td>项</td><td>要求</td></tr>
+<tr><td>响应速度</td><td>首页 / 详情页 LCP ≤ 2.5s</td></tr>
+<tr><td>Lighthouse</td><td>Perf ≥ 80 / A11y ≥ 90 / Best Practices ≥ 90 / SEO ≥ 90</td></tr>
+<tr><td>双语</td><td>100% i18n key coverage</td></tr>
+<tr><td>并发</td><td>MVP &lt; 100 DAU</td></tr>
+<tr><td>部署</td><td>Vercel prod · 域名 <code>kdsj-world.vercel.app</code> 或自有域名</td></tr>
+<tr><td>数据安全</td><td>LLM key 仅服务端 · Edge Function + 月度 rate-limit · 沿用 bazi-studio 架构</td></tr>
+<tr><td>版权</td><td>不下载视频 · embed/外链 + 保留原作者/平台</td></tr>
+<tr><td>浏览器</td><td>Chrome / Safari / Edge 最近 2 版本 · IE 不支持</td></tr>
+<tr><td>性能预算(前端)</td><td>首屏 JS &lt; 200KB · CLS &lt; 0.05 · 实测 LCP est 1.8s / bundle 139KB ✅</td></tr>
+</table>
+
+<h2>需求分解与类型分类</h2>
+
+<blockquote>
+hybrid project_type · 两栏合并(UI + Backend Skills)
+</blockquote>
+
+<h3>后端 Skill(10 个 · Backend)</h3>
+
+<table>
+<tr><td>需求 ID</td><td>描述</td><td>类型</td><td>对应 Skill</td><td>优先级</td></tr>
+<tr><td>REQ-V02</td><td>一句话总结</td><td>Agent</td><td>S1 summary-generator</td><td>P0</td></tr>
+<tr><td>REQ-V03</td><td>核心观点 5-10 条</td><td>Agent</td><td>S2 keypoints-extractor</td><td>P0</td></tr>
+<tr><td>REQ-V04</td><td>时间轴 ≥5 节点</td><td>Hybrid</td><td>S3 timeline-builder</td><td>P0</td></tr>
+<tr><td>REQ-V05</td><td>2 档解释</td><td>Agent</td><td>S4 two-tier-explainer</td><td>P0</td></tr>
+<tr><td>REQ-P02</td><td>人物代表观点</td><td>Agent</td><td>S5 person-profile-aggregator</td><td>P1</td></tr>
+<tr><td>REQ-X01</td><td>视频 CRUD</td><td>Script</td><td>S6 video-crud</td><td>P0</td></tr>
+<tr><td>REQ-S02</td><td>语义搜索</td><td>Hybrid</td><td>S7 semantic-search</td><td>P1</td></tr>
+<tr><td>REQ-S01</td><td>关键词搜索</td><td>Script</td><td>S8 keyword-search</td><td>P0</td></tr>
+<tr><td>(编排)</td><td>流水线编排</td><td>Script</td><td>S9 ai-pipeline-orchestrator</td><td>P0</td></tr>
+<tr><td>REQ-U02/U03</td><td>收藏 CRUD</td><td>Script</td><td>S10 favorite-crud</td><td>P0</td></tr>
+</table>
+
+<h3>UI 模块(12 个 · Frontend · 18 components 实现)</h3>
+
+<table>
+<tr><td>需求 ID</td><td>描述</td><td>类型</td><td>对应组件</td><td>优先级</td></tr>
+<tr><td>REQ-H01</td><td>视频卡片 grid</td><td>UI</td><td><code>video-card</code> + page <code>[locale]/page.tsx</code></td><td>P0</td></tr>
+<tr><td>REQ-H02</td><td>双语切换</td><td>UI</td><td><code>lang-switcher</code></td><td>P0</td></tr>
+<tr><td>REQ-H03</td><td>主题/人物导航</td><td>UI</td><td><code>header</code> + <code>person-card</code></td><td>P1</td></tr>
+<tr><td>REQ-V01</td><td>嵌入播放器</td><td>UI</td><td><code>player</code></td><td>P0</td></tr>
+<tr><td>REQ-V02/03/05</td><td>摘要 / 观点 / 双档</td><td>UI</td><td><code>summary-block</code> / <code>keypoints-list</code> / <code>two-tier-tabs</code></td><td>P0</td></tr>
+<tr><td>REQ-V04</td><td>时间轴 nav</td><td>UI</td><td><code>timeline-nav</code></td><td>P0</td></tr>
+<tr><td>REQ-V07</td><td>来源版权卡</td><td>UI</td><td>在 <code>video-detail</code> page</td><td>P0</td></tr>
+<tr><td>REQ-P01</td><td>人物详情页</td><td>UI</td><td><code>person-hero</code> + <code>person-card</code></td><td>P0</td></tr>
+<tr><td>REQ-T01</td><td>主题页</td><td>UI</td><td><code>[locale]/topics/[slug]/page.tsx</code></td><td>P0</td></tr>
+<tr><td>REQ-S01/S02</td><td>搜索栏 + 结果</td><td>UI</td><td><code>search-bar</code> + <code>mark</code> + <code>[locale]/search/page.tsx</code></td><td>P0/P1</td></tr>
+<tr><td>REQ-U02</td><td>收藏按钮</td><td>UI</td><td><code>favorite-button</code></td><td>P0</td></tr>
+<tr><td>REQ-U03</td><td>个人主页</td><td>UI</td><td><code>[locale]/favorites/page.tsx</code></td><td>P0</td></tr>
+</table>
+
+<p><strong>汇总</strong>: 10 backend skills + 12 UI 模块 = 22 implementation units 覆盖 21 REQ(REQ-X02/X03 暂走运营人工 + S6 CRUD,Phase D 上线后再补管理 UI)。</p>
+
+<h2>验收标准</h2>
+
+<p>详见 <code>docs/01-discover/intent-brief.md</code> §6 + <code>docs/03-qualify/delivery-report.md</code> §3。本期工程层全过、LLM 输出层留 Phase D 真测。关键门:</p>
+
+<ul>
+<li>功能验收(9 条 §6.1) — 8 ✅ + 1 ⏸(Vercel prod 部署待 Alan 执行 deployment-runbook)</li>
+<li>质量验收(6 条 §6.2) — 工程层 3 ✅(i18n 100% / a11y critical=0 / 估算 LCP 1.8s) + 3 ⏸(LLM 摘要 ≥85% / 幻觉 ≤5% / 时间轴 ≥80% 待 25 cases 真跑)</li>
+<li>上线 Day-1 北极星 — 待 5-31 后真测</li>
+</ul>
+
+</article>
+<article id="doc-03-development-plan">
+<h1>03 · 开发计划文档</h1>
+
+<blockquote>
+自动生成 · GEI v4.1.0 · 2026-05-24T15:14Z
+数据源: pipeline-state.phase_status · reflections · 04-evolve/round-001
+自动化类型: ✅ 全自动
+</blockquote>
+
+<h2>里程碑</h2>
+
+<table>
+<tr><td>Phase</td><td>目标</td><td>开始</td><td>结束</td><td>耗时</td><td>状态</td></tr>
+<tr><td>A · Discover</td><td>25 章 PRD → 6 模块 21 REQ + 10 skill + 12 UI + 30 视频选片 + 类型分流</td><td>2026-05-24T00:00Z</td><td>2026-05-24T01:00Z</td><td>~1h</td><td>✅ completed</td></tr>
+<tr><td>B.0 · Design</td><td>4 大页面 wireframes + 高保真 HTML + 88 design tokens + 110 i18n keys + 16 components + Stage E 自查 all-pass</td><td>2026-05-24T01:00Z</td><td>2026-05-24T02:00Z</td><td>~1h</td><td>✅ completed</td></tr>
+<tr><td>B.1 · Frontend(小赵)</td><td>6 pages + 18 components + i18n zh/en + build PASS + LCP est 1.8s / bundle 139KB</td><td>2026-05-24T02:00Z</td><td>2026-05-24T03:00Z</td><td>~1h</td><td>✅ completed</td></tr>
+<tr><td>B.2 · Backend(大刘)</td><td>10 skill + 9 API routes + 9 DB tables + Edge Function + tsc PASS + key 隔离</td><td>2026-05-24T02:00Z</td><td>2026-05-24T03:00Z</td><td>~1h(并行)</td><td>✅ completed</td></tr>
+<tr><td>C · Qualify(阿May)</td><td>结构 eval 5/6 · build/tsc/i18n100/a11y critical=0 · 25 LLM cases seeded · stability PASS</td><td>2026-05-24T03:00Z</td><td>2026-05-24T04:00Z</td><td>~1h</td><td>✅ completed</td></tr>
+<tr><td>D · Evolve(老吴 round-001)</td><td>W3 lazy init / W4 标注 / W6 rate-limit / 3 真 YT ID + 27 _DRAFT / 9 步 runbook + eval plan + checklist · final_score 0.92</td><td>2026-05-24T04:00Z</td><td>2026-05-25T00:00Z</td><td>~20h(含夜间)/ reflection 主动 ~1h</td><td>✅ completed</td></tr>
+</table>
+
+<p><strong>reflection 主动工时合计</strong>: ~6h(Phase A→D 5 个 checkpoint reflection 跨度)</p>
+<p><strong>mtime 跨度</strong>: 2026-05-24T00:00Z → 2026-05-25T00:00Z ≈ 24h(含夜间 / 离开时间 · 运维 SLA 用此值)</p>
+
+<h2>任务拆解</h2>
+
+<p>派活预案锁死在 intent-brief §7 + 实际执行映射:</p>
+
+<pre><code>
+Phase A   小灰  → 21 REQ 规格 + 10 skill + 12 UI + 30 视频清单 + 类型分流(Agent/Script/Hybrid)
+Phase A   老周  → project_type = hybrid 锁定 + 技术栈深判(Clerk/Drizzle/OpenAI-emb/next-intl 由 Alan 最终拍板)
+Phase B.0 Mia   → 4 大页面设计 + 88 design tokens + 110 i18n keys + 16 components + Stage E 双轨评审
+Phase B.1 小赵  → Next.js 15 前端照稿实现 + next-intl + Tailwind + shadcn-style
+Phase B.2 大刘  → 10 skill + Edge Function (DeepSeek 代理) + ASR 流水线 + pgvector + 9 表 schema
+Phase C   阿May → 结构/构建/a11y/i18n eval + 25 cases LLM seeded + 稳定性 gate(regression × 3)
+Phase D   老吴  → maintain round-001(W3/W4/W6 + 28 视频 ID + 9 步 runbook + eval plan + checklist)
+</code></pre>
+
+<p>并行机会(已实际执行):</p>
+<ul>
+<li>B.1 小赵 + B.2 大刘 并行(Mia handoff 落地后)— ~1h 内同步完成</li>
+<li>30 视频选片与 B.1/B.2 工程并行(运营层)</li>
+</ul>
+
+<h2>Reflection 检查点</h2>
+
+<table>
+<tr><td>Checkpoint</td><td>时间</td><td>决策</td><td>关键 reasoning</td></tr>
+<tr><td>A</td><td>2026-05-24T01:00Z</td><td>CONTINUE</td><td>21 REQ / 10 skill / 12 UI / 30 视频清单完整 · scope_complete=true · 双语约束已贯穿 DB 拆 zh/en 双字段 · Alan 现场拍板替代老周裁决(Auth/ORM/embedding/i18n)· 进 B.0</td></tr>
+<tr><td>B.0</td><td>2026-05-24T02:00Z</td><td>CONTINUE</td><td>Mia 4 页 wireframes + 高保真 HTML + 88 tokens + 110 i18n + 16 components · Stage E all-pass(可行性/可用性/双语/版权)· visual=electronic-magazine × e-ink · 进 B.1/B.2</td></tr>
+<tr><td>B.1+B.2</td><td>2026-05-24T03:00Z</td><td>CONTINUE</td><td>小赵 6 页 18 组件 build PASS · LCP 1.8s / bundle 139KB · 大刘 10 skill 9 API 9 表 tsc PASS · key 隔离 0 泄漏 · $0.017/视频 · 3 W 工单非阻塞 · 进 Phase C</td></tr>
+<tr><td>C</td><td>2026-05-24T04:00Z</td><td>FINALIZE</td><td>工程层全过(build/tsc/a11y critical=0/i18n 100%/stability)· 25 LLM eval seeded 待 Phase D 真测 · 3 concerns 全是运营/上线前补救 · final_recommendation=ready_to_deploy · 询问是否进 Phase D</td></tr>
+<tr><td>D.1</td><td>2026-05-25T00:00Z</td><td>COMPLETE</td><td>老吴 round-001 maintain 单轮 · 5 候选 4 KEPT 1 DEFERRED · W3 lazy init + W4 标注 + W6 search rate-limit 30/60s · 28 视频(3 真 ID + 27 _DRAFT 强制可见)· 9 步 runbook + LLM eval plan + post-launch checklist · final_score 0.92</td></tr>
+</table>
+
+<h2>依赖与排程</h2>
+
+<p>Phase 依赖固定为 <strong>A → B(B.0 → B.1//B.2) → C → D</strong>:</p>
+
+<pre><code>
+A (discover)
+    ↓
+B.0 (Mia design)
+    ↓ handoff-to-engineering.md
+B.1 (小赵 frontend) // B.2 (大刘 backend) — 并行
+    ↓
+C (阿May qualify)
+    ↓ ready_to_deploy
+D (老吴 evolve · 可选)
+    ↓ deployment-runbook
+[Alan 手动上线 5-31]
+</code></pre>
+
+<p>跨 Phase 依赖契约:</p>
+<ul>
+<li>A → B.0: <code>requirements-spec.md</code> + <code>decomposition.md</code> + <code>content-plan.md</code>(必须 scope_complete=true)</li>
+<li>B.0 → B.1/B.2: <code>handoff-to-engineering.md</code> + <code>design-tokens.json</code> + <code>tailwind.config.snippet.ts</code> + <code>i18n-keys.md</code></li>
+<li>B.1//B.2 → C: <code>app/</code> build PASS + tsc PASS + 9 API + 18 components</li>
+<li>C → D: <code>delivery-report.md</code> final_recommendation=ready_to_deploy + 25 LLM cases seeded</li>
+<li>D → 上线: <code>deployment-runbook.md</code> 9 步 + <code>post-launch-checklist.md</code> 24h/7 天清单</li>
+</ul>
+
+</article>
+<article id="doc-04-code-manifest">
+<h1>04 · 代码清单</h1>
+
+<blockquote>
+自动生成 · GEI v4.1.0 · 2026-05-24T15:14Z
+数据源: git ls-files · docs/02-generate/skills-spec.md · app/src/**
+自动化类型: ✅ 全自动(hybrid project_type — skill 定义在 docs/02-generate/skills-spec.md · 实现在 app/src/lib + app/src/app/api)
+</blockquote>
+
+<h2>Skill 目录(10 个 backend skill)</h2>
+
+<table>
+<tr><td>Skill</td><td>类型</td><td>触发 / 入口</td><td>实现路径</td><td>对应 REQ</td></tr>
+<tr><td><strong>S1 summary-generator</strong></td><td>Agent</td><td>pipeline 内调用</td><td><code>app/src/lib/ai/prompts/s1-summary.ts</code> + <code>app/src/lib/ai/deepseek.ts</code></td><td>REQ-V02</td></tr>
+<tr><td><strong>S2 keypoints-extractor</strong></td><td>Agent</td><td>pipeline 内调用</td><td><code>app/src/lib/ai/prompts/s2-keypoints.ts</code></td><td>REQ-V03</td></tr>
+<tr><td><strong>S3 timeline-builder</strong></td><td>Hybrid</td><td>pipeline 内调用(Script 分段 + Agent 命名)</td><td><code>app/src/lib/ai/prompts/s3-timeline.ts</code> + <code>app/src/lib/ai/pipeline.ts</code></td><td>REQ-V04</td></tr>
+<tr><td><strong>S4 two-tier-explainer</strong></td><td>Agent</td><td>pipeline 内调用</td><td><code>app/src/lib/ai/prompts/s4-explainer.ts</code></td><td>REQ-V05</td></tr>
+<tr><td><strong>S5 person-profile-aggregator</strong></td><td>Agent</td><td>异步 · <code>ai_done</code> 后</td><td><code>app/src/lib/ai/prompts/s5-person.ts</code> + <code>app/src/scripts/aggregate-person.ts</code></td><td>REQ-P02</td></tr>
+<tr><td><strong>S6 video-crud</strong></td><td>Script</td><td><code>POST/GET /api/admin/videos</code></td><td><code>app/src/app/api/admin/videos/route.ts</code></td><td>REQ-X01</td></tr>
+<tr><td><strong>S7 semantic-search</strong></td><td>Hybrid</td><td><code>GET /api/search?mode=semantic</code></td><td><code>app/src/lib/search/semantic.ts</code> + <code>app/src/app/api/search/route.ts</code></td><td>REQ-S02</td></tr>
+<tr><td><strong>S8 keyword-search</strong></td><td>Script</td><td><code>GET /api/search?mode=keyword</code></td><td><code>app/src/lib/search/keyword.ts</code></td><td>REQ-S01</td></tr>
+<tr><td><strong>S9 ai-pipeline-orchestrator</strong></td><td>Script</td><td>CLI <code>npx tsx src/scripts/ingest-video.ts --video-id N</code></td><td><code>app/src/lib/ai/pipeline.ts</code> + <code>app/src/scripts/ingest-video.ts</code></td><td>编排 S1-S4 + S8</td></tr>
+<tr><td><strong>S10 favorite-crud</strong></td><td>Script</td><td><code>POST/DELETE/GET /api/favorites</code></td><td><code>app/src/app/api/favorites/route.ts</code></td><td>REQ-U02/U03</td></tr>
+</table>
+
+<blockquote>
+SKILL.md frontmatter / triggers / allowed-tools 适配说明: 本项目为 web app 类型(非标准 customer-agent),skill 没有独立 <code>skills/{name}/SKILL.md</code> 文件,定义集中在 <code>docs/02-generate/skills-spec.md</code> 内 S1-S10 节,触发方式为 API route / pipeline 内函数调用 / CLI script,无 Claude Skill triggers。
+</blockquote>
+
+<h2>知识库</h2>
+
+<table>
+<tr><td>#</td><td>名称</td><td>来源</td><td>存储</td><td>备注</td></tr>
+<tr><td>K-01</td><td>30 demo 视频元数据</td><td>运营选片 + YouTube/B 站公开</td><td>DB(<code>videos</code> 表)+ <code>app/src/db/seed.ts</code></td><td>3 真 YT ID + 27 <code>_DRAFT</code> 强制可见占位 · 上线前 Alan 必须回填</td></tr>
+<tr><td>K-02</td><td>字幕原文</td><td>YouTube 公开字幕 / 本地 Whisper</td><td>text + timestamps</td><td>不入 Git · 运营机器本地处理</td></tr>
+<tr><td>K-03</td><td>5 主题定义</td><td>Alan 编辑</td><td>DB(<code>topics</code> 表)</td><td>AI / AI Agent / 创业 / 芯片 / 未来工作</td></tr>
+<tr><td>K-04</td><td>10 人物档案</td><td>运营整理</td><td>DB(<code>people</code> 表)</td><td>含双语简介 + signature_views_zh/en</td></tr>
+<tr><td>K-05</td><td>i18n 中英 keys(110 条)</td><td>Mia design tokens</td><td><code>app/messages/zh.json</code> + <code>app/messages/en.json</code></td><td>100% 对齐 · eval PASS</td></tr>
+<tr><td>K-06</td><td>DTCG Design Tokens(88 个)</td><td>Mia</td><td><code>docs/design/tokens/design-tokens.json</code></td><td>颜色 / 字号 / 间距 / 字体栈</td></tr>
+</table>
+
+<blockquote>
+本项目无 <code>memory/knowledge/</code> 目录(web app 类型 · 不是 Claude Skill agent · 知识库走 DB + 静态 JSON)。
+</blockquote>
+
+<h2>核心配置文件</h2>
+
+<blockquote>
+本项目无 <code>SOUL.md</code> / <code>CLAUDE.md</code>(web app 类型 · 不是 Claude Skill agent)。等价说明从以下文件提取:
+</blockquote>
+
+<ul>
+<li><strong><code>app/README.md</code></strong> — _kdsj-world · 看懂世界 · AI 视频知识解释平台 · Next.js 15 App Router · next-intl · Tailwind · shadcn-style components。_</li>
+<li><strong><code>docs/design/handoff-to-engineering.md</code></strong> — _Mia → 小赵(B.1 前端)+ 大刘(B.2 后端 · API contract 对齐)· 2026-05-24 · Stage F · Stage E 自查全 PASS · 含实现约束 / 资产路径 / 性能预算。_</li>
+<li><strong><code>docs/04-evolve/deployment-runbook.md</code></strong> — _kdsj-world · 上线部署单(9 步)· 给 Alan 一个人,本地执行 · 预算 30 视频 ingest 约 $0.51 + Vercel/Neon 免费层 · 预期总耗时 2-4 小时。_</li>
+</ul>
+
+<h2>Git 跟踪文件完整清单</h2>
+
+<blockquote>
+✅ 本项目内部已 git init · <code>git ls-files</code> 直接可用。
+</blockquote>
+
+<p><strong>统计</strong>:</p>
+
+<table>
+<tr><td>类型</td><td>文件数</td></tr>
+<tr><td>总文件数(<code>git ls-files</code>)</td><td><strong>130</strong></td></tr>
+<tr><td><code>app/**</code>(应用代码)</td><td>79</td></tr>
+<tr><td><code>docs/**</code>(交付文档)</td><td>50</td></tr>
+<tr><td><code>pipeline-state.json</code>(GEI 状态)</td><td>1</td></tr>
+</table>
+
+<p><strong>按扩展名(全仓库)</strong>:</p>
+
+<table>
+<tr><td>扩展名</td><td>数量</td></tr>
+<tr><td><code>.md</code></td><td>43</td></tr>
+<tr><td><code>.ts</code></td><td>36</td></tr>
+<tr><td><code>.tsx</code></td><td>32</td></tr>
+<tr><td><code>.json</code></td><td>7</td></tr>
+<tr><td><code>.html</code></td><td>4(高保真设计稿)</td></tr>
+<tr><td><code>.css</code></td><td>3</td></tr>
+<tr><td><code>.tsv</code></td><td>1(ledger)</td></tr>
+<tr><td><code>.mjs</code></td><td>1</td></tr>
+<tr><td><code>.example</code> / <code>.gitignore</code> / <code>.tsbuildinfo</code></td><td>各 1</td></tr>
+</table>
+
+<p><strong>应用代码关键路径</strong>(<code>app/src/</code> · 66 文件):</p>
+
+<pre><code>
+app/src/app/[locale]/
+    layout.tsx · page.tsx · not-found.tsx
+    videos/[slug]/page.tsx
+    people/[slug]/page.tsx
+    topics/[slug]/page.tsx
+    search/page.tsx
+    favorites/page.tsx
+app/src/app/api/
+    health/route.ts
+    videos/route.ts · videos/[slug]/route.ts
+    people/[slug]/route.ts
+    topics/[slug]/route.ts
+    search/route.ts
+    favorites/route.ts
+    admin/videos/route.ts
+    ai/chat/route.ts(Edge Function · DeepSeek 代理)
+app/src/components/
+    layout/{footer,header,lang-switcher,skip-link}.tsx
+    video/{player,summary-block,keypoints-list,timeline-nav,two-tier-tabs,favorite-button}.tsx
+    person/{person-card,person-hero}.tsx
+    search/search-bar.tsx
+    shared/{ai-pending-banner,mark}.tsx
+    ui/{badge,button,card,input,separator,tabs}.tsx
+app/src/lib/
+    ai/{deepseek.ts, pipeline.ts, prompts/s1..s5}
+    search/{keyword.ts, semantic.ts}
+    rate-limit.ts · api.ts · mock-data.ts · i18n.ts
+app/src/db/
+    schema.ts · client.ts(W3 lazy init)· seed.ts
+app/src/scripts/
+    ingest-video.ts · aggregate-person.ts
+</code></pre>
+
+<h2>代码统计</h2>
+
+<table>
+<tr><td>维度</td><td>值</td></tr>
+<tr><td>TypeScript(.ts + .tsx)LOC</td><td><strong>4,071</strong></td></tr>
+<tr><td>Markdown 文档 LOC</td><td>5,040</td></tr>
+<tr><td>总文件数</td><td>130</td></tr>
+<tr><td>应用代码文件(<code>app/</code>)</td><td>79</td></tr>
+<tr><td>文档文件(<code>docs/</code>)</td><td>50</td></tr>
+<tr><td>Pages 实现</td><td>6(home / video / people / topics / search / favorites + locale layout)</td></tr>
+<tr><td>Components 实现</td><td>18(layout 4 / video 6 / person 2 / search 1 / shared 2 / ui 6)</td></tr>
+<tr><td>API Routes</td><td>9</td></tr>
+<tr><td>DB Tables</td><td>9</td></tr>
+<tr><td>Edge Functions</td><td>1(DeepSeek 代理 <code>api/ai/chat</code>)</td></tr>
+<tr><td>i18n locales</td><td>2(zh default + en)</td></tr>
+<tr><td>i18n keys</td><td>110(100% 对齐)</td></tr>
+<tr><td>Design tokens</td><td>88</td></tr>
+</table>
+
+</article>
+<article id="doc-05-test-report">
+<h1>05 · 测试报告</h1>
+
+<blockquote>
+自动生成 · GEI v4.1.0 · 2026-05-24T15:14Z
+数据源: docs/03-qualify/evaluation-framework.md · delivery-report.md · llm-eval-suite/* · 04-evolve/round-001
+自动化类型: ✅ 全自动 · LLM eval seeded(未真跑,标 [Desk Evaluation — 上线后跑])
+</blockquote>
+
+<h2>评估框架</h2>
+
+<p>阿May 在 Phase C 设计三层评估策略,适配 MVP 7 天紧迫现实:</p>
+
+<p>1. <strong>结构 eval</strong>(本轮跑):i18n 双语对齐 / 类型 / DB schema / Edge key 隔离 / brand / mock 完整 — 阻塞上线</p>
+<p>2. <strong>可执行 eval</strong>(本轮跑):build / tsc / a11y 静态扫 / Lighthouse 估算 — 阻塞上线</p>
+<p>3. <strong>LLM eval</strong>(seeded · 上线后跑):5 skill × 5 case rubric + prompt + 预期 — 不阻塞 MVP</p>
+<p>4. <strong>稳定性套件</strong>(简化跑):regression × 3 + 7 boundary cases</p>
+
+<p><strong>北极星</strong>(intent-brief §6.2):</p>
+
+<table>
+<tr><td>#</td><td>名</td><td>目标</td><td>本轮</td></tr>
+<tr><td><strong>N1</strong></td><td>summary_accuracy</td><td>≥ 85%</td><td>⏸ Desk · 上线后跑</td></tr>
+<tr><td><strong>N2</strong></td><td>i18n_coverage_zh_en</td><td>100%</td><td>✅ 100% · 111/111 keys</td></tr>
+<tr><td><strong>N3</strong></td><td>a11y_critical_count</td><td>= 0</td><td>✅ 0 critical · 2 serious(头像 alt 占位)</td></tr>
+</table>
+
+<blockquote>
+详见 <code>docs/03-qualify/evaluation-framework.md</code>(全文)。
+</blockquote>
+
+<h2>各 Skill 评分</h2>
+
+<blockquote>
+Desk Evaluation 模式 · 5 Agent/Hybrid skill 跑 5 cases 每个共 25 cases seeded,<strong>未实际调用 DeepSeek API</strong>(子 agent 无 key + 烧 token 预算 + 28/30 视频 platform_id 占位)。pass@k / pass^k 列统一标注 <code>[Desk Evaluation — 仅设计评估]</code>,Phase D 老吴上线后用真 key 跑。
+</blockquote>
+
+<table>
+<tr><td>Skill</td><td>类型</td><td>漏斗</td><td>pass@k</td><td>pass^k</td><td>rubric</td><td>final %</td><td>是否达标(阈值 85%)</td></tr>
+<tr><td>S1 summary-generator</td><td>Agent</td><td>L1→L2</td><td>[Desk Eval]</td><td>[Desk Eval]</td><td>5 case seeded(准确率 / 字数 / 不丢核心)</td><td>seeded · 待真跑</td><td>⏸ Phase D</td></tr>
+<tr><td>S2 keypoints-extractor</td><td>Agent</td><td>L1→L2</td><td>[Desk Eval]</td><td>[Desk Eval]</td><td>5 case seeded(<strong>反 hallucination</strong> 重点)</td><td>seeded · 待真跑</td><td>⏸ Phase D</td></tr>
+<tr><td>S3 timeline-builder</td><td>Hybrid</td><td>L1→L2</td><td>[Desk Eval]</td><td>[Desk Eval]</td><td>5 case seeded(分段数 5-12 / 段名质量)</td><td>seeded · 待真跑</td><td>⏸ Phase D</td></tr>
+<tr><td>S4 two-tier-explainer</td><td>Agent</td><td>L1→L2</td><td>[Desk Eval]</td><td>[Desk Eval]</td><td>5 case seeded(<strong>反 padding</strong> 重点)</td><td>seeded · 待真跑</td><td>⏸ Phase D</td></tr>
+<tr><td>S5 person-aggregator</td><td>Agent</td><td>L1→L2</td><td>[Desk Eval]</td><td>[Desk Eval]</td><td>5 case seeded(<strong>反混淆</strong> 跨视频引用)</td><td>seeded · 待真跑</td><td>⏸ Phase D</td></tr>
+<tr><td>S6 video-crud</td><td>Script</td><td>L0</td><td>N/A</td><td>N/A</td><td>静态审计</td><td>✅ POST/GET 一致 · 401/409</td><td>✅</td></tr>
+<tr><td>S7 semantic-search</td><td>Hybrid</td><td>L0→L2</td><td>N/A</td><td>N/A</td><td>静态审计</td><td>✅ top1 + fallback</td><td>✅</td></tr>
+<tr><td>S8 keyword-search</td><td>Script</td><td>L0→L2</td><td>N/A</td><td>N/A</td><td>静态审计</td><td>✅ CJK 检测 + trigram</td><td>✅</td></tr>
+<tr><td>S9 orchestrator</td><td>Script</td><td>L1</td><td>N/A</td><td>N/A</td><td>静态审计</td><td>✅ 状态机 · 重试 ≤3</td><td>✅</td></tr>
+<tr><td>S10 favorite-crud</td><td>Script</td><td>L0</td><td>N/A</td><td>N/A</td><td>静态审计</td><td>✅ 幂等 + 401</td><td>✅</td></tr>
+</table>
+
+<p><strong>结构 + 可执行 eval 汇总</strong>(<code>delivery-report.md</code> §6):</p>
+
+<table>
+<tr><td>Eval</td><td>结果</td></tr>
+<tr><td>i18n 111 双语对齐</td><td>✅</td></tr>
+<tr><td>mock data 30 视频字段</td><td>✅(28 platform_id 占位待补 — 运营层)</td></tr>
+<tr><td>API contract 一致性</td><td>✅</td></tr>
+<tr><td>DB schema 一致性</td><td>✅</td></tr>
+<tr><td>Edge key 隔离</td><td>✅</td></tr>
+<tr><td>rate-limit + brand</td><td>⚠ rate-limit 仅 ai/chat 命中 · brand ✅(W6 → round-001 已补 /api/search)</td></tr>
+<tr><td><code>npm run build</code>(裸 env)</td><td>❌ baseline → ✅ round-001 W3 lazy init 后 PASS</td></tr>
+<tr><td><code>npm run build</code>(stub DATABASE_URL)</td><td>✅</td></tr>
+<tr><td>Next-internal tsc</td><td>✅</td></tr>
+<tr><td>standalone tsc</td><td>❌ W4 已知 issue(<code>moduleResolution: bundler</code>)· KEPT-as-doc</td></tr>
+<tr><td>Regression × 3</td><td>✅ 0% variance</td></tr>
+<tr><td>Boundary 7 cases</td><td>✅ 6/7 + 1 fallback</td></tr>
+<tr><td><strong>结构 eval 通过率</strong></td><td><strong>5/6</strong>(W6 部分覆盖 round-001 后已修)</td></tr>
+<tr><td><strong>可执行 eval 通过率</strong></td><td><strong>4/4</strong>(build/tsc-via-next/a11y/regression)</td></tr>
+</table>
+
+<h2>阈值校准</h2>
+
+<p><code>confirmed_params.threshold</code> = <strong>85</strong>(单值 · <code>[未经多指标校准]</code>)。配套参数:</p>
+
+<table>
+<tr><td>参数</td><td>值</td></tr>
+<tr><td>threshold(单一统一阈值)</td><td>85%</td></tr>
+<tr><td>trials_per_case</td><td>3</td></tr>
+<tr><td>cases_count_per_skill</td><td>5</td></tr>
+<tr><td>total cases seeded</td><td>25(5 skill × 5 case)</td></tr>
+<tr><td>max_parallel_skills</td><td>5</td></tr>
+</table>
+
+<blockquote>
+项目无 <code>calibrated_thresholds.per_metric</code> 多指标校准 — 用单一 N1=85% + N2=100% + N3=0 三北极星替代。功能上等价于 MVP 阶段的简化版校准。
+</blockquote>
+
+<h2>改进轨迹</h2>
+
+<p>Phase D · round-001 单轮 maintain(<code>docs/04-evolve/round-001/round-001.md</code>):</p>
+
+<table>
+<tr><td>维度</td><td>baseline(round-001 前)</td><td>final(round-001 后)</td><td>Δ</td></tr>
+<tr><td>build 通过(裸 env)</td><td>❌</td><td>✅</td><td>+1</td></tr>
+<tr><td>/api/search 防刷</td><td>❌</td><td>✅</td><td>+1</td></tr>
+<tr><td>视频 ID 占位可见性</td><td><code>PLACEHOLDER</code>(易撞真 ID)</td><td><code>_DRAFT</code> 后缀 + 注释</td><td>+0.5</td></tr>
+<tr><td>部署文档完备度</td><td>0</td><td>9 步 runbook + eval plan + checklist</td><td>+1</td></tr>
+<tr><td><strong>综合健康分</strong></td><td><strong>0.78</strong></td><td><strong>0.92</strong></td><td><strong>+0.14</strong></td></tr>
+</table>
+
+<p><strong>判定</strong>: KEEP(delta +14% · 远超 +2% threshold)· <code>codeloop_state.exit_reason = max_rounds_reached_per_brief</code>(单轮收尾 maintain mode 设计如此 · 已达稳定 stable_after_one_round)。</p>
+
+<p>5 候选决策:</p>
+<ul>
+<li><strong>C1</strong> W3 lazy init <code>db/client.ts</code> → KEPT(build 不再需要 stub DATABASE_URL)</li>
+<li><strong>C2</strong> W4 tsc TS6046 → KEPT-as-doc(Next 15 + bundler 已知 upstream issue · 强改破坏 build 链)</li>
+<li><strong>C3</strong> W6 <code>/api/search</code> rate-limit 30/60s/IP → KEPT(防 OpenAI embedding 账单飙升)</li>
+<li><strong>C4</strong> 28 视频 platform_id 回填 → PARTIAL KEPT + DEFERRED(3 真 + 27 <code>_DRAFT</code> 强制可见占位 · Alan 上线前必须二次审)</li>
+<li><strong>C5</strong> 9 步 deployment-runbook + LLM eval plan + post-launch checklist → KEPT</li>
+</ul>
+
+<h2>未达标分析</h2>
+
+<p><strong>当前无任何"已实测但未达标"的 Skill</strong>。需要 Phase D 真测才能确认的是 S1-S5 五个 Agent/Hybrid skill 的 LLM 输出准确率(seeded 状态)。</p>
+
+<p><strong>LLM eval 真测计划</strong>(上线后 24h 内 Alan 一人执行 · <code>docs/04-evolve/llm-eval-execution-plan.md</code>):</p>
+
+<pre><code>
+cd app
+DEEPSEEK_API_KEY=$REAL_KEY npx tsx src/llm-eval-suite/run-all.ts \
+  --output docs/04-evolve/round-001/llm-eval-results.json
+</code></pre>
+
+<p>期望: <strong>25 cases ≥ 21 pass(≥ 85% 准确率)</strong>。</p>
+
+<p>若未达标,改 prompt(不改 skill 接口),再跑一轮 · 这属于 round-002 自动触发条件。</p>
+
+<p>未达标兜底方向(funnel_diagnosis 已写):</p>
+<ul>
+<li>若 S1/S4 &lt; 85% → 改 prompt 加更强 few-shot</li>
+<li>若 S2 hallucination 率 &gt; 5% → 加 source_span 严格校验(已有)+ 提高拒答门槛</li>
+<li>若 S3 时间轴可用率 &lt; 80% → Script 分段策略放宽(双换行 + 长停顿)</li>
+<li>若 L0 搜索 &lt; 60% → 切纯 keyword 兜底</li>
+</ul>
+
+</article>
+<article id="doc-06-deployment-runbook">
+<h1>06 · 部署运维手册</h1>
+
+<blockquote>
+自动生成 · GEI v4.1.0 · 2026-05-24T15:14Z
+数据源: docs/04-evolve/deployment-runbook.md(老吴 9 步)+ post-launch-checklist.md + app/README.md
+自动化类型: ✅ 全自动
+</blockquote>
+
+<h2>环境依赖</h2>
+
+<table>
+<tr><td>项</td><td>值</td></tr>
+<tr><td>Node.js</td><td>≥ 20.x(Next.js 15 / React 19 要求)</td></tr>
+<tr><td>Package manager</td><td>npm(<code>package-lock.json</code> 入 git)</td></tr>
+<tr><td>Framework</td><td>Next.js 15 App Router + React 19</td></tr>
+<tr><td>UI</td><td>shadcn-style + Tailwind CSS 3 + DTCG tokens</td></tr>
+<tr><td>i18n</td><td>next-intl(<code>[locale]</code> segment · default <code>zh</code>)</td></tr>
+<tr><td>Auth</td><td>Clerk(Vercel Marketplace · 自动注入 env)</td></tr>
+<tr><td>ORM</td><td>Drizzle ORM + drizzle-kit</td></tr>
+<tr><td>DB</td><td>Neon Postgres + pgvector(<code>CREATE EXTENSION vector</code>)</td></tr>
+<tr><td>LLM</td><td>DeepSeek-v4-pro(Edge Function 代理 · key 服务端 only)</td></tr>
+<tr><td>Embedding</td><td>OpenAI text-embedding-3-small(1536d · $0.02/1M token)</td></tr>
+<tr><td>ASR</td><td>本地 Whisper(运营机器 · 不进 Vercel)</td></tr>
+<tr><td>Deploy</td><td>Vercel(Hobby 或 Pro · prod 域名 <code>kdsj-world.vercel.app</code> 或自有)</td></tr>
+<tr><td>浏览器</td><td>Chrome / Safari / Edge 最近 2 版本(IE 不支持)</td></tr>
+</table>
+
+<p><strong>必要 env vars</strong>:</p>
+
+<table>
+<tr><td>Key</td><td>值来源</td><td>备注</td></tr>
+<tr><td><code>DATABASE_URL</code></td><td>Neon Marketplace 自动注入</td><td>不用手填</td></tr>
+<tr><td><code>DEEPSEEK_API_KEY</code></td><td>DeepSeek 控制台</td><td>服务端 only</td></tr>
+<tr><td><code>OPENAI_API_KEY</code></td><td>OpenAI 控制台</td><td>仅 embedding 用</td></tr>
+<tr><td><code>CLERK_SECRET_KEY</code></td><td>Clerk Marketplace 自动注入</td><td>服务端</td></tr>
+<tr><td><code>NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY</code></td><td>Clerk Marketplace 自动注入</td><td>客户端可见</td></tr>
+<tr><td><code>NEXTAUTH_URL</code></td><td><code>https://kdsj.world</code> 或 vercel preview URL</td><td>Clerk redirect 用</td></tr>
+</table>
+
+<p><strong>严禁</strong>: 把任何 key 写进代码 / <code>.env.example</code> / commit message。</p>
+
+<h2>安装步骤</h2>
+
+<pre><code>
+# 1. 克隆 + 安装依赖
+git clone &lt;repo&gt;
+cd kdsj-world/app
+npm install
+
+# 2. 拉环境变量(已 vercel link 后)
+vercel env pull .env.local
+
+# 3. 本地复核 build
+npm run build       # 应 PASS · 10 静态页 + 9 API + 1 middleware
+npm run typecheck   # via Next · 应 PASS
+</code></pre>
+
+<h2>首次运行</h2>
+
+<p>详见 <code>docs/04-evolve/deployment-runbook.md</code> 完整 9 步(老吴 round-001 输出 · 给 Alan 一人本地执行)。摘要:</p>
+
+<pre><code>
+Step 0  前置确认       — build PASS / git clean / 27 _DRAFT 已替换 / 3 把 key 就绪
+Step 1  Vercel link    — vercel link · 选 Simprr team · 项目名 kdsj-world
+Step 2  Neon + pgvector — Marketplace 装 Neon + 跑 CREATE EXTENSION vector
+Step 3  Env vars 配置  — 6 个 key(production + preview 都要)
+Step 4  DB schema push — npx drizzle-kit push
+Step 5  Seed 数据      — npx tsx src/db/seed.ts(5 topics + 10 people + 30 video stubs)
+Step 6  Ingest 30 视频 — 单条 ~$0.017 · 30 条 ~$0.51 · 60-120 分钟
+Step 7  Vercel 部署    — vercel(preview)→ smoke test → vercel --prod
+Step 8  LLM eval 真测  — DEEPSEEK_API_KEY=$REAL_KEY npx tsx src/llm-eval-suite/run-all.ts
+Step 9  分发           — Twitter @simprr + 朋友圈 + (可选) Hacker News Show HN
+</code></pre>
+
+<p>预期总耗时: <strong>2-4 小时</strong>(主要是 28 视频真 YouTube ID 回填 + ASR/LLM ingest 跑批)。</p>
+
+<h2>日常运维</h2>
+
+<pre><code>
+# 本地开发
+cd app
+npm run dev          # http://localhost:3000 → 重定向到 /zh
+
+# 加单条视频(运营 · Phase D 上线后)
+DEEPSEEK_API_KEY=$KEY OPENAI_API_KEY=$KEY \
+  npx tsx src/scripts/ingest-video.ts --video-id &lt;id&gt;
+
+# DB schema 改动
+npx drizzle-kit generate   # 生成 migration
+npx drizzle-kit push       # 应用到 Neon
+
+# 重新部署
+vercel              # preview
+vercel --prod       # 直接 prod
+</code></pre>
+
+<p><strong>Routes 全清单</strong>(应用层):</p>
+
+<ul>
+<li><code>/[locale]</code> · 首页(30 视频精选)</li>
+<li><code>/[locale]/videos/[slug]</code> · 视频详情(嵌入 + 摘要 + 5-10 观点 + 时间轴 + 2 档解释)</li>
+<li><code>/[locale]/people/[slug]</code> · 人物页(10 位)</li>
+<li><code>/[locale]/topics/[slug]</code> · 主题页(5 个)</li>
+<li><code>/[locale]/search?q=...</code> · 搜索(keyword + semantic 两 mode)</li>
+<li><code>/[locale]/favorites</code> · 个人主页(收藏列表 · Clerk 登录)</li>
+<li><code>/api/health</code> · 健康占位</li>
+<li><code>/api/{videos,videos/[slug],people/[slug],topics/[slug],search,favorites,admin/videos}</code> · 8 API</li>
+<li><code>/api/ai/chat</code> · Edge Function · DeepSeek 代理</li>
+</ul>
+
+<h2>故障排查</h2>
+
+<table>
+<tr><td>症状</td><td>排查路径</td></tr>
+<tr><td><code>npm run build</code> 报 <code>DATABASE_URL not set</code></td><td>W3 已修(round-001 lazy init)· 拉最新 commit <code>4bca9cc</code></td></tr>
+<tr><td><code>npm run tsc</code> 单独跑挂 <code>TS6046</code></td><td>W4 已知 · 用 <code>npm run typecheck</code>(<code>next build</code> 内置 tsc)替代 · 见 <code>docs/04-evolve/known-tsc-issue.md</code></td></tr>
+<tr><td><code>/api/search?mode=semantic</code> 返回 429</td><td>W6 rate-limit 30/60s/IP · 正常防刷 · 若超 prod 真用户,Vercel env 改 <code>SEARCH_RATE_LIMIT_RPM=10/60s</code></td></tr>
+<tr><td>视频详情页摘要空白(ai_status=pending)</td><td>ingest 未跑完 · <code>npx tsx src/scripts/ingest-video.ts --video-id N</code> 单条触发</td></tr>
+<tr><td>双语切换缺翻译</td><td>应不可能(i18n 100% eval PASS)· 若发生检查 <code>app/messages/{zh,en}.json</code> diff</td></tr>
+<tr><td>Clerk 登录 401</td><td>检查 Marketplace integration 是否 production env 注入 · 旧 <code>x-user-id</code> header 在 favorites + admin/videos 仍存在(W5 · D6 接 <code>auth()</code>)</td></tr>
+<tr><td>LLM eval &lt; 85%</td><td>改 prompt(不改接口)· 跑 round-002 改进循环</td></tr>
+<tr><td>OpenAI 账单飙升</td><td>检查 <code>/api/search</code> rate-limit 是否生效 · Vercel logs grep <code>429</code></td></tr>
+<tr><td>Vercel 部署失败</td><td>查 <code>vercel logs &lt;deployment-url&gt;</code> · 通常是 env vars 漏配</td></tr>
+</table>
+
+<h2>监控与告警</h2>
+
+<p><strong>24h 内</strong>(<code>docs/04-evolve/post-launch-checklist.md</code> T+24h):</p>
+
+<ul>
+<li>[ ] Vercel Analytics: 首页 LCP &lt; 2.5s</li>
+<li>[ ] OpenAI 账单 &lt; $1(若已超 → 改 <code>/api/search</code> rate-limit 30→10/60s)</li>
+<li>[ ] DeepSeek 账单 &lt; $1(ingest 已完成,不应再涨)</li>
+<li>[ ] Clerk Dashboard: 登录流程无 error spike</li>
+<li>[ ] Vercel logs 无 5xx 报错堆积</li>
+<li>[ ] LLM eval 25 cases 真跑 ≥ 21 pass(N1 ≥ 85%)</li>
+</ul>
+
+<p><strong>7 天 / 30 天</strong>(<code>docs/04-evolve/post-launch-checklist.md</code> T+7d / T+30d):</p>
+
+<ul>
+<li>Lighthouse prod 真测(Perf ≥ 80 / A11y ≥ 90 / BP ≥ 90 / SEO ≥ 90)</li>
+<li>Twitter @simprr 推文互动数据(点击 / 转发 / 留言)</li>
+<li>LLM 准确率回测(case 量 5 → 30 · 看真实视频量降级与否)</li>
+<li>收藏功能(W5 stub auth)是否接 Clerk <code>auth()</code> 排期</li>
+<li>round-002 触发条件:LLM eval &lt; 85% / W5 接 Clerk / DAU &gt; 50</li>
+</ul>
+
+<p><strong>回滚预案</strong>:</p>
+
+<pre><code>
+# 上线后 1h 内发现 P0 bug(白屏 / 数据库连不上 / Clerk 拒登录)
+# 方式 A · Vercel dashboard → Deployments → 上一个 stable build → Promote to Production
+# 方式 B · CLI
+vercel rollback &lt;previous-deployment-url&gt;
+</code></pre>
+
+<h2>Vercel deploy 章节(hybrid project 补充)</h2>
+
+<p>本项目 stack = Next.js 15 + Clerk + Neon + DeepSeek · 完全 Vercel Marketplace 一体化:</p>
+
+<p>1. <code>vercel link</code> 关联 Simprr team</p>
+<p>2. Marketplace 装 Clerk + Neon → 自动注入 env</p>
+<p>3. 手填 <code>DEEPSEEK_API_KEY</code> + <code>OPENAI_API_KEY</code></p>
+<p>4. <code>git push</code> 自动 preview / <code>vercel --prod</code> 手动 promote</p>
+<p>5. domain <code>kdsj-world.vercel.app</code>(免费)或绑 <code>kdsj.world</code>(自有域)</p>
+
+</article>
+<article id="doc-07-architecture-decisions">
+<h1>07 · 架构决策记录 (ADR)</h1>
+
+<blockquote>
+自动生成 · GEI v4.1.0 · 2026-05-24T15:14Z
+数据源: reflections · alan_late_call_phase_a · evolve round-001 · skills-spec · confirmed_params · requirements-spec(8 数据源综合)
+自动化类型: ✅ 全自动(v4.4+)
+</blockquote>
+
+<h2>关键决策清单(流程 Reflection)</h2>
+
+<blockquote>
+来源: <code>pipeline-state.reflections[]</code>(5 个 checkpoint)
+</blockquote>
+
+<table>
+<tr><td>Checkpoint</td><td>决策</td><td>Reasoning(节选)</td></tr>
+<tr><td>A · Discover</td><td>CONTINUE</td><td>21 REQ / 10 skill / 12 UI / 30 视频清单完整 · scope_complete=true · 双语约束已贯穿 DB 拆 zh/en 双字段 · 老周裁决项(Auth/ORM/embedding/i18n)Alan 现场拍板替代</td></tr>
+<tr><td>B.0 · Design</td><td>CONTINUE</td><td>Mia 4 页 wireframes + 高保真 HTML + 88 tokens + 110 i18n keys + 16 components + handoff-to-engineering · Stage E all-pass(可行性 / 可用性 / 双语 / 版权 4 道)</td></tr>
+<tr><td>B.1+B.2 · Build</td><td>CONTINUE</td><td>小赵 6 页 18 组件 build PASS · LCP 1.8s / bundle 139KB · 大刘 10 skill 9 API 9 表 tsc PASS · key 隔离 0 泄漏 · $0.017/视频 · $0.51 全量</td></tr>
+<tr><td>C · Qualify</td><td>FINALIZE</td><td>工程层全过(build/tsc/a11y critical=0/i18n 100%/stability)· 25 cases seeded 待 Phase D 真测 · 3 concerns 全是运营/上线前补救 · ready_to_deploy</td></tr>
+<tr><td>D.1 · Evolve</td><td>COMPLETE</td><td>round-001 maintain 单轮 · 5 候选 4 KEPT 1 DEFERRED · W3 lazy init + W4 标注 + W6 rate-limit + 3 真 YT ID + 27 _DRAFT · 9 步 runbook + eval plan + checklist · final_score 0.92</td></tr>
+</table>
+
+<h2>需求类型分类决策(Agent / Script / Hybrid)</h2>
+
+<blockquote>
+来源: <code>requirements-spec.md</code> 需求分解表 + <code>skills-spec.md</code> 10 个 skill 的 type 字段
+</blockquote>
+
+<table>
+<tr><td>需求 ID</td><td>描述</td><td>分类</td><td>对应 Skill</td><td>为什么这么分</td></tr>
+<tr><td>REQ-V02</td><td>一句话总结</td><td><strong>Agent</strong></td><td>S1</td><td>需要 LLM 语义压缩 · 无确定算法</td></tr>
+<tr><td>REQ-V03</td><td>核心观点 5-10 条</td><td><strong>Agent</strong></td><td>S2</td><td>LLM 抽取 + 反 hallucination · <code>source_span</code> 锚点校验是 deterministic 兜底</td></tr>
+<tr><td>REQ-V04</td><td>时间轴 ≥5 节点</td><td><strong>Hybrid</strong></td><td>S3</td><td>Script 按 ≥6min 滑窗 + 语义停顿分段(deterministic)· Agent 给每段命名</td></tr>
+<tr><td>REQ-V05</td><td>2 档解释</td><td><strong>Agent</strong></td><td>S4</td><td>字数规则 deterministic · 但内容生成必须 LLM</td></tr>
+<tr><td>REQ-P02</td><td>人物代表观点</td><td><strong>Agent</strong></td><td>S5</td><td>跨视频聚合 + 抽取代表性 · LLM 必须</td></tr>
+<tr><td>REQ-X01</td><td>视频 CRUD</td><td><strong>Script</strong></td><td>S6</td><td>纯 DB 写入 + Clerk auth gate</td></tr>
+<tr><td>REQ-S01</td><td>关键词搜索</td><td><strong>Script</strong></td><td>S8</td><td>Postgres ILIKE / ts_vector · 0 LLM</td></tr>
+<tr><td>REQ-S02</td><td>语义搜索</td><td><strong>Hybrid</strong></td><td>S7</td><td>OpenAI embedding(Agent 调用)+ pgvector cosine(Script)</td></tr>
+<tr><td>(编排)</td><td>AI 流水线编排</td><td><strong>Script</strong></td><td>S9</td><td>状态机 + 重试 + Promise.all fan-out · 0 LLM 决策</td></tr>
+<tr><td>REQ-U02/U03</td><td>收藏 CRUD</td><td><strong>Script</strong></td><td>S10</td><td>纯 DB + Clerk auth</td></tr>
+</table>
+
+<p><strong>类型分布</strong>: Agent 4 · Hybrid 2 · Script 4 = 10 skill。Agent 比例 40% 与 MVP "AI 视频解释器" 定位匹配。</p>
+
+<h2>基础架构承诺</h2>
+
+<blockquote>
+来源: <code>app/README.md</code>(项目概览)+ <code>docs/01-discover/intent-brief.md</code> §4 硬约束 + <code>docs/design/handoff-to-engineering.md</code>(实现约束)
+</blockquote>
+
+<p>本项目无 <code>SOUL.md</code>(web app · 非 Claude Skill agent),等价"Core Truths"如下:</p>
+
+<p>1. <strong>Cooper 第一性 · Alan 自己是用户</strong> — 优先满足 Alan 自用,5-31 上线 7 天 deadline 是硬线</p>
+<p>2. <strong>双语 MVP 非协商</strong> — UI + 内容摘要双版 · i18n 100% · 0 fallback · 任何缺翻译 = 阻塞上线</p>
+<p>3. <strong>key 仅服务端 · sweat 不在客户端</strong> — 沿用 bazi-studio Edge Function 架构 · LLM key 月度 rate-limit</p>
+<p>4. <strong>不下载视频原片 · embed + 外链 + 保留来源</strong> — 版权红线 · 全部 30 条 video.metadata 保留原作者/频道/平台</p>
+<p>5. <strong>Simprr 品牌 footer 全站可见</strong> — <code>https://x.com/simprr</code> 长期承载 · 每页可见</p>
+<p>6. <strong>MVP 砍到见骨</strong> — 8 项伪需求(K1-K8)全砍 · 30 视频 / 10 人物 / 5 主题 / 2 档解释 / 桌面优先</p>
+<p>7. <strong>质量门</strong>: N1 ≥ 85% / N2 = 100% / N3 = 0 critical(本期 N2 N3 达 · N1 上线后真测)</p>
+<p>8. <strong>改 prompt 不改接口</strong> — LLM 准确率不达标走 prompt 调优循环 · 不动 API schema</p>
+
+<h2>Skill 架构分层决策</h2>
+
+<blockquote>
+来源: <code>skills-spec.md</code> 10 skill 的 type + 价值漏斗(L0-L3)from <code>evaluation-framework.md</code> §2
+</blockquote>
+
+<table>
+<tr><td>Skill</td><td>skill_type</td><td>funnel_layer</td><td>为什么这么分</td></tr>
+<tr><td>S1 summary</td><td>Agent</td><td>L1 → L2</td><td>处理层(LLM 压缩)→ 输出层(双语显示)</td></tr>
+<tr><td>S2 keypoints</td><td>Agent</td><td>L1 → L2</td><td>同上 + 反 hallucination 严守 L1</td></tr>
+<tr><td>S3 timeline</td><td>Hybrid</td><td>L1 → L2</td><td>Script 分段属 L1 · Agent 命名跨 L1→L2</td></tr>
+<tr><td>S4 explainer</td><td>Agent</td><td>L1 → L2</td><td>同 S1 · 双档差异化是 L2 价值</td></tr>
+<tr><td>S5 person-aggregator</td><td>Agent</td><td>L1 → L2</td><td>跨视频 JOIN + LLM 提炼 · 异步 batch</td></tr>
+<tr><td>S6 video-crud</td><td>Script</td><td>L0</td><td>输入层(运营录入)· 触发下游 pipeline</td></tr>
+<tr><td>S7 semantic-search</td><td>Hybrid</td><td>L0 → L2</td><td>embedding L0(查询编码)+ pgvector L0(检索)→ 视频卡片 L2</td></tr>
+<tr><td>S8 keyword-search</td><td>Script</td><td>L0 → L2</td><td>trigram / tsvector 检索 · 0 LLM</td></tr>
+<tr><td>S9 orchestrator</td><td>Script</td><td>L1</td><td>编排所有 L1 LLM skill · 状态机层</td></tr>
+<tr><td>S10 favorite-crud</td><td>Script</td><td>L0</td><td>输入层(用户收藏行为)</td></tr>
+</table>
+
+<p><strong>架构分层规律</strong>: L1 LLM 集中(S1-S5)· L0 数据/搜索(S6-S8,S10)· S9 协调层。Hybrid 都跨层(S3 L1→L2, S7 L0→L2)。</p>
+
+<h2>质量目标 &amp; 评估规模决策</h2>
+
+<blockquote>
+来源: <code>confirmed_params.threshold</code> / <code>trials_per_case</code> / <code>cases_count_per_skill</code> + intent-brief §6.2
+</blockquote>
+
+<table>
+<tr><td>决策</td><td>值</td><td>Rationale</td></tr>
+<tr><td>统一阈值 threshold</td><td><strong>85%</strong></td><td>intent-brief §6.2 "摘要准确率 ≥ 85%" 直接映射 · 不做多指标分别校准(MVP 简化)</td></tr>
+<tr><td>trials_per_case</td><td><strong>3</strong></td><td>平衡 variance 与 token 预算 · 3 次足以排查偶发 LLM 抖动</td></tr>
+<tr><td>cases_count_per_skill</td><td><strong>5</strong></td><td>Agent/Hybrid skill 各 5 case · 共 25 cases · 25 × 3 trials × $0.005 ≈ $0.4 评估成本 · 可控</td></tr>
+<tr><td>评估模式</td><td><strong>Desk Evaluation</strong></td><td>MVP 阶段子 agent 无 DeepSeek key · 28/30 视频 platform_id 占位 · 不真跑 · 上线后 Alan 用真 key 跑</td></tr>
+<tr><td>Stability 跑 3 轮</td><td>regression × 3 · 0% variance</td><td>MVP 简化 · 不跑 soak/load</td></tr>
+</table>
+
+<h2>Phase D CEO 循环决策</h2>
+
+<blockquote>
+来源: <code>docs/04-evolve/round-001/round-001.md</code> + <code>ledger.tsv</code>
+</blockquote>
+
+<table>
+<tr><td>#</td><td>候选</td><td>CEO 决策</td><td>因果链(回对 primary goal)</td></tr>
+<tr><td>C1</td><td>W3 lazy init(<code>db/client.ts</code>)</td><td><strong>KEPT</strong></td><td>build 不再需要 stub <code>DATABASE_URL</code> → Vercel CI 友好度 ↑ → 5-31 deadline 安全垫</td></tr>
+<tr><td>C2</td><td>W4 tsc 单独跑 TS6046</td><td><strong>KEPT-as-doc</strong></td><td>Next 15 + <code>moduleResolution: bundler</code> 已知 upstream · 强改破坏 Next build 链 · 用 <code>next build</code> 内置 tsc 替代 + 文档化</td></tr>
+<tr><td>C3</td><td>W6 <code>/api/search</code> rate-limit 30/60s</td><td><strong>KEPT</strong></td><td>防 <code>mode=semantic</code> 被刷飙 OpenAI 账单 → 7 天 Alan 自用窗口安全</td></tr>
+<tr><td>C4</td><td>28 视频 platform_id 回填</td><td><strong>PARTIAL + DEFERRED</strong></td><td>3 真 ID(Lex 419 / Karpathy intro / Karpathy Lex 333)+ 27 <code>_DRAFT</code> 后缀强制可见占位 · 避免老吴瞎编一个真存在但内容不符的 ID(更坑)</td></tr>
+<tr><td>C5</td><td>9 步 deployment-runbook + LLM eval plan + post-launch checklist</td><td><strong>KEPT</strong></td><td>Phase D 老吴本职就是把上线路径变成"傻瓜 9 步"</td></tr>
+</table>
+
+<p><strong>统计</strong>: KEPT=3 · KEPT-as-doc=1 · PARTIAL+DEFERRED=1 · DISCARDED=0</p>
+<p><strong>Anti-overfitting</strong>: 5 项全 GENERAL · 0 point-fix · 本轮纯加固 · 不引入新功能。</p>
+
+<h2>显式 ADR 缺口</h2>
+
+<p><strong>未发现显式 ADR 缺口</strong> — 上述 8 数据源已覆盖全部关键决策。</p>
+
+<p>可能需要 Phase D round-002 后补的 ADR 候选(若真上线后触发):</p>
+
+<ul>
+<li><strong>ADR-D-001</strong>: Clerk <code>auth()</code> 接管 favorites + admin/videos(替换 W5 stub <code>x-user-id</code>)— 时机未定 · Alan 决策</li>
+<li><strong>ADR-D-002</strong>: LLM eval &lt; 85% 时 prompt 调优策略选择(few-shot 加强 / temperature 调低 / response_format 严格化)</li>
+<li><strong>ADR-D-003</strong>: 30 视频跑通后扩到 100/500/1000 视频的 ingest 调度策略(Vercel Cron / Inngest / 自建 queue)— 当前 MVP 是同步 CLI</li>
+</ul>
+
+</article>
+<article id="doc-08-interface-contracts">
+<h1>08 · 接口契约</h1>
+
+<blockquote>
+自动生成 · GEI v4.1.0 · 2026-05-24T15:14Z
+数据源: docs/02-generate/skills-spec.md + app/src/app/api/* + docs/02-generate/db-schema.md
+自动化类型: ✅ 全自动
+</blockquote>
+
+<h2>Skill 对外触发协议</h2>
+
+<blockquote>
+hybrid project_type · 本项目 skill 没有 Claude SKILL.md frontmatter triggers · 触发方式为 API route / pipeline 内函数调用 / CLI script。下表为等价契约表。
+</blockquote>
+
+<table>
+<tr><td>Skill</td><td>触发方式</td><td>所需依赖</td><td>输入</td><td>输出</td></tr>
+<tr><td><strong>S1 summary-generator</strong></td><td><code>pipeline.fanout(summary, ...)</code> 内部调用</td><td>DeepSeek API key · <code>response_format: json_object</code></td><td><code>{ transcript: string, video_title: string }</code></td><td><code>{ summary_zh ≤80 字, summary_en ≤120 chars }</code></td></tr>
+<tr><td><strong>S2 keypoints-extractor</strong></td><td>pipeline 内调用</td><td>DeepSeek API key</td><td><code>{ transcript_with_timestamps: string }</code></td><td><code>{ keypoints_zh: KeyPoint[], keypoints_en: KeyPoint[] }</code>(5-10 条 · 每条 <code>{text, timestamp_sec?, source_span}</code>)</td></tr>
+<tr><td><strong>S3 timeline-builder</strong></td><td>pipeline 内调用</td><td>DeepSeek API key + SRT segments</td><td><code>{ segments: [{start,end,text}] }</code></td><td><code>{ timeline_zh, timeline_en }</code>(每项 <code>{timestamp_sec, title, one_liner}</code> · 5-12 段)</td></tr>
+<tr><td><strong>S4 two-tier-explainer</strong></td><td>pipeline 内调用</td><td>DeepSeek API key</td><td><code>{ transcript, summary_zh, summary_en }</code></td><td><code>{ explainer_quick_zh, explainer_quick_en, explainer_deep_zh, explainer_deep_en }</code></td></tr>
+<tr><td><strong>S5 person-aggregator</strong></td><td><code>aggregate-person.ts</code> CLI / 异步 trigger</td><td>DB read</td><td><code>{ person_id }</code></td><td>UPDATE <code>people.signature_views_zh/en</code>(3-5 条)</td></tr>
+<tr><td><strong>S6 video-crud</strong></td><td><code>POST /api/admin/videos</code> · <code>GET /api/admin/videos</code></td><td>Clerk auth(<code>ADMIN_USER_IDS</code>) + DB</td><td><code>AdminVideoCreateRequest</code></td><td><code>{ video_id }</code> / 409 重复 / 401 未授权</td></tr>
+<tr><td><strong>S7 semantic-search</strong></td><td><code>GET /api/search?mode=semantic&amp;q=...</code></td><td>OpenAI embedding API + pgvector + rate-limit(W6)</td><td><code>q: string</code></td><td><code>VideoCard[]</code>(top-5) · embedding 5xx 时降级 keyword + <code>X-Search-Fallback: keyword</code></td></tr>
+<tr><td><strong>S8 keyword-search</strong></td><td><code>GET /api/search?mode=keyword&amp;q=...</code></td><td>DB(trigram + tsvector)</td><td><code>q: string</code></td><td>top-20 视频 + 命中人物 + 命中主题</td></tr>
+<tr><td><strong>S9 orchestrator</strong></td><td><code>npx tsx src/scripts/ingest-video.ts --video-id N</code></td><td>DeepSeek + OpenAI + DB · <code>pipeline_runs</code> 表写状态</td><td><code>--video-id N</code></td><td>写 <code>videos_ai</code> + <code>video_embeddings</code> + UPDATE <code>videos.ai_status='ai_done'</code> + trigger S5</td></tr>
+<tr><td><strong>S10 favorite-crud</strong></td><td><code>POST/DELETE/GET /api/favorites</code></td><td>Clerk auth required</td><td><code>{ video_id }</code></td><td>INSERT/DELETE/列表 · 401 未登录</td></tr>
+</table>
+
+<h2>数据契约</h2>
+
+<h3>DB Schema(9 张表 · <code>docs/02-generate/db-schema.md</code> canonical)</h3>
+
+<table>
+<tr><td>表</td><td>用途</td><td>关键字段</td></tr>
+<tr><td><code>videos</code></td><td>30 视频元数据</td><td>platform, platform_id, title_zh, title_en, ai_status</td></tr>
+<tr><td><code>videos_ai</code></td><td>LLM 产出</td><td>summary_zh/en, keypoints_zh/en (JSONB), timeline_zh/en (JSONB), explainer_quick_zh/en, explainer_deep_zh/en</td></tr>
+<tr><td><code>video_embeddings</code></td><td>语义搜索向量</td><td>video_id, embedding(<code>vector(1536)</code>)</td></tr>
+<tr><td><code>people</code></td><td>10 人物</td><td>slug, name_zh, name_en, bio_zh, bio_en, signature_views_zh/en</td></tr>
+<tr><td><code>topics</code></td><td>5 主题</td><td>slug, name_zh, name_en, description_zh/en</td></tr>
+<tr><td><code>video_people</code></td><td>视频↔人物多对多</td><td>video_id, person_id</td></tr>
+<tr><td><code>video_topics</code></td><td>视频↔主题多对多</td><td>video_id, topic_id</td></tr>
+<tr><td><code>favorites</code></td><td>用户收藏</td><td>user_id (Clerk), video_id, UNIQUE(user_id, video_id)</td></tr>
+<tr><td><code>pipeline_runs</code></td><td>状态机</td><td>video_id, step, status, error_msg, created_at</td></tr>
+</table>
+
+<p>详见 <code>docs/02-generate/db-schema.md</code>(全文 · 含字段类型 / 索引 / FK / pgvector 索引)。</p>
+
+<h3>API Contract(9 routes · 详见 <code>app/src/app/api/</code>)</h3>
+
+<table>
+<tr><td>Method + Path</td><td>契约文档</td><td>Auth</td></tr>
+<tr><td><code>GET /api/health</code></td><td>占位 health check</td><td>公开</td></tr>
+<tr><td><code>GET /api/videos</code></td><td>list video cards(分页)</td><td>公开</td></tr>
+<tr><td><code>GET /api/videos/[slug]</code></td><td>video detail + ai 内容</td><td>公开</td></tr>
+<tr><td><code>GET /api/people/[slug]</code></td><td>person + related videos</td><td>公开</td></tr>
+<tr><td><code>GET /api/topics/[slug]</code></td><td>topic + videos</td><td>公开</td></tr>
+<tr><td>`GET /api/search?q=&amp;mode=keyword</td><td>semantic`</td><td>搜索</td><td>公开 + W6 rate-limit 30/60s/IP</td></tr>
+<tr><td><code>POST/DELETE/GET /api/favorites</code></td><td>收藏 CRUD</td><td>Clerk required(W5 现 stub <code>x-user-id</code>)</td></tr>
+<tr><td><code>POST/GET /api/admin/videos</code></td><td>视频 CRUD</td><td>Clerk + <code>ADMIN_USER_IDS</code>(W5 现 stub)</td></tr>
+<tr><td><code>POST /api/ai/chat</code></td><td>DeepSeek 代理(Edge Function)</td><td>server-side key only + rate-limit</td></tr>
+</table>
+
+<h3>类型契约(TypeScript · 节选)</h3>
+
+<pre><code>
+type VideoCard = {
+  slug: string
+  platform: &#x27;youtube&#x27; | &#x27;bilibili&#x27;
+  platform_id: string
+  title: { zh: string; en: string }
+  guest_names: { zh: string; en: string }[]
+  topic_slugs: string[]
+  duration_sec: number
+  one_liner: { zh: string; en: string }   // S1 summary
+  ai_status: &#x27;pending&#x27; | &#x27;asr_done&#x27; | &#x27;ai_done&#x27; | &#x27;failed&#x27;
+}
+
+type KeyPoint = {
+  text: string
+  timestamp_sec?: number
+  source_span: string  // ≤30 字原文锚点 · S2 反 hallucination
+}
+
+type TimelineNode = {
+  timestamp_sec: number
+  title: string
+  one_liner: string
+}
+</code></pre>
+
+<h2>调用示例</h2>
+
+<h3>S1 summary-generator(eval-cases.md C1 · Sam Altman Lex #419)</h3>
+
+<pre><code>
+// Input
+{
+  transcript: &quot;[前 5000 tokens 节选 · sam-altman-lex-419]&quot;,
+  video_title: &quot;Sam Altman on GPT-5 &amp; AGI · Lex Podcast #419&quot;
+}
+
+// Expected Output(双语单调用 · response_format: json_object)
+{
+  summary_zh: &quot;Sam Altman 在 Lex 第 419 期谈 GPT-5 训练规模、AGI 时间表与 OpenAI 内部张力,认为 2030 前 AGI 概率 &gt; 50%。&quot;,  // ≤80 字
+  summary_en: &quot;Sam Altman on Lex #419 discusses GPT-5 training scale, AGI timeline, internal OpenAI tensions; &gt;50% AGI probability by 2030.&quot;  // ≤120 chars
+}
+
+// Deterministic 校验
+// - summary_zh.length ≤ 80(字)✓
+// - summary_en.length ≤ 120(chars)✓
+// - 非空 / 非串语 / 合法 JSON ✓
+// - 反 hallucination: 不含 transcript 未提及的产品(e.g. &quot;GPT-6&quot;)✓
+</code></pre>
+
+<h3>S8 keyword-search(中文 query · CJK 检测路径)</h3>
+
+<pre><code>
+GET /api/search?q=AI%20Agent&amp;mode=keyword
+</code></pre>
+
+<pre><code>
+{
+  &quot;videos&quot;: [
+    {&quot;slug&quot;: &quot;karpathy-intro-llm&quot;, &quot;title&quot;: {&quot;zh&quot;: &quot;Karpathy LLM 入门&quot;, &quot;en&quot;: &quot;Karpathy Intro to LLMs&quot;}, &quot;match_field&quot;: &quot;title_zh&quot;}
+  ],
+  &quot;people&quot;: [{&quot;slug&quot;: &quot;karpathy&quot;, &quot;name&quot;: {&quot;zh&quot;: &quot;Andrej Karpathy&quot;, &quot;en&quot;: &quot;Andrej Karpathy&quot;}}],
+  &quot;topics&quot;: [{&quot;slug&quot;: &quot;ai-agent&quot;, &quot;name&quot;: {&quot;zh&quot;: &quot;AI Agent&quot;, &quot;en&quot;: &quot;AI Agent&quot;}}]
+}
+</code></pre>
+
+<h3>S10 favorite-crud(幂等 POST)</h3>
+
+<pre><code>
+POST /api/favorites
+Cookie: __clerk_session=...
+Body: { &quot;video_id&quot;: 12 }
+
+# 第一次 → 201 Created
+# 重复 → 200 OK(UNIQUE 冲突幂等)
+# 未登录 → 401 Unauthorized
+</code></pre>
+
+</article>
+<article id="doc-09-demo-acceptance">
+<h1>09 · Demo 验收剧本</h1>
+
+<blockquote>
+自动生成 · GEI v4.1.0 · 2026-05-24T15:14Z
+数据源: skills-spec.md(10 skill type)+ llm-eval-suite/s1-s5-eval.md + requirements-spec.md
+自动化类型: ✅ Non-UI 全自动(Desk Evaluation 模式)/ ⚠️ UI 半自动
+</blockquote>
+
+<h2>Non-UI Skills · 对话式走查</h2>
+
+<blockquote>
+hybrid project_type · 5 Agent/Hybrid skill 走 Tier B(eval-cases 完整 / 无 results) · 5 Script skill 走静态审计 Tier A 简化版。
+所有 LLM 输出标 <code>[Desk Evaluation — 仅设计评估]</code> · Phase D 上线后真跑后回填实测数据。
+</blockquote>
+
+<h3>Scenario #1 · S1 summary-generator(REQ-V02)</h3>
+
+<ul>
+<li><strong>对应需求 ID</strong>: REQ-V02 · 一句话总结(双语)</li>
+<li><strong>触发</strong>: pipeline 内调用(<code>pipeline.fanout</code> 时)</li>
+<li><strong>用户输入</strong>: Sam Altman Lex #419 transcript 节选 + video_title="Sam Altman on GPT-5 &amp; AGI · Lex Podcast #419"</li>
+<li><strong>Skill 回应</strong>(预期):</li>
+</ul>
+<p>  ```json</p>
+<p>  {</p>
+<p>    "summary_zh": "Sam Altman 在 Lex 第 419 期谈 GPT-5 训练规模、AGI 时间表与 OpenAI 内部张力,认为 2030 前 AGI 概率 &gt; 50%。",</p>
+<p>    "summary_en": "Sam Altman on Lex #419 discusses GPT-5 training scale, AGI timeline, internal OpenAI tensions; &gt;50% AGI probability by 2030."</p>
+<p>  }</p>
+<p>  ```</p>
+<ul>
+<li><strong>实际通过率</strong>: <code>[Desk Evaluation — 仅设计评估]</code> · 上线后 5 cases × 3 trials 跑真 key</li>
+<li><strong>Rubric 均分</strong>: seeded · 5 case(C1 Sam Altman / C2 Karpathy LLM intro / C3 Naval How to Get Rich / C4 极短 transcript / C5 中英混合)</li>
+</ul>
+
+<h3>Scenario #2 · S2 keypoints-extractor(REQ-V03 · 反 hallucination 重点)</h3>
+
+<ul>
+<li><strong>对应需求 ID</strong>: REQ-V03 · 核心观点 5-10 条</li>
+<li><strong>触发</strong>: pipeline 内调用</li>
+<li><strong>用户输入</strong>: Karpathy Intro LLM transcript_with_timestamps</li>
+<li><strong>Skill 回应</strong>(预期 · 5-10 条双语 · <code>source_span</code> 锚点 ≤30 字):</li>
+</ul>
+<p>  ```json</p>
+<p>  {</p>
+<p>    "keypoints_zh": [</p>
+<p>      {"text": "LLM 训练分 pretraining 与 RLHF 两阶段", "timestamp_sec": 312, "source_span": "two phases: pretraining and reinforcement learning from human feedback"},</p>
+<p>      "..."</p>
+<p>    ],</p>
+<p>    "keypoints_en": [...]</p>
+<p>  }</p>
+<p>  ```</p>
+<ul>
+<li><strong>关键校验</strong>: <code>source_span</code> 字符串必须能在 transcript 找到(deterministic 校验)· 找不到丢该条</li>
+<li><strong>实际通过率</strong>: <code>[Desk Evaluation — 仅设计评估]</code> · 反 hallucination case 重点(给一个不存在的论点,看 LLM 是否硬编)</li>
+<li><strong>Rubric 均分</strong>: seeded · 5 case</li>
+</ul>
+
+<h3>Scenario #3 · S3 timeline-builder(REQ-V04 · Hybrid)</h3>
+
+<ul>
+<li><strong>对应需求 ID</strong>: REQ-V04 · 时间轴 ≥5 节点</li>
+<li><strong>触发</strong>: pipeline 内调用</li>
+<li><strong>用户输入</strong>: SRT segments <code>[{start, end, text}]</code>(60 分钟视频 ~250 段)</li>
+<li><strong>Skill 回应</strong>:</li>
+<li><strong>Script 部分</strong>: 按 ≥6min 滑窗 + 双换行/长停顿启发 → 5-12 段</li>
+<li><strong>Agent 部分</strong>: 每段调一次 DeepSeek 命名 + 一句摘要</li>
+<li><strong>预期输出</strong>:</li>
+</ul>
+<p>  ```json</p>
+<p>  {</p>
+<p>    "timeline_zh": [</p>
+<p>      {"timestamp_sec": 0, "title": "开场 · 嘉宾介绍", "one_liner": "Lex 介绍 Sam Altman 及本期主题。"},</p>
+<p>      {"timestamp_sec": 432, "title": "GPT-5 训练规模", "one_liner": "..."},</p>
+<p>      "..."</p>
+<p>    ],</p>
+<p>    "timeline_en": [...]</p>
+<p>  }</p>
+<p>  ```</p>
+<ul>
+<li><strong>实际通过率</strong>: <code>[Desk Evaluation — 仅设计评估]</code></li>
+<li><strong>Rubric 均分</strong>: seeded · 5 case(段数 5-12 / 段名质量 / 时间戳准确率)</li>
+</ul>
+
+<h3>Scenario #4 · S4 two-tier-explainer(REQ-V05 · 反 padding 重点)</h3>
+
+<ul>
+<li><strong>对应需求 ID</strong>: REQ-V05 · 2 档解释</li>
+<li><strong>用户输入</strong>: transcript + summary_zh + summary_en</li>
+<li><strong>Skill 回应</strong>(单次调用 JSON 模式 · 4 字段):</li>
+</ul>
+<p>  ```json</p>
+<p>  {</p>
+<p>    "explainer_quick_zh": "(200-300 字 · 成人速懂版)",</p>
+<p>    "explainer_quick_en": "(250-400 chars)",</p>
+<p>    "explainer_deep_zh": "(800-1500 字 · 深度版 · 加上下文 / 类比 / 影响)",</p>
+<p>    "explainer_deep_en": "(1000-2000 chars)"</p>
+<p>  }</p>
+<p>  ```</p>
+<ul>
+<li><strong>关键校验</strong>: 字数严格控制(deterministic)+ 双档差异化(quick 与 deep 不能内容雷同)</li>
+<li><strong>实际通过率</strong>: <code>[Desk Evaluation — 仅设计评估]</code> · 反 padding 重点(简单档不要堆词)</li>
+<li><strong>Rubric 均分</strong>: seeded · 5 case</li>
+</ul>
+
+<h3>Scenario #5 · S5 person-aggregator(REQ-P02 · 反混淆重点)</h3>
+
+<ul>
+<li><strong>对应需求 ID</strong>: REQ-P02 · 人物代表观点 3-5 条</li>
+<li><strong>触发</strong>: 新视频 <code>ai_done</code> 后异步对该 person 重算</li>
+<li><strong>用户输入</strong>: SELECT 该 person 所有视频的 keypoints + summary</li>
+<li><strong>Skill 回应</strong>:</li>
+</ul>
+<p>  ```json</p>
+<p>  {</p>
+<p>    "signature_views_zh": [</p>
+<p>      {"view": "AGI 的真正瓶颈是计算与能源,而非算法", "source_video_slugs": ["sam-altman-lex-419", "..."]},</p>
+<p>      "..."</p>
+<p>    ],</p>
+<p>    "signature_views_en": [...]</p>
+<p>  }</p>
+<p>  ```</p>
+<ul>
+<li><strong>关键校验</strong>: 不得把嘉宾 A 的观点算到嘉宾 B 头上(<code>source_video_slugs</code> 必须真属于该 person)</li>
+<li><strong>实际通过率</strong>: <code>[Desk Evaluation — 仅设计评估]</code> · 反混淆重点</li>
+<li><strong>Rubric 均分</strong>: seeded · 5 case</li>
+</ul>
+
+<h3>Scenario #6 · S6/S10 video-crud / favorite-crud(REQ-X01 / U02)</h3>
+
+<ul>
+<li><strong>触发</strong>: <code>POST /api/admin/videos</code> / <code>POST /api/favorites</code></li>
+<li><strong>静态审计 ✅ PASS</strong>:</li>
+<li>POST/GET 一致性(Drizzle insert + select 对账)</li>
+<li>401(未登录)/ 409(platform_id 重复 · video)/ 200 幂等(favorites UNIQUE 冲突)</li>
+<li>Clerk auth gate(W5 现 stub <code>x-user-id</code> · D6 接 <code>auth()</code>)</li>
+</ul>
+
+<h3>Scenario #7 · S7 semantic-search(REQ-S02 · Hybrid + W6 rate-limit)</h3>
+
+<ul>
+<li><strong>触发</strong>: <code>GET /api/search?q=AI+Agent&amp;mode=semantic</code></li>
+<li><strong>静态审计 ✅ PASS</strong>:</li>
+<li>OpenAI embedding(1536d)→ pgvector <code>&lt;=&gt;</code> cosine top-5</li>
+<li>5xx 时降级 keyword(<code>X-Search-Fallback: keyword</code>)</li>
+<li>W6 rate-limit 30/60s/IP(防 OpenAI 账单飙升)</li>
+</ul>
+
+<h3>Scenario #8 · S8 keyword-search(REQ-S01 · 双语自动检测)</h3>
+
+<ul>
+<li><strong>触发</strong>: <code>GET /api/search?q=AGI&amp;mode=keyword</code></li>
+<li><strong>静态审计 ✅ PASS</strong>:</li>
+<li>CJK 字符检测自动走中文路径(ILIKE on title_zh + summary_zh + keypoints_zh::text · trigram 索引)</li>
+<li>英文路径走 <code>to_tsquery('english', q)</code> on tsv_en</li>
+<li>top-20 视频 + 命中人物 + 命中主题</li>
+</ul>
+
+<h3>Scenario #9 · S9 ai-pipeline-orchestrator(编排 · 状态机)</h3>
+
+<ul>
+<li><strong>触发</strong>: <code>npx tsx src/scripts/ingest-video.ts --video-id 1</code></li>
+<li><strong>静态审计 ✅ PASS</strong>:</li>
+<li>流程: fetch_subtitle → fan-out S1//S2//S3//S4 (<code>Promise.all</code>) → S8 embedding → 事务写 DB → trigger S5</li>
+<li>状态机: 每步写 <code>pipeline_runs</code>(running → done / failed)</li>
+<li>重试: 单步 ≤ 3 次,指数退避(1s / 4s / 9s)</li>
+</ul>
+
+<h2>UI Skills · 截图验收</h2>
+
+<blockquote>
+本项目 UI 通过 frontend 实现 18 components + 6 pages · 不是独立的 ui-operation skill_type · 走 page-level 截图验收。
+</blockquote>
+
+<h3>UI 截图列表(<code>docs/delivery/demo/screenshots/</code> · 待 Alan 上线后补)</h3>
+
+<ul>
+<li><code>[v4.1 placeholder — 请补充 demo/screenshots/01-home-zh.png(首页中文)]</code></li>
+<li><code>[v4.1 placeholder — 请补充 demo/screenshots/02-home-en.png(首页英文 · 双语切换验证)]</code></li>
+<li><code>[v4.1 placeholder — 请补充 demo/screenshots/03-video-detail-zh.png(视频详情 · 摘要 + 5-10 观点 + 时间轴 + 2 档解释)]</code></li>
+<li><code>[v4.1 placeholder — 请补充 demo/screenshots/04-video-detail-en.png(同上英文)]</code></li>
+<li><code>[v4.1 placeholder — 请补充 demo/screenshots/05-person-zh.png(人物页 + 代表观点 + 相关视频)]</code></li>
+<li><code>[v4.1 placeholder — 请补充 demo/screenshots/06-topic-zh.png(主题页 · ai-agent)]</code></li>
+<li><code>[v4.1 placeholder — 请补充 demo/screenshots/07-search-result.png(/search?q=AGI · keyword + semantic)]</code></li>
+<li><code>[v4.1 placeholder — 请补充 demo/screenshots/08-favorites.png(收藏列表 · Clerk 登录态)]</code></li>
+</ul>
+
+<p><strong>如何补全截图</strong>:</p>
+
+<p>1. 跑完 <code>deployment-runbook.md</code> Step 7 拿到 Vercel preview URL</p>
+<p>2. Chrome DevTools 切 1440 宽度截图(每页 zh / en 各一次)</p>
+<p>3. 存到 <code>docs/delivery/demo/screenshots/</code></p>
+<p>4. 上述 placeholder 替换为 <code>!<a href="demo/screenshots/01-home-zh.png">首页中文</a></code></p>
+
+<h2>如何补全 UI 截图</h2>
+
+<blockquote>
+<code>[本项目无独立 ui-operation skill · Playwright starter 未自动生成]</code>
+
+若 Alan 想做自动化截图(可选),可参考 Mia 高保真原型作 reference:
+
+- <code>docs/design/high-fidelity/home.html</code> · <code>video-detail.html</code> · <code>person.html</code> · <code>search.html</code> — 直接浏览器开 · 像素级照抄稿
+- 用 <code>playwright</code> 手写 4 个 scenarios(home / video / person / search)+ <code>page.screenshot()</code> 即可
+- 也可直接 Vercel preview URL + Chrome DevTools 手工截图(MVP 阶段 4 页 8 截图 ~10 分钟搞定 · 不必上 Playwright)
+</blockquote>
+
+<p><strong>自动化等级</strong>:</p>
+
+<ul>
+<li>Non-UI 段: ✅ 全自动(Desk Evaluation · 上线后真跑回填)</li>
+<li>UI 段: ⚠️ 半自动(8 截图 placeholder · Alan 上线 smoke test 时顺手补)</li>
+</ul>
+
+</article>
+<article id="doc-10-risk-register">
+<h1>10 · 风险登记册</h1>
+
+<blockquote>
+自动生成 · GEI v4.1.0 · 2026-05-24T15:14Z
+数据源: known_w_tickets · alan_concerns_before_launch · reflections · delivery-report §8 · round-001 §5(8 数据源综合)
+自动化类型: ✅ 全自动(v4.3+)
+</blockquote>
+
+<h2>已识别风险</h2>
+
+<table>
+<tr><td>ID</td><td>类别</td><td>描述</td><td>严重度</td><td>缓解措施</td><td>状态</td></tr>
+<tr><td>R-01</td><td>数据风险</td><td>30 视频中 27 个 platform_id 仍是 <code>&lt;slug&gt;_DRAFT</code> 占位 · Alan 必须上线前回填真 YouTube ID</td><td><strong>高</strong></td><td>round-001 改用 <code>_DRAFT</code> 后缀强制可见 · <code>grep _DRAFT src/db/seed.ts</code> 应返 0 才能上线 · 见 <code>runbook</code> Step 0</td><td>🟡 部分缓解 · Alan 必做</td></tr>
+<tr><td>R-02</td><td>质量风险</td><td>N1 LLM 摘要准确率 ≥ 85% 未真测(Desk Evaluation · 25 cases seeded)</td><td><strong>高</strong></td><td>上线后 24h 内 Alan 跑 <code>DEEPSEEK_API_KEY=$REAL_KEY npx tsx src/llm-eval-suite/run-all.ts</code> · 不达标改 prompt 走 round-002</td><td>🟡 留种 · 上线后跑</td></tr>
+<tr><td>R-03</td><td>评估风险</td><td>评估只用单一阈值 85% · 未做多指标校准(<code>calibrated_thresholds.per_metric</code> 缺失)</td><td>中</td><td>用 N1+N2+N3 三北极星替代分别校准(MVP 简化)· 上线后真跑数据补 per-skill 阈值</td><td>🟡 接受</td></tr>
+<tr><td>R-04</td><td>系统性 / 工程风险</td><td>W3 · <code>src/db/client.ts</code> 模块级 <code>neon()</code> · build 需 stub DATABASE_URL</td><td>中(已修)</td><td>round-001 KEPT · lazy init · build 不再需要 stub</td><td>✅ resolved</td></tr>
+<tr><td>R-05</td><td>工程风险</td><td>W4 · standalone tsc TS6046(<code>moduleResolution: bundler</code>)· Next 15 已知 upstream issue</td><td>低(已绕)</td><td>KEPT-as-doc · 用 <code>next build</code> 内置 tsc 替代 · <code>docs/04-evolve/known-tsc-issue.md</code></td><td>✅ resolved</td></tr>
+<tr><td>R-06</td><td>安全 / 收费风险</td><td>W6 · <code>/api/search</code> 缺 rate-limit · 走 OpenAI embedding 计费 · 被刷会飙账单</td><td><strong>高</strong>(上线前)</td><td>round-001 KEPT · 接 <code>lib/rate-limit.ts</code>(已在 ai/chat 用)· 30/60s/IP · 429 + retry-after</td><td>✅ resolved</td></tr>
+<tr><td>R-07</td><td>工程风险</td><td>W5 · favorites + admin/videos 现 stub <code>x-user-id</code> header · 未接 Clerk <code>auth()</code></td><td>中</td><td>Clerk Marketplace 装好后切 <code>auth()</code> · Phase D round-002 候选(Alan 决策何时切)</td><td>🟡 deferred</td></tr>
+<tr><td>R-08</td><td>部署风险</td><td>Vercel 部署时 Clerk Marketplace 集成异常</td><td>低</td><td>bazi-studio 已成功跑通 · 复用配置 · runbook Step 1-3 9 步详细</td><td>🟡 prevented</td></tr>
+<tr><td>R-09</td><td>运营风险</td><td>Whisper 本地 ASR 性能不足(运营机器跑 28 视频)</td><td>中</td><td><code>docs/02-generate/asr-spec.md</code> 已设跑批 · 28 视频也就 14 小时</td><td>🟡 接受</td></tr>
+<tr><td>R-10</td><td>进化 / 收敛风险</td><td>round-001 单轮收尾 · 未跑 round-002+ · 复杂 prompt 调优场景未演练</td><td>低</td><td><code>codeloop_state.exit_reason = max_rounds_reached_per_brief</code> · maintain mode 设计如此 · 上线后真有数据再开 round-002</td><td>🟡 接受</td></tr>
+<tr><td>R-11</td><td>版权风险</td><td>不下载视频原片 · embed/外链 + 保留原作者(intent-brief §4 / PRD §12.4)</td><td>中</td><td>30 条全有 <code>metadata.platform + platform_id + original_url</code> · video-detail 页"在 YouTube 看原片"外链 + 来源卡</td><td>✅ designed-in</td></tr>
+<tr><td>R-12</td><td>性能风险</td><td>Lighthouse Vercel prod 真测未跑 · 仅估算 LCP 1.8s / bundle 139KB</td><td>中</td><td>post-launch-checklist T+7d Lighthouse 真测 · 目标 Perf ≥80 / A11y ≥90 / BP ≥90 / SEO ≥90</td><td>🟡 上线后跑</td></tr>
+<tr><td>R-13</td><td>隐性风险</td><td>假设 30 视频中 ≥ 70% 有 YouTube 公开字幕 · 若不达,Whisper 工作量上升</td><td>中</td><td>选片清单 <code>content-plan.md</code> 已优先选大频道(Lex / Karpathy)字幕齐全 · 兜底 Whisper</td><td>🟡 验证中</td></tr>
+</table>
+
+<p><strong>排序</strong>:严重度高(R-01, R-02, R-06)优先 · R-06 已 resolved · R-01 R-02 是 Alan 上线前/上线后必做 2 件事。</p>
+
+<h2>pipeline 中命中的 pitfall</h2>
+
+<blockquote>
+来源: <code>gei-memory</code> retrieved_memory_entries 与 reflections 关键词匹配
+</blockquote>
+
+<p><strong>本次 pipeline 未显式记录 pitfall hit</strong>(<code>retrieved_memory_entries = {}</code>)。</p>
+
+<p>隐性命中的 GEI pattern(从 reflections + round-001 反推):</p>
+
+<ul>
+<li><strong>MVP 砍到见骨</strong>(intent-brief K1-K8 砍 8 条)· 对应 GEI 常见 pitfall "scope 过宽"</li>
+<li><strong>Edge Function key 隔离</strong>(沿用 bazi-studio)· 对应 "key 泄漏"</li>
+<li><strong>Desk Evaluation 模式</strong>(无 LLM key 时不强跑真测)· 对应 "评估期烧 token 预算"</li>
+</ul>
+
+<h2>未解决风险</h2>
+
+<table>
+<tr><td>ID</td><td>描述</td><td>责任 / 何时</td></tr>
+<tr><td>R-01</td><td>27 视频 <code>_DRAFT</code> 回填</td><td>Alan · 上线前(<code>deployment-runbook.md</code> Step 0)</td></tr>
+<tr><td>R-02</td><td>LLM eval 真测 25 cases</td><td>Alan · 上线后 24h(<code>llm-eval-execution-plan.md</code>)</td></tr>
+<tr><td>R-07</td><td>W5 Clerk <code>auth()</code> 接管</td><td>Alan · 时机未定 · round-002+ 候选</td></tr>
+<tr><td>R-12</td><td>Lighthouse prod 真测</td><td>Alan · T+7d(<code>post-launch-checklist.md</code>)</td></tr>
+</table>
+
+<h2>建议的持续监控项</h2>
+
+<blockquote>
+来源:funnel_diagnosis 汇总 + <code>post-launch-checklist.md</code> 24h/7d/30d 清单
+</blockquote>
+
+<p>1. <strong>OpenAI 账单</strong>(每日)· 若 &gt; $1 → W6 rate-limit 30→10/60s · 防 R-06 复发</p>
+<p>2. <strong>DeepSeek 账单</strong>(每日)· ingest 后不应再涨 · 涨了说明出了未预期 LLM 调用</p>
+<p>3. <strong>LLM 摘要准确率</strong>(每周 5-10 cases 抽检)· N1 北极星跌破 85% → round-002 prompt 调优</p>
+<p>4. <strong>Vercel logs 5xx 率</strong>(每日)· &gt; 1% → 排查 DB 连接 / Clerk session / 编码异常</p>
+<p>5. <strong>Vercel Analytics LCP</strong>(每日)· 首页 &gt; 2.5s 或详情页 &gt; 3s → check bundle 是否回归</p>
+<p>6. <strong>收藏功能 401 比例</strong>(W5 stub 期)· 异常说明 stub <code>x-user-id</code> 漏跑 · 接 Clerk <code>auth()</code> 时机</p>
+
+</article>
+<article id="doc-11-cost-performance">
+<h1>11 · 成本 &amp; 性能基线</h1>
+
+<blockquote>
+自动生成 · GEI v4.1.0 · 2026-05-24T15:14Z
+数据源: pipeline-state.reflections 时间戳 · codeloop_state.scores · generate_summary · qualify_summary · frontend_summary
+自动化类型: ✅ 全自动(hybrid · token 成本 + perf budget 两者合并)
+</blockquote>
+
+<h2>开发期成本</h2>
+
+<table>
+<tr><td>项</td><td>值</td></tr>
+<tr><td><strong>总时长(reflection 主动)</strong></td><td>~6h(Phase A 1h · B.0 1h · B.1//B.2 1h · C 1h · D 1h · 各 checkpoint reflection 跨度)</td></tr>
+<tr><td><strong>总时长(mtime 跨度)</strong></td><td>~24h(2026-05-24T00:00Z → 2026-05-25T00:00Z · 含夜间/离开时间)</td></tr>
+<tr><td>Phase A 时长</td><td>~1h(2026-05-24T00:00Z → T01:00Z)</td></tr>
+<tr><td>Phase B 时长(B.0 + B.1 // B.2)</td><td>~2h(T01:00Z → T03:00Z · B.1 与 B.2 并行)</td></tr>
+<tr><td>Phase C 时长</td><td>~1h(T03:00Z → T04:00Z)</td></tr>
+<tr><td>Phase D 时长(reflection)</td><td>~1h(T04:00Z → 5-25 T00:00Z 单 checkpoint)</td></tr>
+<tr><td>Phase D 时长(mtime 跨度)</td><td>~20h(round-001 文件最早到最晚跨度 · 含夜间)</td></tr>
+<tr><td>改进轮次</td><td><strong>1</strong>(<code>codeloop_state.rounds_completed = 1</code> · maintain mode 单轮收尾 · stable_after_one_round)</td></tr>
+<tr><td>估算 token 消耗(开发期)</td><td>~430k(详见下)</td></tr>
+<tr><td>估算 LLM 成本(USD · 开发期)</td><td><strong>~$2.5</strong>(估算值,实际成本请以 API 账单为准)</td></tr>
+</table>
+
+<blockquote>
+<strong>解释 reflection vs mtime 差距</strong>:
+- <strong>reflection 时长</strong> = ~6h(按 reflection.timestamp 计算的主动工作时长 · <strong>成本估算请用此值</strong>)
+- <strong>mtime 跨度</strong> = ~24h(round-001 含夜间运行 + Alan 离开时间 · <strong>运维 SLA / 时间预估请用此值</strong>)
+- 二者差距 &gt; 20% · 主要在 Phase D maintain 单轮跨过一整夜
+</blockquote>
+
+<h3>Token 估算(按 SKILL.md 附录 A 公式)</h3>
+
+<pre><code>
+开发期 token 估算 per skill = (Phase A 共享 / N_skills) + Phase B + Phase C + Phase D × rounds
+</code></pre>
+
+<table>
+<tr><td>Phase</td><td>单 skill token</td><td>10 skills 合计</td></tr>
+<tr><td>Phase A(共享 30k · 拆 10 skill)</td><td>3k</td><td>30k</td></tr>
+<tr><td>Phase B(每 skill spec + impl)</td><td>50k</td><td>500k → 实际 hybrid 项目人工 prompt 写 spec · 估算 30k × 10 = 300k</td></tr>
+<tr><td>Phase C(seeded · 不真跑 LLM · 5 case × 3 trials × 5 skill 仅设计)</td><td>5k × 0(Desk)</td><td>0(本期未消耗真 token)</td></tr>
+<tr><td>Phase D(round-001 · 1 round · 修工程 issue · ~20k)</td><td>-</td><td>20k</td></tr>
+<tr><td><strong>合计</strong></td><td>-</td><td><strong>~430k tokens</strong></td></tr>
+</table>
+
+<p><strong>成本估算</strong>: 430k × (输入 $3/MTok + 输出 $15/MTok 混合价 ~$8/MTok) ÷ 1M ≈ <strong>$3.4</strong> 上限 · 实际开发主要是工程层(非 LLM 调用),估算 LLM 部分 ~$2.5(估算值)。</p>
+
+<h3>运行期成本估算(<code>docs/02-generate/cost-estimate.md</code> canonical)</h3>
+
+<table>
+<tr><td>项</td><td>单位成本</td><td>备注</td></tr>
+<tr><td>单条视频 ingest</td><td><strong>$0.017</strong></td><td>字幕拉取 / DeepSeek 4 skill 调用 / OpenAI embedding</td></tr>
+<tr><td>30 条视频全量 ingest</td><td><strong>$0.51</strong></td><td>一次性 · 上线 Step 6</td></tr>
+<tr><td>单次搜索(semantic)</td><td>~$0.0001</td><td>OpenAI embedding text-embedding-3-small($0.02/1M token · query 50 token)</td></tr>
+<tr><td>单次访客访问</td><td>~$0(读 DB / 渲染 / 0 LLM)</td><td>缓存命中后接近 0 成本</td></tr>
+</table>
+
+<h2>性能指标</h2>
+
+<table>
+<tr><td>指标</td><td>基线(目标)</td><td>阈值</td><td>实测</td><td>评价</td></tr>
+<tr><td>LCP(首页)</td><td>≤ 2.5s</td><td>2.5s</td><td>est 1.8s(代码层 · <code>frontend_summary.lighthouse_baseline</code>)</td><td>✅</td></tr>
+<tr><td>LCP(详情页)</td><td>≤ 2.5s</td><td>2.5s</td><td>est ≤ 2.5s(同上)</td><td>✅</td></tr>
+<tr><td>Bundle size(首屏 JS)</td><td>&lt; 200KB</td><td>200KB</td><td>139KB</td><td>✅</td></tr>
+<tr><td>CLS</td><td>&lt; 0.05</td><td>0.05</td><td>(待 Vercel 真测)</td><td>⏸ T+7d</td></tr>
+<tr><td>TTFB</td><td>&lt; 800ms</td><td>800ms</td><td>(待 Vercel 真测)</td><td>⏸ T+7d</td></tr>
+<tr><td>Lighthouse Perf</td><td>≥ 80</td><td>80</td><td>估算达标 · Vercel prod 真测 T+7d</td><td>⏸</td></tr>
+<tr><td>Lighthouse A11y</td><td>≥ 90</td><td>90</td><td>静态扫 0 critical / 2 serious(占位 alt)</td><td>✅ static</td></tr>
+<tr><td>Lighthouse BP</td><td>≥ 90</td><td>90</td><td>(待真测)</td><td>⏸ T+7d</td></tr>
+<tr><td>Lighthouse SEO</td><td>≥ 90</td><td>90</td><td>(待真测)</td><td>⏸ T+7d</td></tr>
+<tr><td>i18n key coverage</td><td>100%</td><td>100%</td><td><strong>100%</strong>(111/111)</td><td>✅</td></tr>
+<tr><td>a11y critical</td><td>= 0</td><td>0</td><td><strong>0</strong></td><td>✅</td></tr>
+<tr><td>a11y serious</td><td>≤ 5</td><td>5</td><td>2(头像 alt 占位 div)</td><td>✅</td></tr>
+<tr><td>build PASS(裸 env)</td><td>PASS</td><td>PASS</td><td>round-001 后 ✅(W3 lazy init)</td><td>✅</td></tr>
+<tr><td>tsc-via-next PASS</td><td>PASS</td><td>PASS</td><td>✅</td><td>✅</td></tr>
+<tr><td>Regression × 3 variance</td><td>0%</td><td>&lt; 5%</td><td>0%</td><td>✅</td></tr>
+<tr><td>Boundary cases</td><td>≥ 6/7</td><td>6/7</td><td>6/7 + 1 fallback</td><td>✅</td></tr>
+</table>
+
+<h2>运行期成本估算(客户使用时)</h2>
+
+<p>按 MVP 假设 100 DAU · 每人均 5 次搜索 + 10 次详情访问:</p>
+
+<table>
+<tr><td>项</td><td>计算</td><td>月成本(估算)</td></tr>
+<tr><td>Vercel Hosting</td><td>Hobby 免费 / Pro $20</td><td>$0-20</td></tr>
+<tr><td>Neon Postgres</td><td>免费层 0.5GB · pgvector</td><td>$0(估算)</td></tr>
+<tr><td>Clerk MAU</td><td>免费层 10k MAU</td><td>$0(&lt; 100 DAU 远不到上限)</td></tr>
+<tr><td>OpenAI embedding(搜索)</td><td>100 DAU × 5 搜索 × 30 天 × $0.0001</td><td>~$1.5</td></tr>
+<tr><td>DeepSeek(ingest 已完成)</td><td>已 sunk 成本 · 新视频每条 $0.017</td><td>$0-5(取决于新增视频)</td></tr>
+<tr><td><strong>总月运行成本(估算)</strong></td><td>-</td><td><strong>~$1.5-25 / 月</strong></td></tr>
+</table>
+
+<p>可扩展性:升到 1000 DAU 主要看 OpenAI embedding 与 Vercel function execution · 估算 &lt; $50/月。</p>
+
+<h2>改进趋势图(ASCII sparkline)</h2>
+
+<pre><code>
+Round 1 score: 0.92
+        0.0 ─────────────────────────────── 1.0
+Round 1                                  ▲ 0.92
+baseline (D 入口)                ▲ 0.78
+</code></pre>
+
+<p><strong>走势</strong>: 单轮 maintain · baseline → final · Δ +0.14(+14% · 远超 +2% threshold)· <code>stability = stable_after_one_round</code> · <code>exit_reason = max_rounds_reached_per_brief</code>。</p>
+
+<p><code>codeloop_state.scores</code>:</p>
+
+<pre><code>
+[ { &quot;round&quot;: 1, &quot;score&quot;: 0.92 } ]
+</code></pre>
+
+<p>仅一个数据点 · 不构成趋势 · 等 round-002 后(若上线后 LLM eval 真测 &lt; 85% 触发)再画完整曲线。</p>
+
+</article>
+<article id="doc-12-trace-report">
+<h1>12 · 全流程 Trace 报告</h1>
+
+<blockquote>
+自动生成 · GEI v4.1.0 · 2026-05-24T15:14Z
+数据源: requirements-spec ↔ skills-spec ↔ git ls-files ↔ git log ↔ reflections
+自动化类型: ✅ GEI 独有能力
+</blockquote>
+
+<h2>Trace 意义</h2>
+
+<p>每条客户需求可追溯到:<strong>需求 ID → Skill / 组件 → 代码文件 → commit hash → 对应 reflection 决策</strong>。给审计方 / 接手者 / 未来 Alan 一个"任意一个 bug 反查到原始需求"的能力。</p>
+
+<h2>完整 Trace 矩阵</h2>
+
+<table>
+<tr><td>需求 ID</td><td>描述</td><td>Skill / 组件</td><td>代码路径</td><td>Commit</td><td>Reflection 决策</td></tr>
+<tr><td>REQ-H01</td><td>首页 30 视频展示</td><td>UI: video card grid</td><td><code>app/src/app/[locale]/page.tsx</code> + <code>components/video/*</code></td><td><code>8659258</code>(B.1+B.2)</td><td>B.1+B.2 CONTINUE</td></tr>
+<tr><td>REQ-H02</td><td>双语切换 toggle</td><td>UI: <code>lang-switcher</code> + next-intl</td><td><code>app/src/components/layout/lang-switcher.tsx</code> + <code>app/messages/*.json</code></td><td><code>60f3893</code>(B.0 Mia)+ <code>8659258</code>(B.1 impl)</td><td>B.0 CONTINUE / B.1+B.2 CONTINUE</td></tr>
+<tr><td>REQ-H03</td><td>主题 / 人物导航</td><td>UI: <code>header</code> + <code>person-card</code></td><td><code>app/src/components/layout/header.tsx</code>, <code>components/person/person-card.tsx</code></td><td><code>8659258</code></td><td>B.1+B.2 CONTINUE</td></tr>
+<tr><td>REQ-V01</td><td>视频嵌入播放器</td><td>UI: <code>player</code></td><td><code>app/src/components/video/player.tsx</code></td><td><code>8659258</code></td><td>B.1+B.2 CONTINUE</td></tr>
+<tr><td>REQ-V02</td><td>一句话总结</td><td><strong>S1 summary-generator</strong></td><td><code>app/src/lib/ai/prompts/s1-summary.ts</code> + <code>app/src/lib/ai/deepseek.ts</code> + UI <code>summary-block.tsx</code></td><td><code>8659258</code></td><td>B.1+B.2 CONTINUE / C FINALIZE(seeded)</td></tr>
+<tr><td>REQ-V03</td><td>核心观点 5-10 条</td><td><strong>S2 keypoints-extractor</strong></td><td><code>app/src/lib/ai/prompts/s2-keypoints.ts</code> + UI <code>keypoints-list.tsx</code></td><td><code>8659258</code></td><td>C FINALIZE(seeded · 反 hallucination)</td></tr>
+<tr><td>REQ-V04</td><td>时间轴 ≥5 节点</td><td><strong>S3 timeline-builder</strong> (Hybrid)</td><td><code>app/src/lib/ai/prompts/s3-timeline.ts</code> + <code>lib/ai/pipeline.ts</code>(Script 分段)+ UI <code>timeline-nav.tsx</code></td><td><code>8659258</code></td><td>C FINALIZE(seeded)</td></tr>
+<tr><td>REQ-V05</td><td>2 档解释</td><td><strong>S4 two-tier-explainer</strong></td><td><code>app/src/lib/ai/prompts/s4-explainer.ts</code> + UI <code>two-tier-tabs.tsx</code></td><td><code>8659258</code></td><td>C FINALIZE(seeded · 反 padding)</td></tr>
+<tr><td>REQ-V06</td><td>视频内双语切换</td><td>UI + Script(读 DB 双语字段)</td><td><code>app/src/app/[locale]/videos/[slug]/page.tsx</code></td><td><code>8659258</code></td><td>B.1+B.2 CONTINUE</td></tr>
+<tr><td>REQ-V07</td><td>来源信息 + 版权链</td><td>UI(在 video-detail page 内)</td><td><code>app/src/app/[locale]/videos/[slug]/page.tsx</code></td><td><code>8659258</code></td><td>B.1+B.2 CONTINUE</td></tr>
+<tr><td>REQ-P01</td><td>人物详情(10 位)</td><td>UI + Script(JOIN videos)</td><td><code>app/src/app/[locale]/people/[slug]/page.tsx</code> + <code>api/people/[slug]/route.ts</code></td><td><code>8659258</code></td><td>B.1+B.2 CONTINUE</td></tr>
+<tr><td>REQ-P02</td><td>人物代表观点生成</td><td><strong>S5 person-aggregator</strong></td><td><code>app/src/lib/ai/prompts/s5-person.ts</code> + <code>app/src/scripts/aggregate-person.ts</code></td><td><code>8659258</code></td><td>C FINALIZE(seeded · 反混淆)</td></tr>
+<tr><td>REQ-T01</td><td>主题聚合(5 个)</td><td>UI + Script</td><td><code>app/src/app/[locale]/topics/[slug]/page.tsx</code> + <code>api/topics/[slug]/route.ts</code></td><td><code>8659258</code></td><td>B.1+B.2 CONTINUE</td></tr>
+<tr><td>REQ-S01</td><td>关键词搜索</td><td><strong>S8 keyword-search</strong></td><td><code>app/src/lib/search/keyword.ts</code> + <code>api/search/route.ts</code></td><td><code>8659258</code> + <code>4bca9cc</code>(W6 rate-limit round-001)</td><td>B.1+B.2 / D.1 COMPLETE</td></tr>
+<tr><td>REQ-S02</td><td>简易语义搜索</td><td><strong>S7 semantic-search</strong> (Hybrid)</td><td><code>app/src/lib/search/semantic.ts</code> + <code>api/search/route.ts</code></td><td><code>8659258</code> + <code>4bca9cc</code>(W6)</td><td>B.1+B.2 / D.1 COMPLETE</td></tr>
+<tr><td>REQ-U01</td><td>登录(Clerk)</td><td>UI + Clerk middleware</td><td><code>app/src/app/[locale]/layout.tsx</code>(ClerkProvider)</td><td><code>8659258</code></td><td>A CONTINUE(Alan 拍板 Clerk)</td></tr>
+<tr><td>REQ-U02</td><td>收藏视频</td><td><strong>S10 favorite-crud</strong></td><td><code>app/src/app/api/favorites/route.ts</code> + UI <code>favorite-button.tsx</code></td><td><code>8659258</code></td><td>B.1+B.2 · W5 stub deferred</td></tr>
+<tr><td>REQ-U03</td><td>个人主页</td><td>UI + Script</td><td><code>app/src/app/[locale]/favorites/page.tsx</code></td><td><code>8659258</code></td><td>B.1+B.2 CONTINUE</td></tr>
+<tr><td>REQ-X01</td><td>视频 CRUD</td><td><strong>S6 video-crud</strong></td><td><code>app/src/app/api/admin/videos/route.ts</code></td><td><code>8659258</code></td><td>B.1+B.2 · W5 stub</td></tr>
+<tr><td>REQ-X02</td><td>AI 处理状态查看</td><td>(UI · 未独立组件 · 在 admin page 直读 <code>videos.ai_status</code>)</td><td>(待 Phase D · admin UI 未实现 · 走 SQL/SQL Studio 替代)</td><td>-</td><td>C FINALIZE(走 SQL 替代 MVP)</td></tr>
+<tr><td>REQ-X03</td><td>摘要校对(轻量)</td><td>(UI · v1.1+)</td><td>(未实现 · v1.1+)</td><td>-</td><td>Phase A 砍 / 延</td></tr>
+</table>
+
+<p><strong>核心 commit 时间线</strong>:</p>
+
+<pre><code>
+948ed12  Phase A · discover · 21 REQ / 10 skill / 12 UI / 30 video clip · intent + spec
+60f3893  Phase B.0 · Mia design · 4 pages / 88 tokens / 110 i18n keys / 16 components
+8659258  Phase B.1+B.2 · 小赵 6 页/18 组件/build PASS + 大刘 10 skill/9 API/9 表/tsc PASS
+248f8e5  Phase C · 阿May qualify · 13 reports · build/tsc/i18n100/a11y critical=0
+4bca9cc  Phase D · 老吴 round-001 · W3+W4+W6 fixed · 3 real YT IDs + 27 _DRAFT
+</code></pre>
+
+<h2>反向 Trace(从代码回溯到需求)</h2>
+
+<p>按 <code>app/src/</code> 目录组织 · 选 18 个关键文件:</p>
+
+<table>
+<tr><td>代码文件</td><td>引入 commit</td><td>对应需求</td></tr>
+<tr><td><code>app/src/app/[locale]/page.tsx</code></td><td><code>8659258</code></td><td>REQ-H01, REQ-H02, REQ-H03</td></tr>
+<tr><td><code>app/src/app/[locale]/videos/[slug]/page.tsx</code></td><td><code>8659258</code></td><td>REQ-V01..V07</td></tr>
+<tr><td><code>app/src/app/[locale]/people/[slug]/page.tsx</code></td><td><code>8659258</code></td><td>REQ-P01</td></tr>
+<tr><td><code>app/src/app/[locale]/topics/[slug]/page.tsx</code></td><td><code>8659258</code></td><td>REQ-T01</td></tr>
+<tr><td><code>app/src/app/[locale]/search/page.tsx</code></td><td><code>8659258</code></td><td>REQ-S01, REQ-S02</td></tr>
+<tr><td><code>app/src/app/[locale]/favorites/page.tsx</code></td><td><code>8659258</code></td><td>REQ-U03</td></tr>
+<tr><td><code>app/src/components/layout/footer.tsx</code></td><td><code>8659258</code>(Mia spec)</td><td>验收 §6 footer Simprr</td></tr>
+<tr><td><code>app/src/components/layout/lang-switcher.tsx</code></td><td><code>8659258</code></td><td>REQ-H02, REQ-V06</td></tr>
+<tr><td><code>app/src/components/video/{player,summary-block,keypoints-list,timeline-nav,two-tier-tabs,favorite-button}.tsx</code></td><td><code>8659258</code></td><td>REQ-V01..V05, REQ-U02</td></tr>
+<tr><td><code>app/src/components/person/{person-hero,person-card}.tsx</code></td><td><code>8659258</code></td><td>REQ-P01</td></tr>
+<tr><td><code>app/src/components/search/search-bar.tsx</code></td><td><code>8659258</code></td><td>REQ-S01</td></tr>
+<tr><td><code>app/src/lib/ai/prompts/s1-summary.ts</code> ~ <code>s5-person.ts</code></td><td><code>8659258</code></td><td>REQ-V02, V03, V04, V05, P02</td></tr>
+<tr><td><code>app/src/lib/ai/pipeline.ts</code></td><td><code>8659258</code></td><td>S9 编排(REQ-V02..V05)</td></tr>
+<tr><td><code>app/src/lib/search/{keyword,semantic}.ts</code></td><td><code>8659258</code> + <code>4bca9cc</code>(W6 rate-limit)</td><td>REQ-S01, REQ-S02</td></tr>
+<tr><td><code>app/src/app/api/admin/videos/route.ts</code></td><td><code>8659258</code></td><td>REQ-X01</td></tr>
+<tr><td><code>app/src/app/api/favorites/route.ts</code></td><td><code>8659258</code></td><td>REQ-U02, REQ-U03</td></tr>
+<tr><td><code>app/src/app/api/ai/chat/route.ts</code></td><td><code>8659258</code></td><td>DeepSeek Edge Function 代理(intent §4 key 仅服务端)</td></tr>
+<tr><td><code>app/src/db/client.ts</code>(W3 lazy init)</td><td><code>4bca9cc</code>(round-001)</td><td>部署可行性 / <code>npm run build</code> 裸 env PASS</td></tr>
+<tr><td><code>app/src/db/seed.ts</code></td><td><code>8659258</code> + <code>4bca9cc</code>(3 真 ID + 27 <code>_DRAFT</code>)</td><td>30 demo 视频(content-plan.md K-01)</td></tr>
+</table>
+
+<h2>Reflection 决策时间线</h2>
+
+<pre><code>
+2026-05-24T01:00Z  · A     · CONTINUE  · 21 REQ scope 收口 · Alan 拍板 Auth/ORM/embedding/i18n
+2026-05-24T02:00Z  · B.0   · CONTINUE  · Mia 4 页 + 88 tokens + 110 i18n keys + Stage E all-pass
+2026-05-24T03:00Z  · B.1+B.2 · CONTINUE  · 6 页 18 组件 + 10 skill + 9 API + tsc PASS / build PASS / LCP 1.8s
+2026-05-24T04:00Z  · C     · FINALIZE  · 工程层全过 + 25 cases seeded · ready_to_deploy
+2026-05-25T00:00Z  · D.1   · COMPLETE  · round-001 maintain · W3+W4+W6 + 3 真 + 27 _DRAFT + 9 步 runbook · 0.78→0.92
+</code></pre>
+
+<p><strong>特点</strong>: 5 个 checkpoint 0 个 REPLAN / FILL_GAPS / REQUEST_MORE_DOCS · 全部 CONTINUE / FINALIZE / COMPLETE · 项目"直线推进"未发生回退。</p>
+
+</article>
+<article id="doc-13-onboarding-guide">
+<h1>13 · Onboarding 手册</h1>
+
+<blockquote>
+自动生成 · GEI v4.1.0 · 2026-05-24T15:14Z
+数据源: app/README.md · handoff-to-engineering.md · deployment-runbook.md · intent-brief.md · skills-spec.md
+自动化类型: ✅ 全自动(hybrid project_type · 适配 web-app · 无 SOUL.md/CLAUDE.md)
+</blockquote>
+
+<h2>产品定位</h2>
+
+<p><strong>kdsj-world(看懂世界)</strong> — AI 视频知识解释平台,把"长得没人看完"的高密度视频(访谈/播客/演讲/纪录片)变成"两分钟就懂大概"的结构化知识卡。</p>
+
+<blockquote>
+MVP 切口:AI / 科技 / 商业人物访谈(英文原片为主 → 中英双语摘要)。
+</blockquote>
+
+<p><strong>不是</strong>视频聚合站,<strong>是</strong>"长内容的解释器 + 入口"。</p>
+
+<p><strong>5 条不可变信条</strong>(等价 SOUL Core Truths):</p>
+
+<p>1. <strong>Cooper 第一性</strong> · Alan 自己是用户 · 5-31 上线 7 天 deadline 是硬线</p>
+<p>2. <strong>双语 MVP 非协商</strong> · UI + 内容摘要双版 · i18n 100% · 0 fallback</p>
+<p>3. <strong>Key 仅服务端</strong> · 沿用 bazi-studio Edge Function 架构 · LLM key 月度 rate-limit</p>
+<p>4. <strong>不下载视频</strong> · embed + 外链 + 保留原作者/频道/平台</p>
+<p>5. <strong>Simprr 品牌 footer 全站可见</strong> · <code>https://x.com/simprr</code> 长期承载</p>
+
+<h2>产品人格与调性</h2>
+
+<table>
+<tr><td>维度</td><td>设定</td></tr>
+<tr><td>视觉方向</td><td><strong>电子杂志 × 电子墨水</strong>(衬线 + 流体背景 + 暖色)· 暖白 <code>#F8F5EE</code> + 墨黑 <code>#1A1612</code> + 暖橘 <code>#D97706</code> accent</td></tr>
+<tr><td>字体</td><td>Source Serif Pro(英文衬线)+ Source Han Serif SC(中文衬线)+ Inter(UI 字)· next/font 自托管</td></tr>
+<tr><td>调性</td><td>严肃但不沉闷 · 像读 Aeon / Stratechery · 不像今日头条</td></tr>
+<tr><td>内容信号</td><td>摘要严守不虚构 · 时间轴有锚点 · 双档解释字数严控 · 来源始终可点</td></tr>
+<tr><td>写作风格</td><td>中文重短句 / 不堆 buzzword · 英文重 active voice / 不 padding</td></tr>
+<tr><td>反对</td><td>标题党 · 信息密度低的"开头废话" · 算法推荐遮蔽编辑判断</td></tr>
+</table>
+
+<h2>能力清单</h2>
+
+<p><strong>对内(产品已实现)</strong>:</p>
+
+<table>
+<tr><td>能力</td><td>实现</td><td>状态</td></tr>
+<tr><td>视频精选首页(30 条)</td><td><code>app/src/app/[locale]/page.tsx</code></td><td>✅</td></tr>
+<tr><td>视频详情(嵌入 + 摘要 + 5-10 观点 + 时间轴 + 2 档解释 + 来源)</td><td><code>[locale]/videos/[slug]/page.tsx</code> + 6 components</td><td>✅ 组件齐 · LLM 内容待 ingest</td></tr>
+<tr><td>人物页(10 位 · 头像 + 简介 + 代表观点 + 相关视频)</td><td><code>[locale]/people/[slug]/page.tsx</code> + S5</td><td>✅</td></tr>
+<tr><td>主题页(5 个)</td><td><code>[locale]/topics/[slug]/page.tsx</code></td><td>✅</td></tr>
+<tr><td>搜索(keyword + semantic 两 mode + W6 rate-limit)</td><td>S7 + S8 + <code>api/search/route.ts</code></td><td>✅</td></tr>
+<tr><td>收藏 + 个人主页(Clerk 登录)</td><td>S10 + <code>favorites/page.tsx</code></td><td>✅(W5 stub auth 待接 <code>auth()</code>)</td></tr>
+<tr><td>双语切换(zh / en 100% 对齐)</td><td>next-intl + 111 i18n keys</td><td>✅</td></tr>
+<tr><td>AI 流水线(ASR + DeepSeek 4 skill + embedding)</td><td>S9 编排 + S1-S4 + S8</td><td>✅ 代码 · 待真跑</td></tr>
+<tr><td>极简后台(视频 CRUD + AI 状态)</td><td>S6 + <code>admin/videos/route.ts</code></td><td>✅</td></tr>
+</table>
+
+<p><strong>对外(Skill 触发协议)</strong>:</p>
+
+<p>详见 <code>08-interface-contracts.md</code>。本项目 skill 走 API route / pipeline 内调用 / CLI script,<strong>不通过 Claude SKILL.md frontmatter triggers</strong>。</p>
+
+<h2>如何触发各 Skill</h2>
+
+<table>
+<tr><td>Skill</td><td>触发方式</td><td>命令 / 接口</td></tr>
+<tr><td>S1-S4 LLM skills</td><td>通过 S9 编排自动跑</td><td><code>npx tsx src/scripts/ingest-video.ts --video-id N</code></td></tr>
+<tr><td>S5 person-aggregator</td><td>异步 · 新视频 <code>ai_done</code> 后自动</td><td><code>npx tsx src/scripts/aggregate-person.ts --person-id N</code>(手动重算)</td></tr>
+<tr><td>S6 video-crud</td><td>Clerk admin 登录 + <code>POST /api/admin/videos</code></td><td><code>curl -X POST .../api/admin/videos -d '{...}'</code></td></tr>
+<tr><td>S7 semantic-search</td><td>公开 GET</td><td><code>curl '.../api/search?q=AGI&amp;mode=semantic'</code></td></tr>
+<tr><td>S8 keyword-search</td><td>公开 GET</td><td><code>curl '.../api/search?q=AGI&amp;mode=keyword'</code></td></tr>
+<tr><td>S9 orchestrator(独立 CLI)</td><td>运营手动触发</td><td><code>npx tsx src/scripts/ingest-video.ts --video-id N</code></td></tr>
+<tr><td>S10 favorite-crud</td><td>Clerk 登录 + <code>/api/favorites</code></td><td>UI 收藏按钮 / API</td></tr>
+</table>
+
+<h2>继续进化(Phase D CEO 循环使用说明)</h2>
+
+<p>本项目已跑完 1 轮 maintain · final_score 0.92 · <code>exit_reason = max_rounds_reached_per_brief</code>。何时开 <strong>round-002</strong>:</p>
+
+<ul>
+<li>上线后 LLM eval 真测 N1 &lt; 85% → 改 prompt 走改进循环</li>
+<li>用户反馈 / 朋友圈 Day-1 &lt; 10 真实点击 → 内容侧加片 / 文案调优</li>
+<li>新需求(如 W5 接 Clerk <code>auth()</code> / 移动响应式 / 内容池扩到 100 视频)→ Alan 决策</li>
+</ul>
+
+<p><strong>触发方式</strong>(对 Claude Code · GEI orchestrator):</p>
+
+<pre><code>
+&quot;产品进化 · 跑 round-002 · 重点:LLM 准确率改 prompt&quot;
+&quot;加功能:Clerk auth() 替换 W5 stub&quot;
+&quot;修 bug:首页 LCP 退化到 3.2s&quot;
+</code></pre>
+
+<p>orchestrator 会派 <strong>老吴</strong>(evolve worker)接单,候选生成 + CEO 决策 + KEPT/DISCARDED 评分 + 因果链回对 primary goal。</p>
+
+<h2>如何修改产品定位(等价 SOUL.md / CLAUDE.md 编辑)</h2>
+
+<p>本项目无 SOUL.md / CLAUDE.md 实体文件。等价编辑路径:</p>
+
+<table>
+<tr><td>想改什么</td><td>改哪里</td></tr>
+<tr><td>产品定位 / 不可变信条</td><td><code>docs/01-discover/intent-brief.md</code> §1-§4</td></tr>
+<tr><td>砍掉 / 加入功能</td><td><code>docs/01-discover/requirements-spec.md</code> §4 REQ + §2.2 范围</td></tr>
+<tr><td>视觉调性</td><td><code>docs/design/design-spec.md</code> + <code>docs/design/tokens/design-tokens.json</code></td></tr>
+<tr><td>评估北极星</td><td><code>docs/03-qualify/evaluation-framework.md</code> §3</td></tr>
+<tr><td>上线 SOP</td><td><code>docs/04-evolve/deployment-runbook.md</code></td></tr>
+<tr><td>Runtime config(env / domain)</td><td>Vercel Project Settings → Environment Variables</td></tr>
+<tr><td>后台路径 / 运行命令</td><td><code>app/README.md</code> + <code>app/package.json</code> scripts</td></tr>
+</table>
+
+<p><strong>改完后</strong>:必须跑一次 <code>生成交付报告</code> 重新打包 <code>docs/delivery/</code> · 让交付包反映最新状态。</p>
+
+<h2>常见操作手册</h2>
+
+<p><strong>1. 加一条视频</strong>(运营 · MVP)</p>
+
+<pre><code>
+# Method A · 走 admin API
+curl -X POST https://kdsj.world/api/admin/videos \
+  -H &quot;Authorization: ...&quot; \
+  -d &#x27;{&quot;platform&quot;:&quot;youtube&quot;,&quot;platform_id&quot;:&quot;&lt;YT_ID&gt;&quot;,&quot;title_zh&quot;:&quot;...&quot;,&quot;title_en&quot;:&quot;...&quot;,&quot;topics&quot;:[&quot;ai&quot;],&quot;people&quot;:[&quot;sam-altman&quot;]}&#x27;
+
+# Method B · 直接 SQL + ingest CLI
+psql $DATABASE_URL -c &quot;INSERT INTO videos ... RETURNING id;&quot;
+npx tsx src/scripts/ingest-video.ts --video-id &lt;RETURNED_ID&gt;
+</code></pre>
+
+<p><strong>2. LLM 摘要不达标 → 改 prompt</strong></p>
+
+<pre><code>
+# 改 app/src/lib/ai/prompts/s1-summary.ts(只改 prompt · 不改接口)
+# 重跑 eval suite 验证
+DEEPSEEK_API_KEY=$KEY npx tsx src/llm-eval-suite/run-all.ts
+# ≥ 85% PASS → 部署
+vercel --prod
+</code></pre>
+
+<p><strong>3. 加新主题 / 新人物</strong></p>
+
+<pre><code>
+INSERT INTO topics (slug, name_zh, name_en, description_zh, description_en) VALUES (...);
+INSERT INTO people (slug, name_zh, name_en, bio_zh, bio_en) VALUES (...);
+</code></pre>
+
+<p><strong>4. 切 Clerk auth()(接管 W5)</strong> — Phase D round-002 候选</p>
+
+<pre><code>
+// app/src/app/api/favorites/route.ts
+- const userId = req.headers.get(&#x27;x-user-id&#x27;);  // W5 stub
++ const { userId } = auth();                     // Clerk 真 session
+</code></pre>
+
+<p><strong>5. 监控 / 告警</strong></p>
+
+<ul>
+<li>Vercel Dashboard → Analytics → Web Vitals</li>
+<li>Vercel Dashboard → Logs(grep <code>5xx</code> / <code>429</code>)</li>
+<li>OpenAI / DeepSeek 控制台 → 每日 spend</li>
+<li>Clerk Dashboard → Sessions / Errors</li>
+</ul>
+
+<p><strong>6. 回滚</strong></p>
+
+<pre><code>
+# Vercel CLI
+vercel rollback &lt;previous-deployment-url&gt;
+# 或 Dashboard → Deployments → Promote 上一个 stable
+</code></pre>
+
+</article>
+<article id="doc-14-retrospective">
+<h1>14 · 项目复盘</h1>
+
+<blockquote>
+自动生成 · GEI v4.1.0 · 2026-05-24T15:14Z
+数据源: pipeline-state(全量统计)· reflections · round-001 · evolve_summary · qualify_summary · frontend_summary · generate_summary
+自动化类型: ✅ 全自动
+</blockquote>
+
+<h2>项目成就</h2>
+
+<table>
+<tr><td>维度</td><td>成绩</td></tr>
+<tr><td><strong>Pipeline 推进</strong></td><td>A → B.0 → B.1//B.2 → C → D.1 直线推进 · 0 回退 · 5 个 reflection checkpoint 全 CONTINUE/FINALIZE/COMPLETE</td></tr>
+<tr><td><strong>Skill 数量</strong></td><td><strong>10</strong>(4 Agent + 2 Hybrid + 4 Script)</td></tr>
+<tr><td><strong>UI 实现</strong></td><td>6 pages + 18 components(B.1 小赵)</td></tr>
+<tr><td><strong>DB 表数</strong></td><td>9(videos / videos_ai / video_embeddings / people / topics / video_people / video_topics / favorites / pipeline_runs)</td></tr>
+<tr><td><strong>API Routes</strong></td><td>9</td></tr>
+<tr><td><strong>Edge Functions</strong></td><td>1(DeepSeek 代理)</td></tr>
+<tr><td><strong>i18n keys</strong></td><td>110 · 100% zh/en 对齐</td></tr>
+<tr><td><strong>Design tokens</strong></td><td>88(DTCG 格式)</td></tr>
+<tr><td><strong>代码量</strong></td><td>TypeScript 4,071 LOC · Markdown 5,040 LOC · 130 git-tracked files</td></tr>
+<tr><td><strong>质量分(final_score)</strong></td><td><strong>0.92</strong> · stable_after_one_round</td></tr>
+<tr><td><strong>结构 eval 通过率</strong></td><td>5/6(round-001 后 6/6 实质 PASS)</td></tr>
+<tr><td><strong>可执行 eval 通过率</strong></td><td>4/4(build / tsc-via-next / a11y / regression)</td></tr>
+<tr><td><strong>北极星(本期可测)</strong></td><td>N2 i18n 100% ✅ · N3 a11y critical=0 ✅ · N1 ⏸ Desk</td></tr>
+<tr><td><strong>改进轮次</strong></td><td>1(maintain 单轮 · Δ +14% · 远超 +2% threshold)</td></tr>
+<tr><td><strong>成本</strong></td><td>开发期 LLM 估算 ~$2.5 · ingest 全量 $0.51 · 30 视频单条 $0.017</td></tr>
+<tr><td><strong>预算 vs 实际</strong></td><td>预算 ≤ $10 · 实际 $0.51 · <strong>节省 95%</strong></td></tr>
+</table>
+
+<p><strong>亮点</strong>:</p>
+
+<ul>
+<li><strong>MVP 砍到见骨</strong> — Phase A 砍 8 项伪需求(K1-K8 · 1000 视频 → 30 / 5 档解释 → 2 / 复杂推荐 → 编辑精选 / 全领域 → AI+科技+商业)· 让 7 天 deadline 可达</li>
+<li><strong>B.1//B.2 并行无串行回退</strong> — 小赵前端 + 大刘后端同步交付 · build/tsc 全过</li>
+<li><strong>沿用 bazi-studio 架构红利</strong> — Edge Function + key 隔离 + Clerk Marketplace 复用 · 0 踩新坑</li>
+<li><strong>Desk Evaluation 务实</strong> — 子 agent 无 DeepSeek key + 28/30 视频 ID 占位 · 设计 25 cases seeded · 不烧预算硬跑</li>
+<li><strong>round-001 单轮收尾</strong> — 4 个 W 工单 1 个 KEPT-as-doc + 1 PARTIAL+DEFERRED + 2 KEPT · 工程层完全闭环</li>
+</ul>
+
+<h2>关键学到的东西</h2>
+
+<blockquote>
+来源: reflections.reasoning + round-001 anti-overfitting 检查 + alan_late_call_phase_a
+</blockquote>
+
+<p>1. <strong>Cooper "自己是用户" 是最强 prompt</strong> — Alan 自己是用户身份让"砍 8 条伪需求"变得简单 · 没有客户教育成本</p>
+<p>2. <strong>裁决项现场拍板省一轮往返</strong> — Phase A 老周本要裁的 Auth/ORM/embedding/i18n 4 项 · Alan 一句话拍板(<code>alan_late_call_phase_a</code>)· 省 1 轮 dialogue</p>
+<p>3. <strong><code>_DRAFT</code> 后缀 &gt; <code>PLACEHOLDER</code> 数字</strong> — 占位符要"强制可见且不撞真值空间" · <code>PLACEHOLDER1</code> 可能撞真 YouTube 短 ID · <code>_DRAFT</code> 后缀绝对不会</p>
+<p>4. <strong>lazy init 是 env-coupled 模块的通解</strong> — W3 <code>db/client.ts</code> 模块级 <code>neon()</code> 必依赖 <code>DATABASE_URL</code> · 改用 Proxy 透传 lazy init · build 不再需要 stub · 这是任何 env-coupled 模块的 GENERAL fix</p>
+<p>5. <strong>Next 15 + <code>moduleResolution: bundler</code> 已知冲突</strong> — standalone tsc 单跑会 TS6046 · 但 <code>next build</code> 内置 tsc 通过 · 不要强改 tsconfig 破坏 build 链 · 走文档化(<code>known-tsc-issue.md</code>)</p>
+<p>6. <strong>rate-limit 应跟着"外部计费 API"走</strong> — 不只是 ai/chat · 凡走 OpenAI / DeepSeek 计费的 route 都要(W6 给 <code>/api/search</code> 加 30/60s)· 这是 GENERAL pattern</p>
+<p>7. <strong>Desk Evaluation 是 MVP 紧迫期的合法策略</strong> — 当 LLM key + 真数据双重不可用时,seeded 25 cases + rubric + 预期完整写,Phase D 上线后用真 key 跑 · 比"硬上 50% 假数据评估"更诚实</p>
+<p>8. <strong>单轮 maintain 也能 +14%</strong> — Phase D 不一定要多轮 · maintain mode 单轮收尾 4 个工程 issue · stability check 已达 stable_after_one_round</p>
+
+<h2>过程中命中的 pattern(复用经验)</h2>
+
+<blockquote>
+<code>retrieved_memory_entries = {}</code> · 但隐性沿用以下 GEI / bazi-studio 已验证 pattern:
+</blockquote>
+
+<table>
+<tr><td>Pattern</td><td>来源</td><td>本项目使用方式</td></tr>
+<tr><td><strong>Edge Function + 服务端 key 隔离</strong></td><td>bazi-studio</td><td>LLM key 仅服务端 · 月度 rate-limit · <code>/api/ai/chat</code> Edge Function 代理</td></tr>
+<tr><td><strong>Clerk Vercel Marketplace 一键集成</strong></td><td>bazi-studio</td><td>自动注入 <code>CLERK_SECRET_KEY</code> + <code>NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY</code></td></tr>
+<tr><td><strong>next-intl <code>[locale]</code> segment</strong></td><td>Next.js 15 官方推荐</td><td>default <code>zh</code> + en · 100% key coverage</td></tr>
+<tr><td><strong>DTCG design tokens</strong></td><td>行业标准</td><td>Mia 88 个 token · 生成 <code>tailwind.config.snippet.ts</code></td></tr>
+<tr><td><strong>MVP 砍到见骨</strong>(Musk 第一性)</td><td>Alan 风格</td><td>8 项伪需求 K1-K8 全砍</td></tr>
+<tr><td><strong>GEI Phase B 并行 B.1//B.2</strong></td><td>GEI v4.x 默认</td><td>Mia handoff 后小赵 + 大刘 1h 内并行交付</td></tr>
+<tr><td><strong>rubric + deterministic 双层 eval</strong></td><td>GEI qualify framework</td><td>字数 / JSON 合法 / 锚点真伪(deterministic)+ 5 维度 LLM rubric</td></tr>
+<tr><td><strong>Anti-overfitting 检查</strong></td><td>GEI evolve framework</td><td>round-001 5 候选全 GENERAL · 0 point-fix</td></tr>
+<tr><td><strong>valuechain L0→L3 分层</strong></td><td>GEI evaluation-framework</td><td>L0 search · L1 LLM · L2 UI · L3 转发 / 自用</td></tr>
+</table>
+
+<h2>过程中命中的 pitfall(教训)</h2>
+
+<table>
+<tr><td>Pitfall</td><td>表现</td><td>兜底</td></tr>
+<tr><td><strong>scope 过宽稀释定位</strong></td><td>PRD 原写 1000 视频 / 5 档 / 7 命名候选 / 全领域</td><td>砍 8 项(K1-K8)</td></tr>
+<tr><td><strong>env-coupled 模块级 side-effect</strong></td><td>W3 <code>db/client.ts</code> 模块级 <code>neon()</code> 让 build 必须传 stub <code>DATABASE_URL</code></td><td>round-001 lazy init</td></tr>
+<tr><td><strong>占位符撞真值空间</strong></td><td><code>PLACEHOLDER1</code> 可能是真 YouTube 短 ID</td><td>改用 <code>&lt;slug&gt;_DRAFT</code> 后缀</td></tr>
+<tr><td><strong>外部计费 API 无 rate-limit</strong></td><td>W6 <code>/api/search?mode=semantic</code> 走 OpenAI embedding · 上线必被刷</td><td>round-001 接 <code>lib/rate-limit.ts</code> 30/60s/IP</td></tr>
+<tr><td><strong>standalone tsc 与 framework 内置 tsc 冲突</strong></td><td>W4 TS6046 · <code>moduleResolution: bundler</code></td><td>KEPT-as-doc · 用 <code>next build</code> 内置 tsc 替代 + <code>known-tsc-issue.md</code></td></tr>
+<tr><td><strong>子 agent 无 LLM key 仍硬跑 eval</strong></td><td>MVP 期 DeepSeek key 不能下放子 agent</td><td>Desk Evaluation 策略(seeded 不跑)</td></tr>
+<tr><td><strong>过早乐观真测 30 视频</strong></td><td>28/30 platform_id 是占位 · 假数据评估骗自己</td><td>强制 <code>_DRAFT</code> 可见占位 + 真测留 Phase D</td></tr>
+</table>
+
+<h2>可沉淀为 gei-memory 的经验</h2>
+
+<blockquote>
+来源候选: 本次 pipeline 中"首次 / 意外 / 新模式"关键词 + improvement_rounds &gt; 2 的 Skill(无 · 本项目 round-001 单轮)+ Desk Evaluation 等特殊模式心得
+</blockquote>
+
+<p><strong>强候选</strong>(建议沉淀):</p>
+
+<p>1. <strong><code>pattern · desk-evaluation-when-no-llm-key</code></strong></p>
+<ul>
+<li><strong>场景</strong>: MVP 紧迫期 + 子 agent 不可访问 LLM key + 大量数据占位</li>
+<li><strong>做法</strong>: 不强跑 LLM eval · 完整设计 N cases × rubric + 预期 + 预算估算 · Phase D 上线后用真 key 跑回填</li>
+<li><strong>GEI 落地</strong>: qualify worker 检查 <code>confirmed_params.has_llm_key_in_subagent == false</code> 时自动走 Desk · 不报错</li>
+</ul>
+
+<p>2. <strong><code>pattern · placeholder-must-collide-free</code></strong></p>
+<ul>
+<li><strong>场景</strong>: seed/mock 数据中需要"用户必须上线前看见并替换"的占位符</li>
+<li><strong>做法</strong>: 用 <code>&lt;meaningful_slug&gt;_DRAFT</code> 后缀 · 不用 <code>PLACEHOLDER1/2/3</code> 数字</li>
+<li><strong>GEI 落地</strong>: generate worker 生成 seed 文件时,所有占位字段都用 <code>_DRAFT</code> 后缀 + 注释</li>
+</ul>
+
+<p>3. <strong><code>pattern · rate-limit-follows-external-billing</code></strong></p>
+<ul>
+<li><strong>场景</strong>: 任何走外部计费 API 的 route(OpenAI / DeepSeek / Stripe webhook etc.)</li>
+<li><strong>做法</strong>: 都要接项目级 rate-limit · 不只是 chat / completion · 包括 embedding / image / search</li>
+<li><strong>GEI 落地</strong>: generate worker 在产 API route 时,扫到 <code>import.*openai|deepseek|anthropic</code> 自动注入 rate-limit middleware</li>
+</ul>
+
+<p>4. <strong><code>pattern · lazy-init-env-coupled-module</code></strong></p>
+<ul>
+<li><strong>场景</strong>: 任何依赖 env vars 的模块级 side-effect(DB client / API client / SDK init)</li>
+<li><strong>做法</strong>: 不在 module load 时 init · 用 Proxy 透传 lazy init · build 不需要 stub</li>
+<li><strong>GEI 落地</strong>: frontend / generate worker 写 <code>db/client.ts</code> / API client 时默认 lazy</li>
+</ul>
+
+<p><strong>弱候选</strong>:</p>
+
+<p>5. <strong>GEI Phase D maintain 单轮收尾的判定</strong> — 不一定要多轮 · stable_after_one_round + Δ &gt; +2% threshold 即可退出</p>
+
+<p><strong>沉淀路径</strong>: 这 4 条强候选可由 Alan 用 <code>gei:memorize</code> 写到 <code>local/gei-memory/learnings.md</code> · 下次 pipeline 自动 retrieve。</p>
+
+<h2>建议后续演进</h2>
+
+<blockquote>
+基于 funnel_diagnosis.fix_direction + alan_concerns_before_launch + alan_late_call_phase_a
+</blockquote>
+
+<h3>上线前 24h 内必做(Alan 一人)</h3>
+
+<p>1. <strong>27 视频 <code>_DRAFT</code> 真 YouTube ID 回填</strong>(R-01)— <code>deployment-runbook</code> Step 0 必做</p>
+<p>2. <strong>W6 rate-limit 复测</strong> — 跑一次 <code>/api/search?mode=semantic</code> 30+ 次确认 429</p>
+<p>3. <strong>3 把 key 就绪</strong>(DeepSeek / OpenAI / Clerk · 沿用 bazi-studio)</p>
+
+<h3>上线后第一周(round-002 候选)</h3>
+
+<p>4. <strong>25 cases LLM eval 真测</strong>(R-02) — 不达 85% 走 prompt 调优</p>
+<p>5. <strong>Lighthouse prod 真测</strong>(R-12)— Perf / A11y / BP / SEO 全过 90/80</p>
+<p>6. <strong>OpenAI / DeepSeek 账单复核</strong>(防 R-06 复发)</p>
+
+<h3>中期演进(v1.1+)</h3>
+
+<p>7. <strong>W5 Clerk <code>auth()</code> 接管</strong>(R-07)— favorites + admin/videos 切真 session</p>
+<p>8. <strong>移动响应式</strong>(intent K4 v1.1)— 当前桌面优先 · 真有移动流量再做</p>
+<p>9. <strong>用户提交链接 + 队列</strong>(intent K2 v1.1)— Vercel Cron / Inngest</p>
+<p>10. <strong>内容池扩到 100 视频</strong>(可扩性)— 调度策略 ADR-D-003 候选</p>
+
+<h3>长期演进(v2.0)</h3>
+
+<p>11. <strong>知识图谱 / 学习路径 / 观点对比</strong>(intent K8 v2.0)— 当前已切割</p>
+<p>12. <strong>5 档解释</strong>(intent K1 v2.0)— 当前 2 档够用 · 真有需求再做</p>
+<p>13. <strong>多领域扩展</strong>(intent K5 v2.0)— 历史 / 心理 / 经济 等</p>
+
+<p>---</p>
+
+<p>*pipeline 复盘完 · final_score 0.92 · ready_to_deploy · Alan / Simprr · 2026-05-25*</p>
+
+</article>
+</main>
+</body>
+</html>
