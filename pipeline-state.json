@@ -1,14 +1,19 @@
 {
   "schema_version": "4.7",
   "project_name": "kdsj-world",
-  "project_display_name": "看懂世界",
+  "project_display_name": "明读 (Lucid)",
+  "project_display_name_original": "看懂世界",
+  "rename_note": "round-009 改名:看懂世界/kdsj → 明读/Lucid · 印章字标 logo + slogan · 项目目录名保留 kdsj-world",
   "output_dir": "/Users/lukeliu/gei-workspace/output/kdsj-world",
   "customer_anon_id": "self-simprr",
   "path": "A",
-  "current_phase": "discover",
-  "status": "in_progress",
+  "current_phase": "launched",
+  "status": "done",
   "created_at": "2026-05-24T00:00:00Z",
-  "updated_at": "2026-05-24T00:00:00Z",
+  "updated_at": "2026-05-25T00:00:00Z",
+  "launched_at": "2026-05-25T00:00:00Z",
+  "production_url": "https://lucid-zeta-indol.vercel.app",
+  "custom_domain": "lucid.simprr.com",
   "intake": {
     "completed_at": "2026-05-24T00:00:00Z",
     "intent_brief_path": "docs/01-discover/intent-brief.md",
@@ -65,23 +70,59 @@
   },
   "codeloop_state": {
     "enabled": true,
-    "rounds_completed": 1,
-    "current_round": 1,
-    "exit_reason": "max_rounds_reached_per_brief",
-    "scores": [{"round": 1, "score": 0.92}],
-    "final_score": 0.92,
-    "stability": "stable_after_one_round",
+    "rounds_completed": 12,
+    "current_round": 12,
+    "exit_reason": "launched_and_post_launch_polish_done",
+    "scores": [
+      {"round": 1, "score": 0.92, "theme": "W3+W4+W6 fixed · 3 real YT IDs · runbook"},
+      {"round": 2, "score": 0.92, "theme": "+5 real YT videos · overrides 快通道"},
+      {"round": 3, "score": 0.93, "theme": "+5 real YT · 10 e-ink 杂志风头像"},
+      {"round": 4, "score": 0.94, "theme": "+7 real YT · OG hero · Open Graph metadata"},
+      {"round": 5, "score": 0.94, "theme": "头像渲染 bug fix · playwright 整站视觉验证"},
+      {"round": 6, "score": 0.95, "theme": "console errors 清零 · 缩略图 fallback · 视频页头像"},
+      {"round": 7, "score": 0.95, "theme": "a11y serious/moderate 清理 · draft 即将上线 角标"},
+      {"round": 8, "score": 0.95, "theme": "build baseline · metadataBase 修复 · 移动端验证"},
+      {"round": 9, "score": 0.96, "theme": "改名 看懂世界→明读/Lucid · 印章字标 logo + slogan"},
+      {"round": 10, "score": 0.96, "theme": "时间轴/观点点击 seek · 速读合并 · 砍速懂/深度分档"},
+      {"round": 11, "score": 0.97, "theme": "中文 OG · Neon 接库 · Next 15.5.18/React 19.2 · Vercel 上线"},
+      {"round": 12, "score": 0.97, "theme": "漫画头像 gpt-image-2 · DeepSeek 大白话速读 · 详情页去重 · 生产存证"}
+    ],
+    "final_score": 0.97,
+    "stability": "stable_after_launch",
     "ledger_path": "docs/04-evolve/ledger.tsv"
   },
+  "deployment_summary": {
+    "deployed": true,
+    "deployed_at": "2026-05-25T00:00:00Z",
+    "production_url": "https://lucid-zeta-indol.vercel.app",
+    "custom_domain": "lucid.simprr.com",
+    "vercel_scope": "lukes-projects-e427a219",
+    "vercel_project": "lucid",
+    "db": "Neon Postgres + pgvector via Vercel integration · 8 tables 真数据",
+    "framework_version": "Next 15.5.18 + React 19.2",
+    "ga4_id": "G-NWMQ1ZWXL1",
+    "production_verified_at": "2026-05-25T00:00:00Z (round-012)"
+  },
+  "delivery_package": {
+    "generated": true,
+    "path": "docs/delivery/",
+    "docs_count": 14,
+    "index": "docs/delivery/INDEX.md",
+    "html_view": "docs/delivery/index.html",
+    "committed": false,
+    "note": "delivery 14 份 + INDEX + index.html 已生成但 working tree ?? 未 commit · 待 Alan 收尾"
+  },
   "evolve_summary": {
-    "candidates": 5,
-    "kept": 4,
-    "discarded": 0,
-    "deferred": 1,
-    "real_youtube_ids_filled": 3,
-    "drafts_remaining": 27,
+    "rounds_total": 12,
+    "candidates_total_round_001": 5,
+    "kept_round_001": 4,
+    "discarded_round_001": 0,
+    "deferred_round_001": 1,
+    "real_youtube_ids_filled_total": "约 17/30 (round 001-004 累计补真 YT ID,余下 13 仍 _DRAFT 等 YouTube 配额重置)",
+    "drafts_remaining": 13,
     "build_passed_after_fixes": true,
     "build_no_stub_verified": true,
+    "launched_to_vercel": true,
     "completed_at": "2026-05-25T00:00:00Z"
   },
   "phase_c": {
@@ -128,9 +169,16 @@
     "W6 · /api/search 缺 rate-limit · 走 OpenAI 计费 · Phase D 上线前 24h 补 30/60s · 非阻塞"
   ],
   "alan_concerns_before_launch": [
-    "30 视频中 28 个 platform_id 是 PLACEHOLDER · 运营层(Alan)必须回填真 YouTube ID 才能上线",
-    "LLM 准确率北极星未真测 · 上线第一周跑 25 cases × DeepSeek-v4-pro 验证 ≥ 85%",
-    "W6 rate-limit 上线前补"
+    "30 视频中 28 个 platform_id 是 PLACEHOLDER · 运营层(Alan)必须回填真 YouTube ID 才能上线 [round 002-004 补到约 17/30]",
+    "LLM 准确率北极星未真测 · 上线第一周跑 25 cases × DeepSeek-v4-pro 验证 ≥ 85% [仍 TODO]",
+    "W6 rate-limit 上线前补 [round-001 已补]"
+  ],
+  "alan_remaining_todo_post_launch": [
+    "余下 13 个 _DRAFT 视频:等 YouTube 配额重置后冲齐 ≥27/30",
+    "Clerk 替换 favorites + admin/videos 的 x-user-id stub (W5)",
+    "25 LLM eval case 真测 · 出准确率报告 (≥85% 北极星)",
+    "git commit 未跟踪三件:docs/delivery/(14 份交付包)+ app/src/lib/youtube/ + app/src/scripts/fetch-avatars.ts + admin/videos/route.ts modified",
+    "Custom domain lucid.simprr.com (已绑定 · 复验)"
   ],
   "design_summary": {
     "pages_count": 4,
@@ -186,6 +234,36 @@
       "decision": "COMPLETE",
       "reasoning": "老吴 round-001 单轮 maintain · 5 候选 4 KEPT 1 DEFERRED · W3 lazy init(实测 build 不传 DATABASE_URL 也过)+ W4 known-issue 标注 + W6 search rate-limit 30/60s · 28 视频 3 高置信度 ID + 27 _DRAFT 强制可见 · 9 步 deployment-runbook + LLM eval execution plan + post-launch checklist 全产 · ledger ceo_decision 完整 · final_score 0.92 · 上线前 Alan 必做 3 项(填 27 _DRAFT / 跑 25 eval / git push + vercel deploy)",
       "timestamp": "2026-05-25T00:00:00Z"
+    },
+    {
+      "checkpoint": "D.2-D.8",
+      "decision": "CONTINUE",
+      "reasoning": "老吴 round 002-008 持续 evolve loop · 累计补 17 真 YT 视频 + 10 e-ink 头像 + OG hero + Open Graph metadata · console errors 清零 · a11y serious/moderate 清理 · 缩略图 fallback 链 · build baseline + metadataBase + 移动端 playwright 整站视觉验证全过 · 评分 0.92→0.95",
+      "timestamp": "2026-05-25T00:00:00Z"
+    },
+    {
+      "checkpoint": "D.9-D.10",
+      "decision": "CONTINUE",
+      "reasoning": "round-009 改名 看懂世界/kdsj → 明读/Lucid + 印章字标 logo + slogan(用户拍板)· round-010 时间轴/观点点击 seek 跳转 + 速读合并 + 砍掉过度设计的速懂/深度版分档(Musk 第一性删伪需求)· UX 收敛 · 评分 0.96",
+      "timestamp": "2026-05-25T00:00:00Z"
+    },
+    {
+      "checkpoint": "D.11",
+      "decision": "LAUNCH",
+      "reasoning": "round-011 A+B+C 三件套上线 · A:gpt-image-2 重出中文 OG 印章(Gemini flash 出繁体踩坑改用 APImart) · B:Vercel marketplace 接 Neon · drizzle-kit push 8 张表 · seed 真源 5/10/30/32/29 · useDb() 切 mock/Neon 优雅降级 · C:升 Next 15.5.18 + React 19.2 过 Vercel 漏洞门 · .npmrc legacy-peer-deps=true 过 peer 冲突 · 生产 URL https://lucid-zeta-indol.vercel.app 全路由 200 · GA4 G-NWMQ1ZWXL1 就绪 · 自定义域 lucid.simprr.com 已绑 · 评分 0.97",
+      "timestamp": "2026-05-25T00:00:00Z"
+    },
+    {
+      "checkpoint": "D.12",
+      "decision": "POST_LAUNCH_POLISH",
+      "reasoning": "round-012 生产后打磨 · 漫画头像批量(gpt-image-2 固定 STYLE 前缀 · 10 张统一风格 · 规避真人肖像政策)· DeepSeek 大白话速读(system 限定高中生/抓重点/少黑话/1类比 · response_format json_object 稳)· 详情页去重操作行 · 生产 URL lucid.simprr.com 实测存证 · 评分 0.97 stable",
+      "timestamp": "2026-05-25T00:00:00Z"
+    },
+    {
+      "checkpoint": "FINAL",
+      "decision": "DONE",
+      "reasoning": "项目上线完成 · 12 round evolve loop 收敛 · final_score 0.97 · status=done · pipeline-state.json 在 round-012 后由 Alan 同步回写(原停在 round-001 漂移 11 round · 已留 retro 教训 · 详见 learnings.md 2026-05-25 同步留痕)· 14 份交付包 docs/delivery/ 已生成待 commit · 余 4 项 post-launch TODO 转入 evolve / 运营层执行,不阻塞交付。",
+      "timestamp": "2026-05-25T00:00:00Z"
     }
   ],
   "retrieved_memory_entries": {},
@@ -197,6 +275,9 @@
   "notes": [
     "5-24 Intake 锁单 · 5 round 收口 · push-back 1000→30 视频成功",
     "沿用 bazi-studio Edge Function 架构(key 仅服务端 + 月度 rate limit)",
-    "Phase D 巡检默认可选 · enabled=true 上线后跑"
+    "Phase D 巡检默认可选 · enabled=true 上线后跑 · 实际 12 round evolve loop · final_score 0.97",
+    "5-25 改名 看懂世界/kdsj-world → 明读/Lucid · 目录名保留 kdsj-world 防止 git history 断层",
+    "5-25 上线 https://lucid-zeta-indol.vercel.app + 自定义域 lucid.simprr.com",
+    "pipeline-state.json 在 round-012 后由 Alan 一次性同步回写 · evolve loop 的状态机回写规则待 issue#? 加固"
   ]
 }
