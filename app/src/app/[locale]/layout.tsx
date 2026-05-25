@@ -6,6 +6,7 @@ import { routing } from "@/i18n/routing";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { SkipLink } from "@/components/layout/skip-link";
+import { GoogleAnalytics } from "@/components/analytics/google-analytics";
 import "../globals.css";
 import "@/styles/tokens.css";
 
@@ -59,6 +60,7 @@ export default async function LocaleLayout({
   setRequestLocale(locale);
   const messages = await getMessages();
   const t = await getTranslations({ locale, namespace: "mobile_hint" as never });
+  const gaId = process.env.NEXT_PUBLIC_GA_ID;
 
   return (
     <html lang={locale === "zh" ? "zh-CN" : "en"}>
@@ -74,6 +76,7 @@ export default async function LocaleLayout({
           <main id="main">{children}</main>
           <Footer />
         </NextIntlClientProvider>
+        {gaId ? <GoogleAnalytics gaId={gaId} /> : null}
       </body>
     </html>
   );
