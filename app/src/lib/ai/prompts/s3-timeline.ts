@@ -57,7 +57,7 @@ export function splitIntoChapters(
   return chapters;
 }
 
-const SYSTEM = `你是看懂世界编辑。给一个视频片段的转写,生成中英双语章节标题 + 一句话摘要。
+const SYSTEM = `你是明读编辑。给一个视频片段的转写,生成中英双语章节标题 + 一句话摘要。
 约束:
 - title 简洁(≤ 14 个汉字 / ≤ 24 chars)
 - one_liner ≤ 50 字中文 / ≤ 80 chars 英文

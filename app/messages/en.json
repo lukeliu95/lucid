@@ -1,7 +1,7 @@
 {
   "common": {
-    "brand_name": "kdsj",
-    "brand_tagline": "Long talks, two-minute reads",
+    "brand_name": "Lucid",
+    "brand_tagline": "Long-form, made lucid",
     "locale_zh": "Chinese",
     "locale_en": "English",
     "search_placeholder": "Search videos, people, topics",
@@ -154,12 +154,12 @@
     }
   },
   "footer": {
-    "copyright": "© 2026 kdsj-world · curated by Simprr",
+    "copyright": "© 2026 Lucid · curated by Simprr",
     "author_link": "x.com/simprr",
     "about": "About",
     "privacy": "Privacy",
     "terms": "Terms",
-    "tagline": "Explainer and gateway to long-form"
+    "tagline": "Long talks on AI, tech & business — distilled into two-minute reads"
   },
   "a11y": {
     "skip_to_main": "Skip to main content",

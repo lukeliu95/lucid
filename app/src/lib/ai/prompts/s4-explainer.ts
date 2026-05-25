@@ -18,7 +18,7 @@ export type S4Output = {
   explainer_deep_en: string;
 };
 
-const SYSTEM = `你是看懂世界的内容编辑。给一段视频转写,生成 2 档解释(成人速懂 + 深度版),中英双语。
+const SYSTEM = `你是明读的内容编辑。给一段视频转写,生成 2 档解释(成人速懂 + 深度版),中英双语。
 约束:
 - explainer_quick_zh: 200-300 字 · 用日常语言告诉成年观众视频在讲什么 · 不能照搬原话
 - explainer_quick_en: 250-400 chars · 同义,自然英文

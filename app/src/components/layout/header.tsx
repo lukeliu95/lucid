@@ -1,6 +1,7 @@
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/routing";
 import { LangSwitcher } from "./lang-switcher";
+import { Logo } from "./logo";
 import { SearchBarLauncher } from "@/components/search/search-bar";
 
 export async function Header() {
@@ -8,11 +9,8 @@ export async function Header() {
   return (
     <header className="sticky top-0 z-header h-16 border-b border-border-default bg-bg/85 backdrop-blur">
       <div className="mx-auto flex h-full max-w-container items-center gap-6 px-16">
-        <Link href="/" className="font-serif text-xl font-semibold tracking-tight text-ink-950">
-          {t("common.brand_name")}{" "}
-          <span className="ml-1 font-sans text-[11px] uppercase tracking-widest text-text-muted">
-            kdsj
-          </span>
+        <Link href="/" aria-label={t("common.brand_name")} className="shrink-0">
+          <Logo />
         </Link>
         <SearchBarLauncher />
         <Link href="/" className="font-sans text-sm text-ink-700 hover:text-link">

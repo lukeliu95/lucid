@@ -25,7 +25,7 @@ export type S5Output = {
   signature_views_en: SignatureView[];
 };
 
-const SYSTEM = `你是看懂世界的内容编辑。给一位人物的多条视频核心观点,提炼 3-5 条该人物的"代表性立场"。
+const SYSTEM = `你是明读的内容编辑。给一位人物的多条视频核心观点,提炼 3-5 条该人物的"代表性立场"。
 约束:
 - 每条标注 from_video_slug + from_video_title(选最能代表该立场的视频)
 - 双语对应(同索引位是同一立场)

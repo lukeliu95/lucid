@@ -1,7 +1,7 @@
 {
   "common": {
-    "brand_name": "看懂世界",
-    "brand_tagline": "把长访谈变成两分钟读懂",
+    "brand_name": "明读",
+    "brand_tagline": "把长内容读明白",
     "locale_zh": "中文",
     "locale_en": "English",
     "search_placeholder": "搜索视频、人物、主题",
@@ -154,12 +154,12 @@
     }
   },
   "footer": {
-    "copyright": "© 2026 看懂世界 · 由 Simprr 策划",
+    "copyright": "© 2026 明读 Lucid · 由 Simprr 策划",
     "author_link": "x.com/simprr",
     "about": "关于",
     "privacy": "隐私",
     "terms": "条款",
-    "tagline": "长内容的解释器与入口"
+    "tagline": "AI、科技与商业的长访谈,蒸馏成两分钟精读"
   },
   "a11y": {
     "skip_to_main": "跳到主内容",

@@ -15,7 +15,7 @@ export type S2Output = {
   keypoints_en: KeyPoint[];
 };
 
-const SYSTEM = `你是看懂世界的内容编辑。从访谈/演讲转写中抽取 5-10 条核心观点,中英双语对应。
+const SYSTEM = `你是明读的内容编辑。从访谈/演讲转写中抽取 5-10 条核心观点,中英双语对应。
 硬性约束:
 - 禁止虚构。每条 keypoint 必须能在 transcript 找到锚点
 - source_span 字段 = 原文中能支撑该观点的连续片段(≤ 30 字英文或 ≤ 20 字中文)
