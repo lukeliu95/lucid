@@ -12,8 +12,19 @@
  * Run: DATABASE_URL=postgres://... npx tsx src/db/seed.ts
  */
 import "dotenv/config";
-import { db, schema } from "./client";
+import { neon } from "@neondatabase/serverless";
+import { drizzle } from "drizzle-orm/neon-http";
+import * as schema from "./schema";
 import { topicDetails, people as mockPeople, videoDetails } from "../lib/mock-data";
+
+// Standalone client (not ./client, which is guarded by `server-only` and can't
+// be imported into a plain tsx script).
+const dbUrl = process.env.DATABASE_URL;
+if (!dbUrl) {
+  console.error("[seed] DATABASE_URL not set");
+  process.exit(1);
+}
+const db = drizzle(neon(dbUrl), { schema });
 
 function mediaUrl(platform: string, id: string): string {
   return platform === "bilibili"
