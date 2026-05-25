@@ -48,6 +48,7 @@
       "label": "Key points",
       "hint_hover": "Hover for source · click to seek"
     },
+    "explainer": { "label": "Quick read" },
     "tier": {
       "quick": "Quick read",
       "deep": "Deep dive"

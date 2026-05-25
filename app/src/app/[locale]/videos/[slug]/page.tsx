@@ -6,7 +6,7 @@ import { Player } from "@/components/video/player";
 import { SummaryBlock } from "@/components/video/summary-block";
 import { KeypointsList } from "@/components/video/keypoints-list";
 import { TimelineNav } from "@/components/video/timeline-nav";
-import { TwoTierTabs } from "@/components/video/two-tier-tabs";
+import { SeekProvider } from "@/components/video/seek-context";
 import { FavoriteButton } from "@/components/video/favorite-button";
 import { LangSwitcher } from "@/components/layout/lang-switcher";
 import { AIPendingBanner } from "@/components/shared/ai-pending-banner";
@@ -32,8 +32,9 @@ export default async function VideoDetailPage({
   const summary = ai ? localized(ai, "summary", locale) : "";
   const keypoints = ai ? (locale === "zh" ? ai.keypoints_zh : ai.keypoints_en) : [];
   const timeline = ai ? (locale === "zh" ? ai.timeline_zh : ai.timeline_en) : [];
-  const quick = ai ? localized(ai, "explainer_quick", locale) : "";
-  const deep = ai ? localized(ai, "explainer_deep", locale) : "";
+  // Single "quick read" explainer — the quick/deep tier split was over-engineered;
+  // a reader just needs to understand the video fast.
+  const explainer = ai ? localized(ai, "explainer_quick", locale) : "";
 
   return (
     <div className="mx-auto max-w-container px-16">
@@ -44,6 +45,7 @@ export default async function VideoDetailPage({
         {t("common.back_to_home")}
       </Link>
 
+      <SeekProvider>
       <div className="grid grid-cols-1 gap-12 pb-24 lg:grid-cols-[2fr_1fr]">
         {/* Main column */}
         <div>
@@ -113,7 +115,19 @@ export default async function VideoDetailPage({
 
               <hr className="my-10 border-border-default" />
 
-              <TwoTierTabs quick={quick} deep={deep} />
+              <div className="font-sans text-xs uppercase tracking-widest text-text-muted">
+                {t("video.explainer.label")}
+              </div>
+              <div className="mt-4 max-w-content">
+                {explainer
+                  .split("\n\n")
+                  .filter((p) => p.trim().length > 0)
+                  .map((para, i) => (
+                    <p key={i} className="mb-4 leading-relaxed text-ink-900">
+                      {para}
+                    </p>
+                  ))}
+              </div>
             </>
           )}
         </div>
@@ -182,6 +196,7 @@ export default async function VideoDetailPage({
           </div>
         </aside>
       </div>
+      </SeekProvider>
     </div>
   );
 }

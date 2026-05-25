@@ -48,6 +48,7 @@
       "label": "核心观点 · Key points",
       "hint_hover": "悬停查看原文锚点 · 点击跳秒"
     },
+    "explainer": { "label": "速读 · 快速理解" },
     "tier": {
       "quick": "成人速懂",
       "deep": "深度版"
