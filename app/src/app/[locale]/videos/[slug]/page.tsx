@@ -7,8 +7,6 @@ import { SummaryBlock } from "@/components/video/summary-block";
 import { KeypointsList } from "@/components/video/keypoints-list";
 import { TimelineNav } from "@/components/video/timeline-nav";
 import { SeekProvider } from "@/components/video/seek-context";
-import { FavoriteButton } from "@/components/video/favorite-button";
-import { LangSwitcher } from "@/components/layout/lang-switcher";
 import { AIPendingBanner } from "@/components/shared/ai-pending-banner";
 import { Badge } from "@/components/ui/badge";
 import type { Locale } from "@/lib/types";
@@ -72,16 +70,6 @@ export default async function VideoDetailPage({
               >
                 {t("video.source.original_link", { platform: platformLabel })}
               </a>
-            </div>
-            <div className="mt-5 flex flex-wrap items-center gap-3">
-              <FavoriteButton />
-              <LangSwitcher />
-              <button
-                type="button"
-                className="inline-flex items-center gap-1.5 rounded border border-border-default px-3 py-1.5 font-sans text-sm text-ink-700 transition-colors hover:border-amber-600 hover:text-amber-600"
-              >
-                {t("common.share")} ↗
-              </button>
             </div>
           </div>
 
