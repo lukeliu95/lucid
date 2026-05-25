@@ -35,8 +35,15 @@ export function Player({
         "*",
       );
       win.postMessage(JSON.stringify({ event: "command", func: "playVideo", args: [] }), "*");
-      // On narrow layouts the timeline sits below the player — bring it back into view.
-      containerRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      // Only scroll when the player is actually off-screen (e.g. narrow layouts where
+      // the timeline sits below it). If it's already visible, do NOT move the page —
+      // a jump there just obscures the video the user is watching.
+      const el = containerRef.current;
+      if (el) {
+        const rect = el.getBoundingClientRect();
+        const visible = rect.bottom > 0 && rect.top < window.innerHeight;
+        if (!visible) el.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
     };
     register(seek);
     return () => register(null);

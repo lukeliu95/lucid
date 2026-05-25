@@ -91,34 +91,14 @@ export default async function VideoDetailPage({
 
           {ai && (
             <>
+              {/* 速读 = 一句话总结 + 快速理解 合并为一个「先一句话抓住,再展开读懂」的区块 */}
               <div className="font-sans text-xs uppercase tracking-widest text-text-muted">
-                {t("video.summary.label")}
+                {t("video.explainer.label")}
               </div>
               <div className="mt-4">
                 <SummaryBlock>{summary}</SummaryBlock>
               </div>
-
-              <hr className="my-10 border-border-default" />
-
-              <div className="font-sans text-xs uppercase tracking-widest text-text-muted">
-                {t("video.keypoints.label")}
-              </div>
-              <div
-                className="mt-2 font-sans text-xs text-text-muted"
-                title={t("video.keypoints.hint_hover")}
-              >
-                {t("video.keypoints.hint_hover")}
-              </div>
-              <div className="mt-4">
-                <KeypointsList items={keypoints} />
-              </div>
-
-              <hr className="my-10 border-border-default" />
-
-              <div className="font-sans text-xs uppercase tracking-widest text-text-muted">
-                {t("video.explainer.label")}
-              </div>
-              <div className="mt-4 max-w-content">
+              <div className="mt-6 max-w-content">
                 {explainer
                   .split("\n\n")
                   .filter((p) => p.trim().length > 0)
@@ -127,6 +107,18 @@ export default async function VideoDetailPage({
                       {para}
                     </p>
                   ))}
+              </div>
+
+              <hr className="my-10 border-border-default" />
+
+              <div className="font-sans text-xs uppercase tracking-widest text-text-muted">
+                {t("video.keypoints.label")}
+              </div>
+              <div className="mt-2 font-sans text-xs text-text-muted">
+                {t("video.keypoints.hint_click")}
+              </div>
+              <div className="mt-4">
+                <KeypointsList items={keypoints} />
               </div>
             </>
           )}

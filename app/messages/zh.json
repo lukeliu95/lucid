@@ -46,7 +46,8 @@
     "summary": { "label": "一句话总结 · One-sentence summary" },
     "keypoints": {
       "label": "核心观点 · Key points",
-      "hint_hover": "悬停查看原文锚点 · 点击跳秒"
+      "hint_hover": "悬停查看原文锚点 · 点击跳秒",
+      "hint_click": "点击任意观点 · 跳到视频对应时间"
     },
     "explainer": { "label": "速读 · 快速理解" },
     "tier": {

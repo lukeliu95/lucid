@@ -46,7 +46,8 @@
     "summary": { "label": "One-sentence summary" },
     "keypoints": {
       "label": "Key points",
-      "hint_hover": "Hover for source · click to seek"
+      "hint_hover": "Hover for source · click to seek",
+      "hint_click": "Click any point · jump to that moment"
     },
     "explainer": { "label": "Quick read" },
     "tier": {
