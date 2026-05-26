@@ -38,7 +38,7 @@ export async function generateMetadata({
       title,
       description: desc,
       type: "article",
-      images: video.cover_url ? [{ url: video.cover_url }] : [{ url: "/og-image.jpg" }],
+      // og:image 由同目录 opengraph-image.tsx 自动生成(品牌金句卡)
     },
     twitter: { card: "summary_large_image", title, description: desc },
   };
