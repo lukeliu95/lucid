@@ -60,37 +60,38 @@ export default async function PersonPage({
 
       <PersonHero person={person} locale={locale} />
 
-      <hr className="my-12 border-border-default" />
-
-      <section>
-        <h2 className="mb-6 text-2xl font-semibold text-ink-950">
-          {t("person.signature_views")}
-        </h2>
-        <div className="flex max-w-[880px] flex-col gap-6">
-          {views.length === 0 ? (
-            <p className="text-text-muted">{t("person.signature_views_generating")}</p>
-          ) : (
-            views.map((v, i) => (
-              <div key={i} className="border-l-[3px] border-amber-600 pl-6">
-                <p className="font-serif text-2xl italic leading-relaxed text-ink-900">
-                  <span className="text-amber-600">❝ </span>
-                  {v.quote}
-                  <span className="text-amber-600"> ❞</span>
-                </p>
-                <p className="mt-2.5 font-sans text-sm text-text-muted">
-                  {t("person.cite_prefix")}{" "}
-                  <Link
-                    href={`/videos/${v.from_video_slug}`}
-                    className="text-link hover:text-link-hover"
-                  >
-                    {v.from_video_title}
-                  </Link>
-                </p>
-              </div>
-            ))
-          )}
-        </div>
-      </section>
+      {/* 代表观点:有内容才展示;为空时整段隐藏(不显"生成中"占位),
+          页面从简介直接流到相关视频。 */}
+      {views.length > 0 && (
+        <>
+          <hr className="my-12 border-border-default" />
+          <section>
+            <h2 className="mb-6 text-2xl font-semibold text-ink-950">
+              {t("person.signature_views")}
+            </h2>
+            <div className="flex max-w-[880px] flex-col gap-6">
+              {views.map((v, i) => (
+                <div key={i} className="border-l-[3px] border-amber-600 pl-6">
+                  <p className="font-serif text-2xl italic leading-relaxed text-ink-900">
+                    <span className="text-amber-600">❝ </span>
+                    {v.quote}
+                    <span className="text-amber-600"> ❞</span>
+                  </p>
+                  <p className="mt-2.5 font-sans text-sm text-text-muted">
+                    {t("person.cite_prefix")}{" "}
+                    <Link
+                      href={`/videos/${v.from_video_slug}`}
+                      className="text-link hover:text-link-hover"
+                    >
+                      {v.from_video_title}
+                    </Link>
+                  </p>
+                </div>
+              ))}
+            </div>
+          </section>
+        </>
+      )}
 
       <hr className="my-12 border-border-default" />
 
