@@ -21,7 +21,7 @@ const WORK = "/tmp/lucid-whisper";
 
 type Pn = { slug: string; name_zh: string; name_en: string; title_zh: string; title_en: string };
 const PEOPLE: Pn[] = [
-  { slug: "xiao-hong", name_zh: "肖弘", name_en: "Xiao Hong", title_zh: "Manus 创始人", title_en: "Founder, Manus" },
+  { slug: "ji-yichao", name_zh: "季逸超", name_en: "Peak Ji", title_zh: "Manus 联合创始人兼首席科学家", title_en: "Co-founder & Chief Scientist, Manus" },
   { slug: "yang-zhilin", name_zh: "杨植麟", name_en: "Yang Zhilin", title_zh: "月之暗面 Kimi 创始人", title_en: "Founder, Moonshot AI (Kimi)" },
   { slug: "zhang-peng", name_zh: "张鹏", name_en: "Zhang Peng", title_zh: "智谱 AI CEO", title_en: "CEO, Zhipu AI" },
   { slug: "shunyu-yao", name_zh: "姚顺雨", name_en: "Shunyu Yao", title_zh: "OpenAI 研究员 · Agent 研究", title_en: "Researcher, OpenAI · Agents" },
@@ -31,7 +31,7 @@ const PEOPLE: Pn[] = [
 ];
 type Vn = { vid: string; person: string; title_zh: string; topics: string[] };
 const VIDEOS: Vn[] = [
-  { vid: "UqMtkgQe-kI", person: "xiao-hong", title_zh: "肖弘:Manus 被收购前的最后访谈 — 2025 这奇幻的漂流", topics: ["ai", "startup"] },
+  { vid: "UqMtkgQe-kI", person: "ji-yichao", title_zh: "季逸超:Manus 被收购前的最后访谈 — 2025 这奇幻的漂流", topics: ["ai", "startup"] },
   { vid: "91fmhAnECVc", person: "yang-zhilin", title_zh: "杨植麟:Kimi K2、Agentic LLM、缸中之脑与无限的开端", topics: ["ai"] },
   { vid: "toy8RLeFZ08", person: "zhang-peng", title_zh: "张鹏:智谱 IPO、中国大模型第一股,敢问路在何方", topics: ["ai", "startup"] },
   { vid: "gQgKkUsx5q0", person: "shunyu-yao", title_zh: "姚顺雨:6 年 Agent 研究、人与系统、吞噬的边界", topics: ["ai"] },
