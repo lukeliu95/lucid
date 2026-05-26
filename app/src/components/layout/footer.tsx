@@ -14,6 +14,7 @@ export async function Footer() {
           <Link href="/topics/chip" className="text-link hover:text-link-hover">{t("topic.slug.chip")}</Link>
           <Link href="/topics/future-of-work" className="text-link hover:text-link-hover">{t("topic.slug.future-of-work")}</Link>
           <span className="text-text-muted">·</span>
+          <Link href="/changelog" className="text-link hover:text-link-hover">{t("footer.changelog")}</Link>
           <Link href="/" className="text-link hover:text-link-hover">{t("footer.about")}</Link>
           <Link href="/" className="text-link hover:text-link-hover">{t("footer.privacy")}</Link>
           <Link href="/" className="text-link hover:text-link-hover">{t("footer.terms")}</Link>

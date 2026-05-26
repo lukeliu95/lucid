@@ -7,6 +7,11 @@ const SITE =
 
 const LOCALES = ["zh", "en"] as const;
 
+// sitemap 默认在构建期静态生成 —— 会把"当时"的 DB 内容冻结(实测构建快照只抓到
+// 1-2 个视频,而首页运行时动态渲染拿到全量 34)。内容持续入库,故强制动态:
+// 每次请求打实时 DB,和首页一致。sitemap 访问低频,运行时渲染成本可忽略。
+export const dynamic = "force-dynamic";
+
 // 双语 hreflang alternates(每个路径都给 zh/en 互译声明)。
 function alternates(path: string) {
   return {
@@ -23,7 +28,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const now = new Date();
   const out: MetadataRoute.Sitemap = [];
-  const staticPaths = ["", "/search"];
+  const staticPaths = ["", "/search", "/changelog"];
 
   for (const l of LOCALES) {
     for (const p of staticPaths) {
