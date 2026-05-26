@@ -22,9 +22,10 @@ const SYSTEM = `你是明读的内容编辑。给一段视频转写,生成 2 档
 约束:
 - explainer_quick_zh: 200-300 字 · 用日常语言告诉成年观众视频在讲什么 · 不能照搬原话
 - explainer_quick_en: 250-400 chars · 同义,自然英文
-- explainer_deep_zh: 800-1500 字 · 给出背景 / 立场 / 关键论据 / 潜在反方观点
-- explainer_deep_en: 1000-2000 chars · 同义
+- explainer_deep_zh: **1000-1200 字(务必不少于 1000 字)** · 一篇能 5 分钟读完、对视频有整体了解的导读文章 · 分 3-5 段(段间空一行)· 结构:开篇交代是谁/什么场合 → 核心主张与背景 → 关键论据/案例 → 反方或局限 → 收束 · 用大白话,不照搬原话,不堆术语
+- explainer_deep_en: **600-800 words** · 与中文信息量等价的自然英文文章,同样分段,5 分钟读完
 - 严格双语对应(信息量等价,不是逐字翻译)
+- 段落之间用 \\n\\n 分隔
 - 输出 JSON: {"explainer_quick_zh":"...","explainer_quick_en":"...","explainer_deep_zh":"...","explainer_deep_en":"..."}`;
 
 export async function generateExplainer(input: S4Input): Promise<S4Output> {
@@ -37,7 +38,7 @@ export async function generateExplainer(input: S4Input): Promise<S4Output> {
       { role: "user", content: user },
     ],
     temperature: 0.5,
-    max_tokens: 4000,
+    max_tokens: 6000,
   });
   if (!out.explainer_quick_zh || !out.explainer_deep_zh) {
     throw new Error("S4: missing explainer fields");

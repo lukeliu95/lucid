@@ -60,17 +60,21 @@ export default async function VideoDetailPage({
   const platformLabel = video.platform === "youtube" ? "YouTube" : "B 站";
   const ai = video.ai;
   const summary = ai ? localized(ai, "summary", locale) : "";
-  const explainer = ai ? localized(ai, "explainer_quick", locale) : "";
+  // 正文文章:优先深度解读(~1000 字 · 5 分钟读完),没有则退到速读。
+  const articleRaw = ai
+    ? localized(ai, "explainer_deep", locale) ||
+      localized(ai, "explainer_quick", locale) ||
+      ""
+    : "";
   const timeline = ai ? (locale === "zh" ? ai.timeline_zh : ai.timeline_en) : [];
 
-  // 一段介绍:优先用 AI 速读总结(summary),没有则取详读首段。
-  const intro =
-    (summary && summary.trim()) ||
-    explainer
-      .split("\n\n")
-      .map((p) => p.trim())
-      .filter(Boolean)[0] ||
-    "";
+  // 按段落分段:优先空行,退化到单换行。
+  const splitParas = (s: string) => {
+    const byBlank = s.split(/\n{2,}/).map((p) => p.trim()).filter(Boolean);
+    if (byBlank.length > 1) return byBlank;
+    return s.split(/\n+/).map((p) => p.trim()).filter(Boolean);
+  };
+  const paragraphs = articleRaw ? splitParas(articleRaw) : [];
 
   const originalUrl =
     video.platform === "youtube"
@@ -82,7 +86,7 @@ export default async function VideoDetailPage({
     "@context": "https://schema.org",
     "@type": "VideoObject",
     name: title,
-    description: (intro || title).slice(0, 300),
+    description: (summary || paragraphs[0] || title).slice(0, 300),
     thumbnailUrl: video.cover_url || undefined,
     uploadDate: video.published_at || undefined,
     duration: video.duration_sec
@@ -150,10 +154,20 @@ export default async function VideoDetailPage({
 
             <AIPendingBanner status={video.ai_status} />
 
-            {intro && (
-              <p className="max-w-content font-serif text-2xl leading-loose text-ink-900">
-                {intro}
+            {/* 一句话总结作为导语 */}
+            {summary && (
+              <p className="max-w-content font-serif text-2xl leading-relaxed text-ink-950">
+                {summary}
               </p>
+            )}
+
+            {/* 正文文章(~5 分钟读完,对视频有整体了解) */}
+            {paragraphs.length > 0 && (
+              <article className="mt-8 max-w-content space-y-5 font-serif text-lg leading-loose text-ink-900">
+                {paragraphs.map((p, i) => (
+                  <p key={i}>{p}</p>
+                ))}
+              </article>
             )}
 
             {video.topics.length > 0 && (
