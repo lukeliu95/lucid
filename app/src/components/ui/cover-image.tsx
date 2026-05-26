@@ -6,10 +6,15 @@ import * as React from "react";
  * CoverImage — client-side <img> with YouTube thumbnail fallback chain.
  *
  * YouTube's maxresdefault.jpg is absent for ~30% of videos (older / low-res
- * uploads). When it 404s, YouTube serves a 120x90 grey placeholder rather than
- * a real error, so we can't rely on onError alone for that case — but for true
- * 404s onError fires and we step down: maxresdefault → hqdefault → mqdefault.
+ * uploads). When it's missing, YouTube serves a 120x90 grey placeholder with a
+ * 200 status rather than a 404 — so onError never fires for that case. We catch
+ * it in onLoad by detecting the placeholder's tell-tale 120px width and step
+ * down the chain: maxresdefault → hqdefault → mqdefault. onError still handles
+ * true 404s. hqdefault/mqdefault always exist for every YouTube video.
  */
+// 灰占位图固定 120x90;真实缩略图 mq=320 / hq=480 / maxres=1280,均 > 120。
+const PLACEHOLDER_MAX_W = 120;
+
 export function CoverImage({
   src,
   alt,
@@ -33,6 +38,10 @@ export function CoverImage({
   const chain = React.useMemo(() => buildChain(src), [src, buildChain]);
   const [idx, setIdx] = React.useState(0);
 
+  const stepDown = React.useCallback(() => {
+    setIdx((i) => (i < chain.length - 1 ? i + 1 : i));
+  }, [chain.length]);
+
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
@@ -40,8 +49,11 @@ export function CoverImage({
       alt={alt}
       loading="lazy"
       className={className}
-      onError={() => {
-        if (idx < chain.length - 1) setIdx((i) => i + 1);
+      // 真 404 → 降级
+      onError={stepDown}
+      // 200 但是灰占位(120x90)→ 也降级
+      onLoad={(e) => {
+        if (e.currentTarget.naturalWidth <= PLACEHOLDER_MAX_W) stepDown();
       }}
     />
   );
