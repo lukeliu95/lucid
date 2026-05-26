@@ -39,10 +39,13 @@ export async function extractKeypoints(input: S2Input): Promise<S2Output> {
     temperature: 0.2,
     max_tokens: 2000,
   });
-  // anchor verification: drop items whose source_span is not present in transcript
-  const corpus = input.transcript_with_timestamps;
-  const filter = (k: KeyPoint) =>
-    !k.source_span || corpus.includes(k.source_span);
+  // anchor verification: drop items whose source_span is not present in transcript.
+  // 归一化后匹配 —— 去掉 [mm:ss] 时间戳标记 / 空白 / 标点(中英文),再做包含判断。
+  // 否则中文自动字幕(噪声大、标点空格不一)会让合法引文对不上而被全部丢弃。
+  const norm = (s: string) =>
+    s.replace(/\[\d+:\d+(?::\d+)?\]/g, "").replace(/\s+/g, "").replace(/\p{P}/gu, "");
+  const nc = norm(input.transcript_with_timestamps);
+  const filter = (k: KeyPoint) => !k.source_span || nc.includes(norm(k.source_span));
   return {
     keypoints_zh: (out.keypoints_zh ?? []).filter(filter).slice(0, 10),
     keypoints_en: (out.keypoints_en ?? []).filter(filter).slice(0, 10),
