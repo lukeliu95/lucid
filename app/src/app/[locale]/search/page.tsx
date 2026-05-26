@@ -2,6 +2,7 @@ import { setRequestLocale, getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/routing";
 import { search } from "@/lib/api";
 import { Badge } from "@/components/ui/badge";
+import { CoverImage } from "@/components/ui/cover-image";
 import { Highlight } from "@/components/shared/mark";
 import type { Locale } from "@/lib/types";
 import { formatDuration, localized } from "@/lib/utils";
@@ -88,7 +89,15 @@ export default async function SearchPage({
               href={`/videos/${v.slug}`}
               className="grid grid-cols-[200px_1fr] gap-5 border-b border-border-default py-5 transition-colors hover:bg-bg-elev"
             >
-              <div className="aspect-video rounded border border-border-default bg-gradient-to-br from-paper-300 to-paper-400" />
+              <div className="relative aspect-video overflow-hidden rounded border border-border-default bg-gradient-to-br from-paper-300 to-paper-400">
+                {v.cover_url && (
+                  <CoverImage
+                    src={v.cover_url}
+                    alt={localized(v, "title", locale)}
+                    className="absolute inset-0 h-full w-full object-cover"
+                  />
+                )}
+              </div>
               <div>
                 <div className="font-serif text-lg font-semibold leading-snug text-ink-900">
                   <Highlight text={localized(v, "title", locale)} q={q} />
