@@ -1,27 +1,24 @@
 /**
- * discover-channels.ts — v2 频道订阅自动发现。
+ * discover-channels.ts — v2 内容发现(按人名搜视频版)。
  *
- * 对 people 表里每个人物:解析其 YouTube 频道(首次 search 解析,缓存到 channels.json)→
- *   查频道最新上传 → 过滤(长视频 ≥20min · 未入库)→ insert 成 ai_status=pending。
- * 之后 process-pending 自动出中文速读。
+ * 设计修正:明读收录的人多是访谈嘉宾(Dario/Sam/Demis…),没有自己的 YouTube 频道,
+ *   "订阅本人频道"会搜到无关频道。改为【按人名搜最近视频】(order=date),
+ *   过滤长视频(≥20min)+ 未入库 → insert 成 pending,由 process-pending 出速读。
  *
  *   DOTENV_CONFIG_PATH=.env.local tsx --conditions=react-server src/scripts/discover-channels.ts [--dry-run]
  *
- * 配额:首次每人 search(channel)100u;之后每人 search(channelId,date)100u + 批量 videos.list 取时长。
+ * 防 429:search.list 100u/次 + 每分钟有上限,人物间 sleep 节流。
  */
 import "dotenv/config";
-import * as fs from "node:fs";
-import * as path from "node:path";
 import { db, schema } from "@/db/client";
 import { eq } from "drizzle-orm";
 import { searchVideos, fetchVideoMetadata, thumbnailUrl } from "@/lib/youtube/data-api";
 
 const DRY = process.argv.includes("--dry-run");
-const CACHE = path.resolve(process.cwd(), "src/scripts/channels.json");
-const MIN_SEC = Number(process.env.DISCOVER_MIN_SEC ?? "1200"); // ≥20min 才算长内容
-const PER_CHANNEL = Number(process.env.DISCOVER_PER_CHANNEL ?? "5"); // 每频道查最近几条
+const MIN_SEC = Number(process.env.DISCOVER_MIN_SEC ?? "1200"); // ≥20min
+const PER_PERSON = Number(process.env.DISCOVER_PER_PERSON ?? "4");
+const SLEEP_MS = Number(process.env.DISCOVER_SLEEP_MS ?? "1500"); // 人物间节流防 search-per-minute 429
 
-// 人物 → 主题(自动发现的视频缺人工标注,按人物给个主 topic)
 const PERSON_TOPIC: Record<string, string> = {
   "dario-amodei": "ai", "andrej-karpathy": "ai", "demis-hassabis": "ai",
   "sam-altman": "ai", "ilya-sutskever": "ai", "yann-lecun": "ai",
@@ -29,52 +26,46 @@ const PERSON_TOPIC: Record<string, string> = {
   "patrick-collison": "startup", "marc-andreessen": "startup", "lex-fridman": "future-of-work",
 };
 
-function loadCache(): Record<string, string> {
-  try { return JSON.parse(fs.readFileSync(CACHE, "utf8")); } catch { return {}; }
-}
-function saveCache(c: Record<string, string>) { fs.writeFileSync(CACHE, JSON.stringify(c, null, 2)); }
-
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 function slugify(s: string): string {
   return s.toLowerCase().normalize("NFKD").replace(/[^\w\s-]/g, "").trim().replace(/\s+/g, "-").slice(0, 60);
 }
 
 async function main() {
-  const cache = loadCache();
   const people = await db.select().from(schema.people);
   let discovered = 0;
 
   for (const p of people) {
-    // 1. 解析频道 id(缓存)
-    let channelId = cache[p.slug];
-    if (!channelId) {
-      const r = await searchVideos(p.name_en, { maxResults: 1, type: "channel" });
-      channelId = r[0]?.videoId ?? ""; // 频道搜索时 videoId 字段装的是 channelId
-      if (channelId) { cache[p.slug] = channelId; saveCache(cache); }
+    // 按人名搜最近视频(嘉宾型人物也能找到其新访谈,不依赖本人频道)
+    let recent: Awaited<ReturnType<typeof searchVideos>> = [];
+    try {
+      recent = await searchVideos(p.name_en, { type: "video", order: "date", maxResults: PER_PERSON });
+    } catch (e) {
+      console.warn(`[${p.slug}] 搜索失败(可能 429,跳过本轮): ${(e as Error).message}`);
+      await sleep(SLEEP_MS);
+      continue;
     }
-    if (!channelId) { console.warn(`[${p.slug}] 频道未解析,跳过`); continue; }
 
-    // 2. 查频道最新上传
-    const recent = await searchVideos("", { channelId, type: "video", order: "date", maxResults: PER_CHANNEL });
     for (const item of recent) {
       const vid = item.videoId;
       if (!vid) continue;
-      // 已入库?
       const exists = (await db.select({ id: schema.videos.id }).from(schema.videos).where(eq(schema.videos.platform_id, vid)).limit(1))[0];
       if (exists) continue;
-      // 时长过滤
       const meta = await fetchVideoMetadata(vid);
       if (!meta || (meta.durationSec ?? 0) < MIN_SEC) continue;
+      // 质量过滤:标题里应出现人物姓(降低无关视频)
+      const lastName = p.name_en.split(" ").slice(-1)[0].toLowerCase();
+      if (lastName && !meta.title.toLowerCase().includes(lastName)) continue;
 
       const slug = slugify(`${p.slug}-${meta.title}`) || slugify(`${p.slug}-${vid}`);
       console.log(`[发现] ${p.slug} · ${vid} · ${(meta.durationSec / 60).toFixed(0)}min · ${meta.title.slice(0, 50)}`);
       if (DRY) { discovered++; continue; }
-
       try {
         const ins = await db.insert(schema.videos).values({
           slug, platform: "youtube", platform_id: vid,
           url: `https://www.youtube.com/watch?v=${vid}`,
           cover_url: thumbnailUrl(vid, "maxres"),
-          title_zh: meta.title, title_en: meta.title, // 中文标题待 ingest/人工后续优化
+          title_zh: meta.title, title_en: meta.title,
           person_id: p.id, duration_sec: meta.durationSec ?? 0,
           published_at: meta.publishedAt ? new Date(meta.publishedAt) : null,
           ai_status: "pending",
@@ -88,6 +79,7 @@ async function main() {
         discovered++;
       } catch (e) { console.error(`  insert 失败 ${vid}: ${(e as Error).message}`); }
     }
+    await sleep(SLEEP_MS); // 节流
   }
   console.log(`[discover] ${DRY ? "DRY · " : ""}入队新视频 = ${discovered}`);
 }

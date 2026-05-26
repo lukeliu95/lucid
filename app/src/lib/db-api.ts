@@ -18,6 +18,8 @@ import type {
 
 const VALID_YT_ID = /^[A-Za-z0-9_-]{11}$/;
 const isDraft = (pid: string) => !VALID_YT_ID.test(pid) || pid === "abcdEF12345";
+// 列表只展示已生成 AI 速读的视频 —— pending/处理中的不在列表露出(防 curated 队列消化期/误入库内容曝光)。
+const listReady = (v: { ai_status: string; platform_id: string }) => v.ai_status === "ai_done" && !isDraft(v.platform_id);
 
 const videoWith = {
   person: true,
@@ -116,7 +118,7 @@ export async function dbGetLatestVideos(): Promise<VideoCard[]> {
     // 不被 seed 老数据的发布日期压住。
     orderBy: (v, { desc: d }) => [d(v.created_at), d(v.published_at)],
   })) as unknown as VideoRow[];
-  return rows.map(toCard);
+  return rows.filter(listReady).map(toCard);
 }
 
 export async function dbGetHero(): Promise<VideoDetail | null> {
@@ -158,7 +160,7 @@ export async function dbGetPerson(slug: string): Promise<PersonDetail | null> {
     bio_en: p.bio_en ?? "",
     signature_views_zh: p.signature_views_zh ?? [],
     signature_views_en: p.signature_views_en ?? [],
-    videos: p.videos.map(toCard),
+    videos: p.videos.filter(listReady).map(toCard),
   };
 }
 
@@ -177,7 +179,7 @@ export async function dbGetAllPeople(): Promise<PersonDetail[]> {
     bio_en: p.bio_en ?? "",
     signature_views_zh: p.signature_views_zh ?? [],
     signature_views_en: p.signature_views_en ?? [],
-    videos: p.videos.map(toCard),
+    videos: p.videos.filter(listReady).map(toCard),
   }));
 }
 
@@ -213,7 +215,7 @@ export async function dbGetTopic(slug: string): Promise<TopicDetail | null> {
     name_en: t.name_en,
     intro_zh: t.intro_zh ?? "",
     intro_en: t.intro_en ?? "",
-    videos: videos.map(toCard),
+    videos: videos.filter(listReady).map(toCard),
     related_people,
   };
 }
@@ -234,7 +236,7 @@ export async function dbSearch(
     query: q,
     mode,
     videos: vids
-      .filter((v) => match(v.title_zh, v.title_en, v.person.name_zh, v.person.name_en))
+      .filter((v) => listReady(v) && match(v.title_zh, v.title_en, v.person.name_zh, v.person.name_en))
       .map(toCard),
     people: ppl
       .filter((p) => match(p.name_zh, p.name_en, p.bio_zh, p.bio_en))
