@@ -1,10 +1,39 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/routing";
 import { getPerson } from "@/lib/api";
 import { PersonHero } from "@/components/person/person-hero";
 import { VideoGrid } from "@/components/video/video-grid";
+import { localized } from "@/lib/utils";
 import type { Locale } from "@/lib/types";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string; slug: string }>;
+}): Promise<Metadata> {
+  const { locale: l, slug } = await params;
+  const locale = l as Locale;
+  const person = await getPerson(slug);
+  if (!person) return {};
+  const name = localized(person, "name", locale);
+  const title = localized(person, "title", locale);
+  const bio = localized(person, "bio", locale);
+  const desc = (bio || `${name}${title ? " · " + title : ""} 的精选英文长访谈中文速读`).slice(0, 155);
+  const path = `/people/${slug}`;
+  return {
+    title: `${name} · 明读`,
+    description: desc,
+    alternates: { canonical: `/${locale}${path}`, languages: { zh: `/zh${path}`, en: `/en${path}` } },
+    openGraph: {
+      title: `${name} · 明读`,
+      description: desc,
+      type: "profile",
+      images: person.avatar_url ? [{ url: person.avatar_url }] : [{ url: "/og-image.jpg" }],
+    },
+  };
+}
 
 export default async function PersonPage({
   params,

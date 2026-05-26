@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/routing";
@@ -6,6 +7,27 @@ import { VideoGrid } from "@/components/video/video-grid";
 import { PersonRail } from "@/components/person/person-card";
 import type { Locale } from "@/lib/types";
 import { localized } from "@/lib/utils";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string; slug: string }>;
+}): Promise<Metadata> {
+  const { locale: l, slug } = await params;
+  const locale = l as Locale;
+  const topic = await getTopic(slug);
+  if (!topic) return {};
+  const name = localized(topic, "name", locale);
+  const intro = localized(topic, "intro", locale);
+  const desc = (intro || `关于「${name}」的英文长访谈中文速读精选`).slice(0, 155);
+  const path = `/topics/${slug}`;
+  return {
+    title: `${name} · 明读`,
+    description: desc,
+    alternates: { canonical: `/${locale}${path}`, languages: { zh: `/zh${path}`, en: `/en${path}` } },
+    openGraph: { title: `${name} · 明读`, description: desc, type: "website", images: [{ url: "/og-image.jpg" }] },
+  };
+}
 
 export default async function TopicPage({
   params,
