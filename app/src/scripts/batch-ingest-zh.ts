@@ -55,10 +55,22 @@ async function main() {
   for (const p of PEOPLE) await db.insert(schema.people).values(p).onConflictDoNothing();
   console.log("people ensured");
 
-  let ok = 0, fail = 0, needWhisper = 0;
+  // 瞬时 DB/网络错误重试(Neon serverless 连接抖动)。
+  const retry = async <T>(fn: () => Promise<T>, n = 3): Promise<T> => {
+    let last: unknown;
+    for (let i = 0; i < n; i++) {
+      try { return await fn(); } catch (e) { last = e; await new Promise((r) => setTimeout(r, (i + 1) * 1500)); }
+    }
+    throw last;
+  };
+
+  let ok = 0, fail = 0, needWhisper = 0, skipped = 0;
   for (const v of VIDEOS) {
     try {
-      const person = (await db.select().from(schema.people).where(eq(schema.people.slug, v.person)).limit(1))[0];
+      // 已 ai_done 则跳过(避免重跑已成功的)。
+      const exist = (await retry(() => db.select({ id: schema.videos.id, st: schema.videos.ai_status }).from(schema.videos).where(eq(schema.videos.platform_id, v.vid)).limit(1)))[0];
+      if (exist && exist.st === "ai_done") { console.log(`= ${v.vid} 已 ai_done,跳过`); skipped++; continue; }
+      const person = (await retry(() => db.select().from(schema.people).where(eq(schema.people.slug, v.person)).limit(1)))[0];
       const meta = await fetchVideoMetadata(v.vid);
       if (!meta) { console.log(`✗ ${v.vid} 无元数据`); fail++; continue; }
       const slug = slugify(`${person.slug}-${meta.title}`) || `${person.slug}-${v.vid}`;
@@ -92,6 +104,6 @@ async function main() {
       console.log(`✗ ${v.vid} · ${String(e).slice(0, 140)}`);
     }
   }
-  console.log(`[batch-zh] 完成 · ok=${ok} needWhisper=${needWhisper} fail=${fail}`);
+  console.log(`[batch-zh] 完成 · ok=${ok} skipped=${skipped} needWhisper=${needWhisper} fail=${fail}`);
 }
 main().then(() => process.exit(0)).catch((e) => { console.error(e); process.exit(1); });

@@ -117,8 +117,14 @@ async function retry<T>(fn: () => Promise<T>, max = 3): Promise<T> {
 }
 
 async function recordStep(video_id: number, step: string, status: string, err?: string) {
-  await db.execute(sql`
-    INSERT INTO pipeline_runs (video_id, step, status, attempts, error_message, started_at, finished_at)
-    VALUES (${video_id}, ${step}, ${status}, ${1}, ${err ?? null}, ${new Date()}, ${status === "running" ? null : new Date()})
-  `);
+  // pipeline_runs 仅作可观测性日志 —— 写失败(如 Neon 连接抖动)不应让整条 ingest 崩。
+  try {
+    await db.execute(sql`
+      INSERT INTO pipeline_runs (video_id, step, status, attempts, error_message, started_at, finished_at)
+      VALUES (${video_id}, ${step}, ${status}, ${1}, ${err ?? null}, ${new Date()}, ${status === "running" ? null : new Date()})
+    `);
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.warn(`[pipeline] recordStep(${step}) 写入失败(非致命): ${(e as Error).message}`);
+  }
 }
