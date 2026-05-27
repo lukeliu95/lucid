@@ -111,7 +111,8 @@
       "topics": "主题"
     },
     "empty": "没找到 \"{query}\" 相关内容",
-    "empty_suggest": "试试热门主题:"
+    "empty_suggest": "试试热门主题:",
+    "explore_hint": "还没想好搜什么?从这些主题和人物逛起。"
   },
   "auth": {
     "signin": {

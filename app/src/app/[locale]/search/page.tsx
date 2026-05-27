@@ -1,8 +1,9 @@
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/routing";
-import { search } from "@/lib/api";
+import { search, getTopics, getAllPeople } from "@/lib/api";
 import { Badge } from "@/components/ui/badge";
 import { CoverImage } from "@/components/ui/cover-image";
+import { PersonRail } from "@/components/person/person-card";
 import { Highlight } from "@/components/shared/mark";
 import type { Locale } from "@/lib/types";
 import { formatDuration, localized } from "@/lib/utils";
@@ -26,10 +27,39 @@ export default async function SearchPage({
   const total = results.videos.length + results.people.length + results.topics.length;
 
   if (!q) {
+    // 空查询不再是空白页 —— 给读者可点的探索入口(热门主题 + 人物)。
+    const [topics, people] = await Promise.all([
+      getTopics().catch(() => []),
+      getAllPeople().catch(() => []),
+    ]);
     return (
       <div className="mx-auto max-w-container px-16 py-16">
         <h1 className="text-4xl font-bold text-ink-950">{t("nav.search")}</h1>
-        <p className="mt-4 text-text-muted">{t("common.search_placeholder")}</p>
+        <p className="mt-3 text-text-muted">{t("search.explore_hint")}</p>
+
+        {topics.length > 0 && (
+          <section className="mt-10">
+            <h2 className="mb-4 font-sans text-xs uppercase tracking-widest text-text-muted">
+              {t("search.section.topics")}
+            </h2>
+            <div className="flex flex-wrap gap-2">
+              {topics.map((tp) => (
+                <Link key={tp.slug} href={`/topics/${tp.slug}`}>
+                  <Badge>#{localized(tp, "name", locale)}</Badge>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {people.length > 0 && (
+          <section className="mt-12">
+            <h2 className="mb-5 font-sans text-xs uppercase tracking-widest text-text-muted">
+              {t("search.section.people")}
+            </h2>
+            <PersonRail people={people} locale={locale} />
+          </section>
+        )}
       </div>
     );
   }
@@ -133,7 +163,17 @@ export default async function SearchPage({
               href={`/people/${p.slug}`}
               className="grid grid-cols-[64px_1fr] items-center gap-4 border-b border-border-default py-4 transition-colors hover:bg-bg-elev"
             >
-              <div className="h-[60px] w-[60px] rounded-full border border-border-default bg-gradient-to-br from-paper-300 to-paper-400" />
+              {p.avatar_url ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={p.avatar_url}
+                  alt={localized(p, "name", locale)}
+                  loading="lazy"
+                  className="h-[60px] w-[60px] rounded-full border border-border-default object-cover"
+                />
+              ) : (
+                <div className="h-[60px] w-[60px] rounded-full border border-border-default bg-gradient-to-br from-paper-300 to-paper-400" />
+              )}
               <div>
                 <div className="font-serif text-lg font-semibold text-ink-900">
                   <Highlight text={localized(p, "name", locale)} q={q} />

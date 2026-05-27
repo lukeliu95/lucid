@@ -111,7 +111,8 @@
       "topics": "Topics"
     },
     "empty": "No results for \"{query}\"",
-    "empty_suggest": "Try a popular topic:"
+    "empty_suggest": "Try a popular topic:",
+    "explore_hint": "Not sure what to search? Start with these topics and people."
   },
   "auth": {
     "signin": {
