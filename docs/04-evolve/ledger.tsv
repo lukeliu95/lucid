@@ -1,3 +1,4 @@
 round	mode	agents	score_before	score_after	delta	fixes	deferred	point_fixes	general_fixes	status	ceo_decision	commit	timestamp
 1	maintain	老吴 (solo · single-shot)	0.78	0.92	+0.14	4	1	0	5	KEPT	KEPT (5 candidates: C1 KEPT / C2 KEPT-as-doc / C3 KEPT / C4 PARTIAL+DEFERRED / C5 KEPT)	pending-alan-commit	2026-05-25T00:00:00Z
-13	sprint	老吴 (solo · single-shot)	0.97	0.97	+0.00	1	1	0	1	KEPT	KEPT (C1 llms.txt 双语化=GEO 覆盖修 KEPT · C2 姚顺雨/姚顺宇"重复"经 memory 核验=误报撤销 · 动态 llms.txt→延迟)	pending-push	2026-05-27T05:40:00Z
+13	sprint	老吴 (solo · single-shot)	0.97	0.97	+0.00	1	1	0	1	KEPT	KEPT (C1 llms.txt 双语化=GEO 覆盖修 KEPT · C2 姚顺雨/姚顺宇"重复"经 memory 核验=误报撤销 · 动态 llms.txt→延迟)	722fbf0	2026-05-27T05:40:00Z
+14	sprint	老吴 (solo · 浏览器查看体验 loop)	0.97	0.97	+0.00	1	0	0	1	KEPT	KEPT (C1 详情页文末「继续阅读」修死胡同=GENERAL KEPT · prod 双分支实访验证 · boss 确认上线)	722fbf0	2026-05-27T05:55:00Z
