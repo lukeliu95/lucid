@@ -86,6 +86,7 @@
   "topic": {
     "intro": "About this topic",
     "videos_count": "{count} videos",
+    "videos_section": "All videos",
     "related_people": "Key guests",
     "slug": {
       "ai": "AI",

@@ -78,7 +78,7 @@ export default async function TopicPage({
 
       <section>
         <h2 className="mb-6 text-2xl font-semibold text-ink-950">
-          {t("home.section.latest")}
+          {t("topic.videos_section")}
         </h2>
         <VideoGrid videos={topic.videos} locale={locale} />
       </section>

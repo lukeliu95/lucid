@@ -59,7 +59,23 @@ export default async function VideoDetailPage({
   const title = localized(video, "title", locale);
   const platformLabel = video.platform === "youtube" ? "YouTube" : "B 站";
   const ai = video.ai;
-  const summary = ai ? localized(ai, "summary", locale) : "";
+  // 一句话总结作导语:S1 对 summary 硬截(160 英文/100 中文)可能截在词中
+  //(如英文 "…differenti")。渲染侧回退到最近句读边界 + 省略号,避免半词结尾。
+  const tidyLead = (s: string): string => {
+    const t = s.trim();
+    if (!t || /[。.!?！？…”"」』)]$/.test(t)) return t;
+    const sentEnd = Math.max(
+      t.lastIndexOf("。"), t.lastIndexOf("！"), t.lastIndexOf("？"),
+      t.lastIndexOf(". "), t.lastIndexOf("! "), t.lastIndexOf("? "),
+    );
+    if (sentEnd > 20) return t.slice(0, sentEnd + 1).trim();
+    const b = Math.max(
+      t.lastIndexOf(" "), t.lastIndexOf("；"), t.lastIndexOf(";"),
+      t.lastIndexOf("，"), t.lastIndexOf(","), t.lastIndexOf("、"),
+    );
+    return (b > 20 ? t.slice(0, b).replace(/[，、,;；\s]+$/, "") : t) + "…";
+  };
+  const summary = tidyLead(ai ? localized(ai, "summary", locale) : "");
   // 正文文章:优先深度解读(~1000 字 · 5 分钟读完),没有则退到速读。
   const articleRaw = ai
     ? localized(ai, "explainer_deep", locale) ||

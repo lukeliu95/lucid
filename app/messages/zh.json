@@ -86,6 +86,7 @@
   "topic": {
     "intro": "主题简介 · About this topic",
     "videos_count": "{count} 期视频",
+    "videos_section": "全部视频",
     "related_people": "关键嘉宾 · Key guests",
     "slug": {
       "ai": "AI",
