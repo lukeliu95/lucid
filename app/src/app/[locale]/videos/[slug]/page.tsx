@@ -2,12 +2,13 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/routing";
-import { getVideo } from "@/lib/api";
+import { getVideo, getPerson, getLatestVideos } from "@/lib/api";
 import { Player } from "@/components/video/player";
 import { TimelineNav } from "@/components/video/timeline-nav";
 import { SeekProvider } from "@/components/video/seek-context";
 import { FavoriteButton } from "@/components/video/favorite-button";
 import { RecordView } from "@/components/video/record-view";
+import { VideoGrid } from "@/components/video/video-grid";
 import { AIPendingBanner } from "@/components/shared/ai-pending-banner";
 import { Badge } from "@/components/ui/badge";
 import type { Locale } from "@/lib/types";
@@ -55,6 +56,18 @@ export default async function VideoDetailPage({
   const t = await getTranslations();
   const video = await getVideo(slug);
   if (!video) notFound();
+
+  // 文末「继续阅读」:优先同一人物的其他速读,不足则回退到最新精选 —— 给读者下一步,
+  // 避免读完文章后页面到底成死胡同。
+  const personName = localized(video.person, "name", locale);
+  const person = await getPerson(video.person.slug).catch(() => null);
+  let onwardVideos = (person?.videos ?? []).filter((v) => v.slug !== slug).slice(0, 4);
+  let onwardHeading = t("video.more_from", { name: personName });
+  if (onwardVideos.length === 0) {
+    const latest = await getLatestVideos().catch(() => []);
+    onwardVideos = latest.filter((v) => v.slug !== slug).slice(0, 4);
+    onwardHeading = t("video.keep_reading");
+  }
 
   const title = localized(video, "title", locale);
   const platformLabel = video.platform === "youtube" ? "YouTube" : "B 站";
@@ -133,7 +146,7 @@ export default async function VideoDetailPage({
       <RecordView slug={video.slug} />
 
       <SeekProvider>
-        <div className="grid grid-cols-1 gap-12 pb-24 lg:grid-cols-[2fr_1fr]">
+        <div className="grid grid-cols-1 gap-12 pb-12 lg:grid-cols-[2fr_1fr]">
           {/* 主列:视频 + 标题 + 一段介绍 */}
           <div>
             <Player
@@ -210,6 +223,14 @@ export default async function VideoDetailPage({
           </aside>
         </div>
       </SeekProvider>
+
+      {/* 文末继续阅读:同一人物其他速读 / 最新精选 —— 让读者读完有下一站 */}
+      {onwardVideos.length > 0 && (
+        <section className="border-t border-border-default pb-24 pt-12">
+          <h2 className="mb-6 text-2xl font-semibold text-ink-950">{onwardHeading}</h2>
+          <VideoGrid videos={onwardVideos} locale={locale} />
+        </section>
+      )}
     </div>
   );
 }

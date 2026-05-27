@@ -73,7 +73,9 @@
       "failed": "AI processing failed · ops notified"
     },
     "coming_soon": "Coming soon",
-    "skip_to_summary": "Skip to summary"
+    "skip_to_summary": "Skip to summary",
+    "more_from": "More from {name}",
+    "keep_reading": "Keep reading · Latest"
   },
   "person": {
     "bio": "Bio",

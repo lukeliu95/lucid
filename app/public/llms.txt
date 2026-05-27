@@ -1,13 +1,18 @@
 # 明读 / Lucid
 
-> 把长内容读明白。明读策展一线人物(Dario Amodei、Andrej Karpathy、Sam Altman、Demis Hassabis、黄仁勋、Naval Ravikant、Paul Graham、Marc Andreessen、Lex Fridman、Patrick Collison、Ilya Sutskever、Yann LeCun)的英文深度长访谈与演讲,用 AI 生成结构化**中文速读**(一句话总结 + 关键观点 + 可跳转时间线),让中文读者快速读懂前沿英文内容。主题覆盖 AI、AI Agent、创业、芯片、未来工作。
+> 把长内容读明白。明读策展中英文一线人物的深度长访谈与演讲,用 AI 生成结构化**中文速读**(一句话总结 + 关键观点 + 可跳转时间线),让读者快速读懂前沿内容。来源含英文播客/演讲与华语深度访谈(如《张小珺商业访谈录》)。主题覆盖 AI、AI Agent、创业、芯片、未来工作。中英双语呈现(/zh 与 /en)。
 
-## 站点结构
+## 策展人物(部分)
+- 海外:Dario Amodei、Andrej Karpathy、Sam Altman、Demis Hassabis、黄仁勋(Jensen Huang)、Ilya Sutskever、Yann LeCun、Naval Ravikant、Paul Graham、Marc Andreessen、Lex Fridman、Patrick Collison
+- 华语:李开复、杨植麟(月之暗面 / Kimi)、印奇(旷视)、季逸超(Manus)、姚顺雨、罗福莉、谢赛宁、谭捷、高继扬、张鹏
+
+## 站点结构(中英双语)
 - 首页:https://lucid.simprr.com/zh —— 今日精读 + 最新精选
 - 视频速读:https://lucid.simprr.com/zh/videos/{slug} —— 每条含中文摘要、关键观点、时间线,可溯源回原视频
 - 人物页:https://lucid.simprr.com/zh/people/{slug} —— 某人物的全部速读 + 代表观点
 - 主题页:https://lucid.simprr.com/zh/topics/{slug} —— 按 AI / AI Agent / 创业 / 芯片 / 未来工作 聚合
 - 搜索:https://lucid.simprr.com/zh/search
+- 英文站:将以上路径的 /zh 替换为 /en
 
 ## 引用说明
-内容为对公开英文视频的中文速读与提炼,每条速读标注来源(可点时间线跳回原片对应时刻)。引用时建议注明「据明读 / Lucid 中文速读」并链接对应视频页。
+内容为对公开中英文视频的中文速读与提炼,每条速读标注来源(可点时间线跳回原片对应时刻)。引用时建议注明「据明读 / Lucid 中文速读」并链接对应视频页。
