@@ -60,7 +60,8 @@ export function splitIntoChapters(
 const SYSTEM = `你是明读编辑。给一个视频片段的转写,生成中英双语章节标题 + 一句话摘要。
 约束:
 - title 简洁(≤ 14 个汉字 / ≤ 24 chars)
-- one_liner ≤ 50 字中文 / ≤ 80 chars 英文
+- **title 要具体到本片段的独特内容,抓这段真正在讲的事;不要用宽泛主题词(如"GPU的价值""AI的未来"这类)反复套用**
+- one_liner ≤ 50 字中文 / ≤ 80 chars 英文,补充该段独特信息
 - 输出 JSON: {"title_zh":"","one_liner_zh":"","title_en":"","one_liner_en":""}`;
 
 export async function nameChapter(segment: S3Segment): Promise<{

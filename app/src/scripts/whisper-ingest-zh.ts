@@ -72,7 +72,9 @@ function whisperTranscribe(pid: string): string | null {
     try { fs.unlinkSync(raw); } catch { /* noop */ }
   }
   // whisper.cpp:large-v3 中文转写,输出 srt
-  if (!sh("whisper-cli", ["-m", MODEL, "-l", "zh", "-osrt", "-of", outBase, "-t", "8", wav16])) return null;
+  // -mc 0:断开上下文喂入,防 whisper 自我循环幻觉(某段卡住反复输出同一句,
+  //        如李开复那条"GPU的价值是什么"×数千);-et 2.8:高熵触发解码回退。
+  if (!sh("whisper-cli", ["-m", MODEL, "-l", "zh", "-mc", "0", "-et", "2.8", "-osrt", "-of", outBase, "-t", "8", wav16])) return null;
   return fs.existsSync(srt) ? srt : null;
 }
 
